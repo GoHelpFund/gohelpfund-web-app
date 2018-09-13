@@ -1,0 +1,128 @@
+#app-campaign-details {
+  margin-top: 100px;
+}
+#app-campaign-details .section {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+}
+#app-campaign-details .section .gallery-section {
+  padding: 10px;
+}
+#app-campaign-details .image-container img {
+  object-fit: cover;
+  width: 100%;
+  max-height: 400px;
+}
+#app-campaign-details.hide-nav .nav {
+  display: none;
+}
+#app-campaign-details .indicators {
+  display: none;
+}
+#app-campaign-details #app-media-gallery {
+  height: 420px;
+}
+#app-campaign-details #app-campaign-progress {
+  margin-bottom: 100px;
+}
+#app-campaign-details .details-section {
+  padding: 30px 50px;
+}
+#app-campaign-details .details-section .location {
+  font-size: 20px;
+  text-align: left;
+  font-weight: bold;
+  padding: 20px 10px 0 10px;
+}
+#app-campaign-details .details-section .time-left {
+  font-size: 20px;
+  text-align: right;
+  padding: 20px 10px 0 10px;
+}
+#app-campaign-details .details-section .time-left > span {
+  font-weight: bold;
+}
+#app-campaign-details .details-section .category {
+  text-align: left;
+  padding: 20px 0 0 10px;
+}
+#app-campaign-details .details-section .category img {
+  width: 50px;
+  height: auto;
+  margin-bottom: -12px;
+}
+#app-campaign-details .details-section .category span {
+  margin-left: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+#app-campaign-details .details-section .help-btn {
+  height: 50px;
+  width: 250px;
+  font-size: 20px;
+  background: #3e965d;
+  margin-right: 10px;
+  margin-top: 25px;
+  float: right;
+}
+#app-campaign-details .details-section .help-btn:hover {
+  background: #2f7247;
+}
+#app-campaign-details .about-section {
+  padding: 30px 50px;
+}
+#app-campaign-details .about-section .title {
+  font-size: 25px;
+  font-weight: bold;
+}
+#app-campaign-details .about-section .description {
+  font-size: 17px;
+}
+#app-campaign-details .author-section {
+  padding: 30px 50px;
+}
+#app-campaign-details .author-section .title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+#app-campaign-details .author-section .author {
+  height: 160px;
+  padding: 20px 25px 20px 0;
+  width: fit-content;
+  float: left;
+}
+#app-campaign-details .author-section .author .details {
+  float: left;
+  margin-left: 15px;
+}
+#app-campaign-details .author-section .author .details .name {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 25px;
+}
+#app-campaign-details .author-section .author .details .job {
+  margin-top: 10px;
+  font-style: italic;
+  text-transform: capitalize;
+}
+#app-campaign-details .author-section .description {
+  margin-top: 30px;
+}
+@media screen and (max-width: 959px) {
+  #app-campaign-details .details-section .location {
+    text-align: center;
+  }
+  #app-campaign-details .details-section .time-left {
+    text-align: center;
+  }
+  #app-campaign-details .details-section .category {
+    text-align: center;
+  }
+  #app-campaign-details .details-section .help-btn {
+    float: initial;
+  }
+  #app-campaign-details #app-campaign-progress {
+    margin-bottom: 30px;
+  }
+}

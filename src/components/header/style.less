@@ -1,0 +1,50 @@
+
+@import '../../variables.less';
+
+#app-header {
+  background: @header-background;
+  border-bottom: 2px solid @light-grey;
+  padding: 15px 100px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+
+  .ghf-logo {
+    min-height: 50px;
+    float: left;
+
+    img {
+      width: 50px;
+      float: left; 
+    }
+
+    div {
+      color: @dark-grey;
+      font-size: 30px;
+      margin-left: 10px;
+      vertical-align: middle;
+      font-family: 'Raleway', sans-serif;
+      float: left;
+      margin: 5px 0 0 10px;
+    }
+  }
+
+  .create-btn-link {
+    float: right;
+    list-style: none;
+    text-decoration: none;
+  }
+
+  .create-btn {
+    height: 35px;
+    background:@main-blue;
+    margin-top: 10px;
+    font-size: 15px;
+    box-shadow: none;
+
+    &:hover {
+      background: darken(@main-blue, 10%);
+    }
+  }
+}

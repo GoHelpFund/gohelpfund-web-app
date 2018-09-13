@@ -1,0 +1,67 @@
+ 
+ @import '../../variables.less';
+
+ #app-campaign {
+
+  .campaign-card {
+     box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+     border-radius: none;
+   }
+
+  .campaign-content {
+    height: 120px;
+    
+    .title {
+      font-size: 18px;
+      font-weight: bold;
+
+      a {
+        color: @steel-blue;
+        text-decoration: none;
+
+        &:hover {
+          color: lighten(@steel-blue, 10%);
+        }
+      }
+    }
+
+    .author {
+      float: right;
+      font-size: 12px;
+    }
+
+    .description {
+      font-size: 12px;
+    }
+  }
+
+  .campaign-details {
+    padding: 10px 25px 20px 25px;
+    font-size: 14px;
+
+    .category, .time, .backers {
+      margin-right: 10px;
+    }
+
+    .category {
+      position: relative;
+      margin-right: 40px;
+
+      img {
+        height: 25px;
+        width: auto;
+        position: absolute;
+        bottom: -5px;
+      }
+    }
+
+    .progress {
+      float: right;
+      color: #f50057 // #4CAF50;
+    }
+
+    .value {
+      font-weight: bold;
+    }
+  }
+}

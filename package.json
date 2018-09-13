@@ -1,0 +1,38 @@
+{
+  "name": "ghp-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@aws-amplify/cli": "^0.1.18",
+    "@material-ui/core": "^1.3.0",
+    "autosuggest-highlight": "^3.1.1",
+    "aws-amplify": "^1.0.8",
+    "aws-amplify-react": "^2.0.0",
+    "axios": "^0.18.0",
+    "react": "^16.4.1",
+    "react-autosuggest": "^9.4.0",
+    "react-dom": "^16.4.1",
+    "react-number-format": "^3.5.2",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
+    "react-slideshow-image": "^1.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "docker:build": "docker build -t gohelpfund/ghf-web-app .",
+    "docker:push": "docker push gohelpfund/ghf-web-app:latest",
+    "docker:deploy:local": "docker-compose -f docker/local-web/docker-compose.yml up",
+    "docker:deploy:dev": "ecs-cli compose --file docker/dev-web/docker-compose.yml up",
+    "docker:deploy:prod": "ecs-cli compose --file docker/prod-web/docker-compose.yml up"
+  },
+  "devDependencies": {
+    "file-loader": "^1.1.11",
+    "less": "^3.0.4",
+    "url-loader": "^1.1.0"
+  }
+}

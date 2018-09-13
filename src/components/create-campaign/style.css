@@ -1,0 +1,93 @@
+#app-create-campaign {
+  margin-top: 100px;
+  width: 100%;
+}
+#app-create-campaign .section {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  background: #fff;
+  padding: 30px 50px;
+}
+#app-create-campaign .stepper {
+  padding: 0;
+}
+#app-create-campaign .stepper .stepper-actions {
+  text-align: center;
+}
+#app-create-campaign .stepper .stepper-content {
+  min-height: 400px;
+}
+#app-create-campaign .stepper .stepper-content .step-title {
+  text-align: center;
+  padding: 0;
+}
+#app-create-campaign .stepper .stepper-content .step-subtitle {
+  font-weight: normal;
+  color: #9E9E9E;
+  text-align: center;
+}
+#app-create-campaign .stepper .stepper-content .step-content {
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 20px;
+}
+#app-create-campaign .stepper .stepper-content .step-input {
+  width: 100%;
+}
+#app-create-campaign .stepper .stepper-content .step-0 {
+  padding-bottom: 30px;
+}
+#app-create-campaign .stepper .stepper-content .step-0 .step-content {
+  max-width: 500px;
+}
+#app-create-campaign .stepper .stepper-content .step-1 .step-content .title-input {
+  max-width: 400px;
+}
+#app-create-campaign .stepper .stepper-content .step-2 .step-content .amount-input {
+  max-width: 300px;
+}
+#app-create-campaign .stepper .next-button {
+  background: #3e965d;
+}
+#app-create-campaign .stepper .next-button:hover {
+  background: #2f7247;
+}
+#app-create-campaign .browse-btn {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+#app-create-campaign .browse-btn + label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: #00b0cd;
+  border: 2px solid #00b0cd;
+  background-color: #fff;
+  display: inline-block;
+  padding: 10px 50px;
+}
+#app-create-campaign .browse-btn:focus + label,
+#app-create-campaign .browse-btn + label:hover {
+  background-color: #00b0cd;
+  color: #fff;
+}
+#app-create-campaign .browse-btn + label {
+  cursor: pointer;
+}
+#app-create-campaign .file-name {
+  font-size: 20px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 30px;
+}
+#app-create-campaign .browse-container {
+  text-align: center;
+  margin-top: 40px;
+}
+#app-create-campaign #app-category-card {
+  margin: 0 auto;
+  cursor: pointer;
+}

@@ -1,0 +1,31 @@
+#app-campaign-progress {
+  padding: 10px;
+}
+#app-campaign-progress .amount {
+  text-align: left;
+  font-size: 18px;
+}
+#app-campaign-progress .amount .raised {
+  font-size: 40px;
+  font-weight: bold;
+}
+#app-campaign-progress .amount .goal {
+  font-size: 25px;
+  font-weight: bold;
+}
+#app-campaign-progress .progress-bar {
+  margin: 20px 0;
+}
+#app-campaign-progress .details {
+  font-size: 18px;
+}
+#app-campaign-progress .details .backers {
+  float: left;
+}
+#app-campaign-progress .details .backers > span {
+  font-weight: bold;
+}
+#app-campaign-progress .details .percentage {
+  float: right;
+  font-weight: bold;
+}

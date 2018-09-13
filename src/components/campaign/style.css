@@ -1,0 +1,51 @@
+#app-campaign .campaign-card {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: none;
+}
+#app-campaign .campaign-content {
+  height: 120px;
+}
+#app-campaign .campaign-content .title {
+  font-size: 18px;
+  font-weight: bold;
+}
+#app-campaign .campaign-content .title a {
+  color: #4682B4;
+  text-decoration: none;
+}
+#app-campaign .campaign-content .title a:hover {
+  color: #699bc4;
+}
+#app-campaign .campaign-content .author {
+  float: right;
+  font-size: 12px;
+}
+#app-campaign .campaign-content .description {
+  font-size: 12px;
+}
+#app-campaign .campaign-details {
+  padding: 10px 25px 20px 25px;
+  font-size: 14px;
+}
+#app-campaign .campaign-details .category,
+#app-campaign .campaign-details .time,
+#app-campaign .campaign-details .backers {
+  margin-right: 10px;
+}
+#app-campaign .campaign-details .category {
+  position: relative;
+  margin-right: 40px;
+}
+#app-campaign .campaign-details .category img {
+  height: 25px;
+  width: auto;
+  position: absolute;
+  bottom: -5px;
+}
+#app-campaign .campaign-details .progress {
+  float: right;
+  color: #f50057;
+}
+#app-campaign .campaign-details .value {
+  font-weight: bold;
+}

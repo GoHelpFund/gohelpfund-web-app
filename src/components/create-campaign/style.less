@@ -1,0 +1,126 @@
+@import '../../variables.less';
+
+#app-create-campaign {
+  margin-top: 100px;
+  width: 100%;
+  
+  .section {
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+    background: #fff;
+    padding: 30px 50px;
+  
+  }
+
+  .stepper {
+    padding: 0;
+
+    .stepper-actions {
+      text-align: center;
+    }
+  
+    .stepper-content {
+      min-height: 400px;
+
+      .step-title {
+        text-align: center;
+        padding: 0;
+      }
+  
+      .step-subtitle {
+        font-weight: normal;
+        color: #9E9E9E;
+        text-align: center;
+      }
+  
+      .step-content {
+        max-width: 750px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .step-input {
+        width: 100%;
+      }
+
+      .step-0 {
+        .step-content {
+          max-width: 500px;
+        }
+
+        padding-bottom: 30px;
+      }
+
+      .step-1 {
+        .step-content {
+          .title-input {
+            max-width: 400px;
+          }
+        }
+      }
+
+      .step-2 {
+        .step-content {
+          .amount-input {
+            max-width: 300px;
+          }
+        }
+      }
+    }
+
+    .next-button {
+      background: @main-green;
+  
+      &:hover {
+        background: darken(@main-green, 10%);
+      }
+    }
+  }
+
+  .browse-btn {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;  
+  }
+
+  .browse-btn + label {
+    font-size: 1.25em;
+    font-weight: 700;
+    color: @main-blue;
+    border: 2px solid @main-blue;
+    background-color: #fff;
+    display: inline-block;
+    padding: 10px 50px;
+  }
+
+  .browse-btn:focus + label,
+  .browse-btn + label:hover {
+    background-color: @main-blue;
+    color: #fff;
+  }
+
+  .browse-btn + label {
+    cursor: pointer;
+  }
+
+  .file-name {
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 30px;
+  }
+
+  .browse-container {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  #app-category-card {
+    margin: 0 auto;
+    cursor: pointer;
+  }
+
+}

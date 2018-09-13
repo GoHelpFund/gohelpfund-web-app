@@ -1,0 +1,20 @@
+#app-category-card {
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  border: 2px solid #00b0cd;
+  background: #fff;
+  color: #00b0cd;
+}
+#app-category-card:hover {
+  background: #00b0cd;
+  color: #fff;
+}
+#app-category-card img {
+  width: 80px;
+  height: auto;
+  margin: 15px 0;
+}
+#app-category-card div {
+  font-weight: bold;
+}
