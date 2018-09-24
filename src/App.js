@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
 

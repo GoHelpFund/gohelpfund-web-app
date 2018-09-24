@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import axios from 'axios';
 
 import Campaign from '../campaign/component';
+import * as EndPoints from '../../utils/end-points';
 
 import './style.css';
 
@@ -37,7 +38,7 @@ class CampaignList extends Component {
   }
 
   getCampaignList() {
-    let url = 'http://dev-api.gohelpfund.com:5555/v1/campaigns';
+    let url = EndPoints.getCampainsUrl;
     var that = this;
     axios.get(url)
       .then(response => {

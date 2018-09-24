@@ -28,6 +28,8 @@ import AWS from 'aws-sdk';
 
 
 import CategoryCard from '../category-card/component';
+import * as EndPoints from '../../utils/end-points';
+import * as Resources from '../../utils/resources';
 
 import './style.css';
 import { StepContent } from '@material-ui/core';
@@ -189,7 +191,7 @@ class CreateCampaign extends React.Component {
   }
 
   componentWillMount() {
-    let url = "http://dev-api.gohelpfund.com:5555/v1/categories";
+    let url = EndPoints.getCategoriesUrl;
     var that = this;
 
     axios.get(url)
@@ -284,7 +286,7 @@ class CreateCampaign extends React.Component {
 
   handleSuggestionsFetchRequested = ({ value }) => {
     if (this.state.location.length > 3) {
-      let url = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=' + this.state.location + '&key=AIzaSyD3KsCOaANr7BG8ZcArbiwbkam0wIIo5I8';
+      let url = EndPoints.getLocationUrl + this.state.location + '&key=' + Resources.googleApiKey;
       let that = this;
 
       axios.get(url)
@@ -331,7 +333,7 @@ class CreateCampaign extends React.Component {
   }
 
   getUploadInfo() {
-    let url = 'http://dev-api.gohelpfund.com:5555/v1/upload';
+    let url = EndPoints.getUploadInfoUrl;
 
     axios.get(url)
       .then(response => {
@@ -371,7 +373,7 @@ class CreateCampaign extends React.Component {
   }
 
   postCampaign(imageData) {
-    let url = 'http://dev-api.gohelpfund.com:5555/v1/campaigns';
+    let url = EndPoints.postCampainsUrl;
 
     let imageObject = imageData ? {  
       "format": this.state.image.type,
@@ -382,7 +384,7 @@ class CreateCampaign extends React.Component {
     {  
       "format":"jpeg",
       "name":"CF8E3EB7-37F1-40A9-8BBD-DD6CEB4E98A4.jpeg",
-      "url":"https:\/\/s3.eu-central-1.amazonaws.com\/dev-gohelpfund-resources\/categories\/charity.png",
+      "url":"https:\/\/s3.eu-central-1.amazonaws.com\/gohelpfund-resources\/categories\/charity.png",
       "type":"image"
     }
 
