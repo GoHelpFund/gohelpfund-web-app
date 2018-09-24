@@ -13,14 +13,11 @@
   width: 100%;
   max-height: 400px;
 }
-#app-campaign-details.hide-nav .nav {
-  display: none;
-}
-#app-campaign-details .indicators {
-  display: none;
-}
 #app-campaign-details #app-media-gallery {
   height: 420px;
+}
+#app-campaign-details .image-gallery-thumbnails-container {
+  display: none;
 }
 #app-campaign-details #app-campaign-progress {
   margin-bottom: 100px;

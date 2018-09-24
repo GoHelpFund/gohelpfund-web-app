@@ -7,13 +7,13 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import classNames from 'classnames';
 import Avatar from '@material-ui/core/Avatar';
-import { Fade } from 'react-slideshow-image';
-
+import ImageGallery from 'react-image-gallery';
 
 import MediaGallery from '../media-gallery/component';
 import CampaignProgress from '../campaign-progress/component';
 
 import './style.css';
+import "react-image-gallery/styles/css/image-gallery.css";
 
 const styles = theme => ({
   root: {
@@ -62,29 +62,25 @@ class CampaignDetails extends Component {
     const campaignDetails = this.props.location.state ? this.props.location.state.referrer : {};
     const daysLeft = Math.round(Math.abs((new Date(campaignDetails.start_date).getTime() - new Date(campaignDetails.end_date).getTime())/(24*60*60*1000)));
 
-    const sliderImages = campaignDetails.media_resources ? campaignDetails.media_resources.map(resource => 
-      <div className="each-fade" key={resource.id}>
-        <div className="image-container">
-          <img src={resource.url} />
-        </div>
-      </div>
-    ) : '';
-    
-    const fadeProperties = {
-      duration: 5000,
-      transitionDuration: 500,
-      infinite: true,
-      indicators: true
-    }
+    // const sliderImages = campaignDetails.media_resources ? campaignDetails.media_resources.map(resource => 
+    //   <img src={resource.url} key={resource.id}></img>
+    // ) : '';
+
+    const sliderImages = [];
+
+    campaignDetails.media_resources.forEach(element => {
+      sliderImages.push({
+        original: element.url,
+        thumbnail: element.url,
+      })
+    });
     
     return (
       <div id="app-campaign-details" className={campaignDetails.media_resources.length === 1 ? 'root hide-nav' : 'root'}>
         <Grid className={classes.grid + ' section'} container spacing={8}>
-          <Grid item xs={12} md={6}>
-            <MediaGallery resources={campaignDetails.media_resources}/>
-            {/* <Fade {...fadeProperties}>
-              {sliderImages}
-            </Fade> */}
+          <Grid item xs={12} md={6} className="image-container">
+            {/* <MediaGallery resources={campaignDetails.media_resources}/> */}
+            <ImageGallery items={sliderImages} />
           </Grid>
           <Grid item xs={12} md={6}>
             <div className={classes.paper + ' details-section'}>
