@@ -7,5 +7,5 @@ gohelpfund-web:
     PROFILE: "prod-web"
     PLATFORM_ENV: "prod"
     SERVER_PORT: "80"
-    REST_API_URI: "http://api.gohelpfund.com:5555"
+    REST_API_URI: "http://api.gohelpfund.com"
 
