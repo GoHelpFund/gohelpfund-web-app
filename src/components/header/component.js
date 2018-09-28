@@ -10,7 +10,6 @@ class Header extends Component {
     return (
       <div id="app-header">
         <Link to="/home" className="ghf-logo">
-          <div>
             <img src={logo} />
             <div>go help fund</div>
           </div>
