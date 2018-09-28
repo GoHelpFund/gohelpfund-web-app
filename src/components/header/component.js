@@ -12,7 +12,6 @@ class Header extends Component {
         <Link to="/home" className="ghf-logo">
             <img src={logo} />
             <div>go help fund</div>
-          </div>
         </Link>
         <Link to="/create-campaign" className="create-btn-link">
           <Button variant="contained" color="primary" className="create-btn">
