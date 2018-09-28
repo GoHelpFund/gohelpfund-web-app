@@ -10,10 +10,8 @@ class Header extends Component {
     return (
       <div id="app-header">
         <Link to="/home" className="ghf-logo">
-          <div>
             <img src={logo} />
             <div>go help fund</div>
-          </div>
         </Link>
         <Link to="/create-campaign" className="create-btn-link">
           <Button variant="contained" color="primary" className="create-btn">
