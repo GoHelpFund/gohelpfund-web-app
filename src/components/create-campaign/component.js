@@ -186,6 +186,7 @@ class CreateCampaign extends React.Component {
       endDate: '',
       location: '',
       image: '',
+      images: [],
     };
 
   }
@@ -329,7 +330,7 @@ class CreateCampaign extends React.Component {
   };
 
   onChange(e) {
-    this.setState({image: e.target.files[0]});
+    this.setState({images:Array.from(e.target.files)});
   }
 
   getUploadInfo() {
@@ -354,39 +355,54 @@ class CreateCampaign extends React.Component {
 
     const S3 = new AWS.S3({ params: { Bucket: uploadInfo.bucket_name } });
 
-    const params = {
-      Key: this.state.image.name,
-      ContentType: this.state.image.type,
-      Body: this.state.image,
-      ACL: 'public-read'
-    };
+    var loaded = [];
+    var imageCount = this.state.images.length;
+    var totalSize = 0;
+    var uploadedImages = [];
+    let that = this;
 
-    S3.upload(params, (err, data) => {
-      if (err) {
-        console.log('error S3', err);
-        return alert(err);
-      }
+    for (var counter = 0; counter < imageCount; counter++) {
+      const params = {
+        Key: this.state.images[counter].name,
+        ContentType: this.state.images[counter].type,
+        Body: this.state.images[counter],
+        ACL: 'public-read'
+      };
 
-      this.postCampaign(data);
-    });
+      totalSize += this.state.images[counter].size; 
+
+      S3.upload(params, (err, data) => {
+        if (err) {
+          console.log('error S3', err);
+          return alert(err);
+        }
+
+        let imageData = {  
+          "format": 'image/' + data.Key.split('.')[1],
+          "name": data.Key,
+          "url": data.Location,
+          "type":"image"
+        }
+
+        uploadedImages.push(imageData);
+
+        if (uploadedImages.length === imageCount) {
+          that.postCampaign(uploadedImages);
+        }
+      });
+    }
 
   }
 
   postCampaign(imageData) {
     let url = EndPoints.postCampainsUrl;
 
-    let imageObject = imageData ? {  
-      "format": this.state.image.type,
-      "name": imageData.Key,
-      "url": imageData.Location,
-      "type":"image"
-    } : 
-    {  
+    let defaultImage = { 
       "format":"jpeg",
       "name":"CF8E3EB7-37F1-40A9-8BBD-DD6CEB4E98A4.jpeg",
       "url":"https:\/\/s3.eu-central-1.amazonaws.com\/gohelpfund-resources\/categories\/charity.png",
       "type":"image"
-    }
+    };
 
     let campaignData = {  
       "category": this.state.category,
@@ -398,7 +414,7 @@ class CreateCampaign extends React.Component {
       "description": this.state.description,
       "expenses_description": this.state.description,
       "location": this.state.location,
-      "media_resources": [imageObject],
+      "media_resources": imageData ? imageData : [defaultImage],
       "backers":0
     }
 
@@ -441,6 +457,10 @@ class CreateCampaign extends React.Component {
         <CategoryCard category={category.name} imgUrl={category.image_url} />
       </Grid>
     );
+
+    const imagesNames = this.state.images && this.state.images.length ? this.state.images.map(image => 
+      <div className="file-name" key={image.lastModified}>{image.name}</div>
+    ) : '';
 
     return (
       <div id="app-create-campaign" className={classes.root}>
@@ -599,10 +619,10 @@ class CreateCampaign extends React.Component {
                     <h2 className="step-subtitle">Upload an images that could give a better understanding of the cause</h2>
                     <div className="step-content">
                       <div className="browse-container">
-                        <input className="browse-btn" id="file" type="file" accept='image/png'onChange={(e) => this.onChange(e)}/>
-                        <label for="file">Choose a file</label>
+                        <input className="browse-btn" multiple id="file" type="file" accept='image/png' onChange={(e) => this.onChange(e)}/>
+                        <label for="file">Choose files</label>
                       </div>
-                      <div className="file-name">{this.state.image.name}</div>
+                      {imagesNames}
                     </div>
                   </div>}
 
