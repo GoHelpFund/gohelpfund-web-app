@@ -1,13 +1,19 @@
-FROM gohelpfund/ghf-node
+FROM node:8.9.3-alpine as build-deps
+RUN mkdir /ghf-web-app
+WORKDIR /ghf-web-app
+COPY . /ghf-web-app
+RUN npm install --silent
+RUN npm run build > "/dev/null" 2>&1
 
-# Remove the default nginx index.html
-RUN rm -rf /var/www/html/index.nginx-debian.html
+FROM nginx:1.12-alpine
+RUN apk update \
+    && apk add openssl
+COPY --from=build-deps /ghf-web-app/build /usr/share/nginx/html
+RUN rm -rf /etc/nginx/conf.d
+COPY conf /etc/nginx
 
-# Copy the contents of the dist directory over to the nginx web root
-COPY /build /var/www/html/
+COPY certs/ /etc/nginx/
 
-# Expose the public http port
-EXPOSE 80
-
-# Start server
-CMD ["nginx", "-g", "daemon off;"]
+ADD run.sh run.sh
+RUN chmod +x run.sh
+CMD ["./run.sh"]

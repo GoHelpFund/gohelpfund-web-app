@@ -1,7 +1,7 @@
 
 import * as EnvConfig from '../env-config';
 
-export const baseUrl = 'http://' + EnvConfig.env + '.gohelpfund.com/v1/';
+export const baseUrl = 'https://' + EnvConfig.env + '.gohelpfund.com/v1/';
 
 
 export const getCampainsUrl = baseUrl + 'campaigns';
