@@ -4,8 +4,10 @@ gohelpfund-web:
   ports:
   - "80:80"
   environment:
+    OPENSSL_KEY:            $HTTPS_OPENSSL_KEY
+    OPENSSL_IV:             $HTTPS_OPENSSL_IV
     PROFILE: "prod-web"
     PLATFORM_ENV: "prod"
-    SERVER_PORT: "80"
-    REST_API_URI: "http://api.gohelpfund.com"
+    SERVER_PORT: "443"
+    REST_API_URI: "http://dev-api.gohelpfund.com"
 
