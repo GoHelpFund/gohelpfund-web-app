@@ -2,7 +2,7 @@ FROM node:8.9.3-alpine as build-deps
 RUN mkdir /ghf-web-app
 WORKDIR /ghf-web-app
 COPY . /ghf-web-app
-RUN npm install --silent
+RUN npm install -g --silent
 RUN npm run build > "/dev/null" 2>&1
 
 FROM nginx:1.12-alpine
