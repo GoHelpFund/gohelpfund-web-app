@@ -1,5 +1,5 @@
 gohelpfund-web:
-  image: gohelpfund/ghf-web-app:latest
+  image: gohelpfund/ghf-web-app:${BUILD_NAME}
   mem_limit: 553741824
   ports:
   - "80:80"
