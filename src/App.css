@@ -5,7 +5,7 @@ body {
   font-family: 'Raleway', sans-serif;
 }
 #app-content {
-  padding: 0 100px;
+  padding: 100px;
 }
 @media screen and (max-width: 959px) {
   #app-content {

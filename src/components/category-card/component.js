@@ -12,7 +12,7 @@ import CategoryLogoWishlist from '../../assets/images/categories/wishlist.png';
 
 import './style.css';
 
-class CategoryCard extends React.Component {
+class CategoryCard extends Component {
   constructor(props) {
     super(props);
 
@@ -32,7 +32,7 @@ class CategoryCard extends React.Component {
   render() {
     return (
       <div id="app-category-card" className={this.props.category.toLowerCase()}>
-        <img src={this.props.imgUrl}></img>
+        <img src={this.props.imgUrl} alt=""></img>
         <div>{this.props.category}</div>
       </div>
     );

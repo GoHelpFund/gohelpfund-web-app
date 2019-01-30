@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
@@ -17,22 +13,16 @@ import parse from 'autosuggest-highlight/parse';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import Popper from '@material-ui/core/Popper';
-import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import NumberFormat from 'react-number-format';
 
-import Amplify from 'aws-amplify';
-import { Storage } from 'aws-amplify';
-import { S3Album } from 'aws-amplify-react';
 import AWS from 'aws-sdk';
-
 
 import CategoryCard from '../category-card/component';
 import * as EndPoints from '../../utils/end-points';
 import * as Resources from '../../utils/resources';
 
 import './style.css';
-import { StepContent } from '@material-ui/core';
 
 var suggestions = [];
 var uploadInfo;
@@ -163,7 +153,7 @@ const styles = theme => ({
   }
 });
 
-class CreateCampaign extends React.Component {
+class CreateCampaign extends Component {
   popperNode = null;
 
   constructor(props) {
@@ -193,9 +183,12 @@ class CreateCampaign extends React.Component {
 
   componentWillMount() {
     let url = EndPoints.getCategoriesUrl;
+    let appToken = localStorage.getItem('appToken');
+    let config = {
+      headers: {'Authorization': "bearer " + appToken}
+    };
     var that = this;
-
-    axios.get(url)
+    axios.get(url, config)
     .then(response => {
       that.setState({
         categories: response.data.content
@@ -335,8 +328,12 @@ class CreateCampaign extends React.Component {
 
   getUploadInfo() {
     let url = EndPoints.getUploadInfoUrl;
+    let appToken = localStorage.getItem('appToken');
+    let config = {
+      headers: {'Authorization': "bearer " + appToken}
+    };
 
-    axios.get(url)
+    axios.get(url, config)
       .then(response => {
         uploadInfo = response.data;
       })
@@ -355,9 +352,8 @@ class CreateCampaign extends React.Component {
 
     const S3 = new AWS.S3({ params: { Bucket: uploadInfo.bucket_name } });
 
-    var loaded = [];
+    // var totalSize = 0;
     var imageCount = this.state.images.length;
-    var totalSize = 0;
     var uploadedImages = [];
     let that = this;
 
@@ -369,7 +365,7 @@ class CreateCampaign extends React.Component {
         ACL: 'public-read'
       };
 
-      totalSize += this.state.images[counter].size; 
+      // totalSize += this.state.images[counter].size; 
 
       S3.upload(params, (err, data) => {
         if (err) {
@@ -400,7 +396,7 @@ class CreateCampaign extends React.Component {
     let defaultImage = { 
       "format":"jpeg",
       "name":"CF8E3EB7-37F1-40A9-8BBD-DD6CEB4E98A4.jpeg",
-      "url":"https:\/\/s3.eu-central-1.amazonaws.com\/gohelpfund-resources\/categories\/charity.png",
+      "url":"https://s3.eu-central-1.amazonaws.com/gohelpfund-resources/categories/charity.png",
       "type":"image"
     };
 
@@ -416,11 +412,15 @@ class CreateCampaign extends React.Component {
       "location": this.state.location,
       "media_resources": imageData ? imageData : [defaultImage],
       "backers":0
-    }
+    };
 
+    let appToken = localStorage.getItem('appToken');
+    let config = {
+      headers: {'Authorization': "bearer " + appToken}
+    };
     let that = this;
 
-    axios.post(url, campaignData)
+    axios.post(url, campaignData, config)
       .then(response => {
         that.props.history.push({
           pathname: '/campaign-details/' + response.data.id,
@@ -449,8 +449,6 @@ class CreateCampaign extends React.Component {
       getSuggestionValue,
       renderSuggestion,
     };
-
-    const path = 'asfsa';
 
     const categoryList = this.state.categories.map(category => 
       <Grid item xs={12} sm={6} md={4} key={category.id} onClick={this.setCategory.bind(this, category)}>

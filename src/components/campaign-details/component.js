@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
 import classNames from 'classnames';
 import Avatar from '@material-ui/core/Avatar';
 import ImageGallery from 'react-image-gallery';
 
-import MediaGallery from '../media-gallery/component';
 import CampaignProgress from '../campaign-progress/component';
 
 import './style.css';

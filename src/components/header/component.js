@@ -18,6 +18,11 @@ class Header extends Component {
             Create campaign
           </Button>
         </Link>
+        <Link to="/onboarding" className="create-btn-link">
+          <Button variant="contained" color="primary" className="create-btn">
+            Log in
+          </Button>
+        </Link>
       </div>
     );
   }

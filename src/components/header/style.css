@@ -28,6 +28,7 @@
   float: right;
   list-style: none;
   text-decoration: none;
+  margin-left: 20px;
 }
 #app-header .create-btn {
   height: 35px;

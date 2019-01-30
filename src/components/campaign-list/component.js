@@ -34,13 +34,41 @@ class CampaignList extends Component {
   }
 
   componentDidMount() {
-    this.getCampaignList();
+    this.getAuthorizationToken();
+  }
+
+  getAuthorizationToken() {
+    let url = EndPoints.getAuthorizationToken;
+    let data = {
+      grant_type: 'client_credentials',
+	    scope: 'web-client'
+    };
+    let auth =  {
+      auth: {
+        username: 'gohelpfund',
+        password: 'ghfsecret'
+      }
+    }
+    var that = this;
+    axios.post(url, data, auth)
+      .then(response => {
+        localStorage.setItem('appToken', response.data.access_token);
+        that.getCampaignList();
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   getCampaignList() {
     let url = EndPoints.getCampainsUrl;
+    let appToken = localStorage.getItem('appToken');
+    let config = {
+      headers: {'Authorization': "bearer " + appToken}
+    };
     var that = this;
-    axios.get(url)
+    axios.get(url, config)
       .then(response => {
         that.setState({
           campaignList: response.data.content
