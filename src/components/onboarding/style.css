@@ -22,3 +22,13 @@
   margin-top: 50px;
   width: 200px;
 }
+#app-onboarding .onboarding-switch {
+  margin-top: 20px;
+}
+#app-onboarding .onboarding-switch a {
+  font-weight: bold;
+  cursor: pointer;
+}
+#app-onboarding .onboarding-switch a:hover {
+  color: #00b0cd;
+}

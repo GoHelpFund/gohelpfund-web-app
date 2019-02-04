@@ -10,7 +10,7 @@ export const getUploadInfoUrl = baseUrl + 'upload';
 export const postCampainsUrl = baseUrl + 'campaigns';
 export const getLocationUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=';
 export const postSignUpUrl = baseUrl + 'auth/signup';
-// export const postSignInUrl = baseUrl + 'auth/signup';
+export const postSignInUrl = baseUrl + 'auth/oauth/token';
 
 
 
