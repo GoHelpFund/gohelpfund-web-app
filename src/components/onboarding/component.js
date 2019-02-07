@@ -11,11 +11,14 @@ class Onboarding extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			username: null,
-			password: null,
-			retypedPassword: null,
+			username: '',
+			password: '',
+			retypedPassword: '',
 			loginPage: true,
-			myAge: 5
+			isUsernameValid: true,
+			isPasswordValid: true,
+			arePasswordsMatching: true,
+			errorMessages: [] 
 		}
 	}
 
@@ -30,53 +33,146 @@ class Onboarding extends Component {
 	}
 
 	signIn() {
-		let url = EndPoints.postSignInUrl;
-		let params = {
-			username: this.state.username,
-			password: this.state.password,
-			grant_type: 'password',
-		};
-		let appToken = localStorage.getItem('appToken');
-		let auth =  {
-      auth: {
-        username: 'gohelpfund',
-        password: 'ghfsecret'
-      }
-    }
-		var that = this;
-		axios.post(url, params, auth)
-			.then(response => {
-				console.log(response);
-			})
-			.catch(function(error) {
-				console.log(error);
-			});
+		if (this.validateLoginFields()) {
+			let url = EndPoints.postSignInUrl;
+			let params = {
+				username: this.state.username,
+				password: this.state.password,
+				grant_type: 'password',
+			};
+			let appToken = localStorage.getItem('appToken');
+			let auth =  {
+				auth: {
+					username: 'gohelpfund',
+					password: 'ghfsecret'
+				}
+			}
+			var that = this;
+			axios.post(url, params, auth)
+				.then(response => {
+					that.props.history.push({
+						pathname: '/home/',
+					})
+					console.log(response);
+				})
+				.catch(function(error) {
+					console.log(error);
+				});
+		}
 	}
 
 	signUp() {
-		let url = EndPoints.postSignUpUrl;
-		let params = {
-			username: this.state.username,
-			password: this.state.password
-		};
-		let appToken = localStorage.getItem('appToken');
-		let auth =  {
-      auth: {
-        username: 'gohelpfund',
-        password: 'ghfsecret'
-      }
-    }
-		var that = this;
-		axios.post(url, params, auth)
-			.then(response => {
-				console.log(response);
-			})
-			.catch(function(error) {
-				console.log(error);
+		if(this.validateSignUpFields()) {
+			let url = EndPoints.postSignUpUrl;
+			let params = {
+				username: this.state.username,
+				password: this.state.password
+			};
+			let appToken = localStorage.getItem('appToken');
+			let auth =  {
+				auth: {
+					username: 'gohelpfund',
+					password: 'ghfsecret'
+				}
+			}
+			var that = this;
+			axios.post(url, params, auth)
+				.then(response => {
+					that.props.history.push({
+						pathname: '/home/',
+					})
+					console.log(response);
+				})
+				.catch(function(error) {
+					console.log(error);
+				});
+		}
+	}
+
+	validateLoginFields() {
+		let errorMessages = [];
+		let isPasswordValid = true;
+		let isUsernameValid = true;
+
+
+		isPasswordValid = this.state.password && this.state.password.length >= 6;
+		isUsernameValid = this.state.username && !!this.state.username.match(/.+@.+/);
+
+		if(!isUsernameValid) {
+			errorMessages.push('Please provide a valid email address.');
+		}
+
+		if(!isPasswordValid) {
+			errorMessages.push('The password must have at least 6 characters');
+		}
+
+		
+
+		if(isUsernameValid && isPasswordValid) {
+			this.setState({
+				errorMessages: errorMessages,
+				isUsernameValid: isUsernameValid,
+				isPasswordValid: isPasswordValid
 			});
+			return true;
+		} else {
+			this.setState({
+				errorMessages: errorMessages,
+				isUsernameValid: isUsernameValid,
+				isPasswordValid: isPasswordValid
+			});
+			return false;
+		}
+	}
+
+	validateSignUpFields() {
+		let errorMessages = [];
+		let isPasswordValid = true;
+		let isUsernameValid = true;
+		let arePasswordsMatching = true;
+
+
+		isPasswordValid = this.state.password && this.state.password.length >= 6;
+		arePasswordsMatching = this.state.password && this.state.password === this.state.retypedPassword;
+		isUsernameValid = this.state.username && !!this.state.username.match(/.+@.+/);
+
+		if(!isUsernameValid) {
+			errorMessages.push('Please provide a valid email address.');
+		}
+
+		if(!isPasswordValid) {
+			errorMessages.push('The password must have at least 6 characters.');
+		}
+		
+		if(!arePasswordsMatching) {
+			errorMessages.push('The passwords must match.');
+		}
+
+
+		if(isUsernameValid && isPasswordValid && arePasswordsMatching) {
+			this.setState({
+				errorMessages: errorMessages,
+				isUsernameValid: isUsernameValid,
+				isPasswordValid: isPasswordValid,
+				arePasswordsMatching: arePasswordsMatching
+			});
+			return true;
+		} else {
+			this.setState({
+				errorMessages: errorMessages,
+				isUsernameValid: isUsernameValid,
+				isPasswordValid: isPasswordValid,
+				arePasswordsMatching: arePasswordsMatching
+			});
+			return false;
+		}
 	}
 
 	render() {
+		const errorMessages = this.state.errorMessages.map(errorMessage =>
+			<div>{errorMessage}</div>
+		);
+
 		return (
 				<div id="app-onboarding">
 					{this.state.loginPage ? (
@@ -84,18 +180,22 @@ class Onboarding extends Component {
 						<h1 className="box-title">Log in</h1>
 						<div className="onboarding-input-container">
 							<TextField
+								error={!this.state.isUsernameValid}
 								id="username"
 								label="Email address"
 								value={this.state.username}
 								onChange={this.handleChange('username')}
+								type="email"
 								margin="normal"
 								className="onboarding-input"
 							/>
 						</div>
 						<div className="onboarding-input-container">
 							<TextField
+								error={!this.state.isPasswordValid}
 								id="password"
 								label="Password"
+								type="password"
 								value={this.state.password}
 								onChange={this.handleChange('password')}
 								margin="normal"
@@ -106,6 +206,9 @@ class Onboarding extends Component {
 							<Button onClick={this.signIn.bind(this)} variant="contained" color="primary" className="onboarding-btn">
 								Log in
 							</Button>
+						</div>
+						<div className="error-messages">
+							{errorMessages}
 						</div>
 						<div className="onboarding-input-container">
 							<div className="onboarding-switch">New to GoHelpFund? <a onClick={this.switchPage.bind(this)}>Sign up</a></div>
@@ -126,8 +229,10 @@ class Onboarding extends Component {
 						</div>
 						<div className="onboarding-input-container">
 							<TextField
+								error={!this.state.isPasswordValid}
 								id="password"
 								label="Password"
+								type="password"
 								value={this.state.password}
 								onChange={this.handleChange('password')}
 								margin="normal"
@@ -136,10 +241,12 @@ class Onboarding extends Component {
 						</div>
 						<div className="onboarding-input-container">
 							<TextField
-								id="password"
+								error={!this.state.isPasswordValid}
+								id="retype-password"
 								label="Retype password"
-								value={this.state.retypePassword}
-								onChange={this.handleChange('password')}
+								type="password"
+								value={this.state.retypedPassword}
+								onChange={this.handleChange('retypedPassword')}
 								margin="normal"
 								className="onboarding-input"
 							/>
@@ -148,6 +255,9 @@ class Onboarding extends Component {
 							<Button onClick={this.signUp.bind(this)} variant="contained" color="primary" className="onboarding-btn">
 								Sign Up
 							</Button>
+						</div>
+						<div className="error-messages">
+							{errorMessages}
 						</div>
 						<div className="onboarding-input-container">
 							<div className="onboarding-switch">Already have an account? <a  onClick={this.switchPage.bind(this)}>Sign in</a></div>
