@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 
 import * as EndPoints from '../../utils/end-points';
 
 import './style.css';
 
 class Onboarding extends Component {
+	static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+	};
+	
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -50,6 +56,8 @@ class Onboarding extends Component {
 			var that = this;
 			axios.post(url, params, auth)
 				.then(response => {
+					const { cookies } = this.props;
+					cookies.set('accessToken', response.data.access_token, { path: '/', maxAge: response.data.expires_in})
 					that.props.history.push({
 						pathname: '/home/',
 					})
@@ -168,6 +176,10 @@ class Onboarding extends Component {
 		}
 	}
 
+	saveSessionData() {
+
+	}
+
 	render() {
 		const errorMessages = this.state.errorMessages.map(errorMessage =>
 			<div>{errorMessage}</div>
@@ -270,4 +282,4 @@ class Onboarding extends Component {
 	}
 }
 
-export default Onboarding;
+export default withCookies(Onboarding);

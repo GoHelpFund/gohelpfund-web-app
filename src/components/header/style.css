@@ -40,6 +40,18 @@
 #app-header .create-btn:hover {
   background: #00849a;
 }
+#app-header .header-action-container {
+  float: right;
+  padding: 15px 20px;
+}
+#app-header .header-action-container a {
+  text-decoration: none;
+  color: #000;
+  cursor: pointer;
+}
+#app-header .header-action-container a:hover {
+  font-weight: bold;
+}
 @media screen and (max-width: 959px) {
   #app-header {
     padding: 0 0 15px 0;

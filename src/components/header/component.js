@@ -1,31 +1,50 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import { instanceOf } from 'prop-types';
+import { withCookies, Cookies } from 'react-cookie';
 
 import logo from '../../assets/images/ghf-logo.png';
 import './style.css';
 
 class Header extends Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
+  
+  constructor(props) {
+    super(props);
+  }
+
+  logOut() {
+    const { cookies } = this.props;
+    global.accessToken = null;
+    cookies.remove('accessToken');
+    this.forceUpdate();
+  }
+
   render() {
+    const isLoggedIn = global.accessToken ? true : false;
+    const authActionButton = isLoggedIn ? <a ngClick={this.logOut()}>Log out</a>
+                                        : <Link to="/onboarding">Log in</Link>;
+
     return (
       <div id="app-header">
         <Link to="/home" className="ghf-logo">
             <img src={logo} />
             <div>go help fund</div>
         </Link>
-        <Link to="/create-campaign" className="create-btn-link">
-          <Button variant="contained" color="primary" className="create-btn">
+        <div className="header-action-container">
+          {authActionButton}
+        </div>
+        <div className="header-action-container">
+          <Link to="/create-campaign" className="create-btn-link">
             Create campaign
-          </Button>
-        </Link>
-        <Link to="/onboarding" className="create-btn-link">
-          <Button variant="contained" color="primary" className="create-btn">
-            Log in
-          </Button>
-        </Link>
+          </Link>
+        </div>
       </div>
     );
   }
 }
 
-export default Header;
+export default withCookies(Header);
