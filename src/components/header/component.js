@@ -14,18 +14,25 @@ class Header extends Component {
   
   constructor(props) {
     super(props);
+
+    this.state = {
+      isLoggedIn: this.props.isLoggedIn
+    }
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({isLoggedIn: props.isLoggedIn});
   }
 
   logOut() {
     const { cookies } = this.props;
-    global.accessToken = null;
     cookies.remove('accessToken');
-    this.forceUpdate();
+    global.accessToken = null;
+    this.props.updateLoginState(false);
   }
 
   render() {
-    const isLoggedIn = global.accessToken ? true : false;
-    const authActionButton = isLoggedIn ? <a ngClick={this.logOut()}>Log out</a>
+    const authActionButton = this.state.isLoggedIn ? <a onClick={this.logOut.bind(this)}>Log out</a>
                                         : <Link to="/onboarding">Log in</Link>;
 
     return (

@@ -24,7 +24,14 @@ class App extends Component {
     super(props);
     const { cookies } = this.props;
     global.accessToken = cookies.get('accessToken');
-    console.log(global.accessToken);
+    this.state = {
+      isLoggedIn: global.accessToken ? true : false
+    }
+    this.updateLoginState = this.updateLoginState.bind(this);
+  }
+
+  updateLoginState(isLoggedIn) {
+    this.setState({isLoggedIn: isLoggedIn});
   }
 
   render() {
@@ -32,13 +39,12 @@ class App extends Component {
       <React.Fragment>
         <CookiesProvider>
           <CssBaseline />
-          <Header />
+          <Header isLoggedIn={this.state.isLoggedIn} updateLoginState={this.updateLoginState} />
           <div id="app-content">
-            <Route path="/home" component={Home}/>
-            <Route path="/campaign-details" component={CampaignDetails}/>
-            <Route path="/create-campaign" component={CreateCampaign}/>
-            <Route path="/onboarding" component={Onboarding}/>
-            {/* <Redirect from="/" to="home" /> */}
+            <Route path="/home" component={Home} />
+            <Route path="/campaign-details" component={CampaignDetails} />
+            <Route path="/create-campaign" component={CreateCampaign} />
+            <Route path="/onboarding" render={(props) => <Onboarding {...props} updateLoginState={this.updateLoginState} />} />
           </div>
         </CookiesProvider>
       </React.Fragment>

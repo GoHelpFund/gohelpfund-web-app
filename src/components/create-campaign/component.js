@@ -229,7 +229,7 @@ class CreateCampaign extends Component {
         }
         break;
       case 4:
-        this.completeSteps();
+        this.finishCampaign();
         return;
       default: break;
     }
@@ -340,6 +340,16 @@ class CreateCampaign extends Component {
       .catch(function(error) {
         console.log(error);
       });
+  }
+
+  finishCampaign() {
+    if(global.accessToken) {
+      this.completeSteps();
+    } else {
+      this.props.history.push({
+        pathname: '/onboarding/',
+      })
+    }
   }
 
   completeSteps() {

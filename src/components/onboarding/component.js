@@ -46,7 +46,6 @@ class Onboarding extends Component {
 				password: this.state.password,
 				grant_type: 'password',
 			};
-			let appToken = localStorage.getItem('appToken');
 			let auth =  {
 				auth: {
 					username: 'gohelpfund',
@@ -58,6 +57,7 @@ class Onboarding extends Component {
 				.then(response => {
 					const { cookies } = this.props;
 					cookies.set('accessToken', response.data.access_token, { path: '/', maxAge: response.data.expires_in})
+					that.props.updateLoginState(true);
 					that.props.history.push({
 						pathname: '/home/',
 					})
