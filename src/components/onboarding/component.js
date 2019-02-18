@@ -104,7 +104,7 @@ class Onboarding extends Component {
 
 
 		isPasswordValid = this.state.password && this.state.password.length >= 6;
-		isUsernameValid = this.state.username && !!this.state.username.match(/.+@.+/);
+		isUsernameValid = this.state.username && !!this.state.username.match(/.+@.+\..+/);
 
 		if(!isUsernameValid) {
 			errorMessages.push('Please provide a valid email address.');
