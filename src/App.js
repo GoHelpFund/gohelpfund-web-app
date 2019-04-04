@@ -41,8 +41,8 @@ class App extends Component {
           <CssBaseline />
           <Header isLoggedIn={this.state.isLoggedIn} updateLoginState={this.updateLoginState} />
           <div id="app-content">
+            <Redirect to="/home" component={Home} />
             <Route path="/home" component={Home} />
-            <Route path="/" component={Home} />
             <Route path="/campaign-details" component={CampaignDetails} />
             <Route path="/create-campaign" component={CreateCampaign} />
             <Route path="/onboarding" render={(props) => <Onboarding {...props} updateLoginState={this.updateLoginState} />} />
