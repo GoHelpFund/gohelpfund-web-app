@@ -42,6 +42,7 @@ class App extends Component {
           <Header isLoggedIn={this.state.isLoggedIn} updateLoginState={this.updateLoginState} />
           <div id="app-content">
             <Route path="/home" component={Home} />
+            <Route path="/" component={Home} />
             <Route path="/campaign-details" component={CampaignDetails} />
             <Route path="/create-campaign" component={CreateCampaign} />
             <Route path="/onboarding" render={(props) => <Onboarding {...props} updateLoginState={this.updateLoginState} />} />
