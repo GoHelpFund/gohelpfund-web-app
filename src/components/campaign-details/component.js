@@ -74,50 +74,54 @@ class CampaignDetails extends Component {
     
     return (
       <div id="app-campaign-details" className={campaignDetails.media_resources.length === 1 ? 'root hide-nav' : 'root'}>
-        <Grid className={classes.grid + ' section'} container spacing={8}>
-          <Grid item xs={12} md={6} className="image-container">
-            {/* <MediaGallery resources={campaignDetails.media_resources}/> */}
-            <ImageGallery items={sliderImages} />
+        <Grid className={classes.grid} container spacing={16}>
+          <Grid item xs={12}>
+            <section className="campaign-details-title">
+              <span>{campaignDetails.title}</span>
+            </section>
           </Grid>
           <Grid item xs={12} md={6}>
-            <div className={classes.paper + ' details-section'}>
-              <CampaignProgress progressData={this.progressData}/>
-              <Grid className={classes.grid} container spacing={8}>
-                <Grid item xs={12} md ={6}>
-                  <div className="location">
-                    {campaignDetails.location}
-                  </div>
-                </Grid>
-                <Grid item xs={12} md ={6}>
-                  <div className="time-left">
-                      Just <span>{daysLeft}</span> days left to sustain this cause.
-                    </div>
-                </Grid>
-                <Grid item xs={12} md ={6}>
-                  <div className="category">
-                    <img src={campaignDetails.category.image_url}/>
-                      <span>{campaignDetails.category.name}</span>
-                  </div>
-                </Grid>
-                <Grid item xs={12} md ={6}>
-                  <Button variant="contained" color="primary" className="help-btn">
-                    HELP now
-                    {/* <Icon>send</Icon> */}
-                  </Button>
-                </Grid>
-              </Grid>
-            </div>
+            <section className="campaign-details-gallery">
+              <ImageGallery items={sliderImages} />
+            </section>
           </Grid>
-        </Grid>
-        <Grid className={classes.grid + ' section'} container spacing={8}>
-          <Grid item xs={12}>
-            <div className="about-section">
-              <span className="title">{campaignDetails.title}</span>  
+          <Grid item xs={12} md={6}>
+            <section className="campaign-details-status">
+              <div className="status-location">
+                <span></span>
+                <span>{campaignDetails.location}</span>
+              </div>
+              <div className="status-amount-raised">
+                <span>${campaignDetails.amount_raised}</span>
+              </div>
+              <div className="clearfix"></div>
+              <div className="status-days-left">
+                <span><strong>{daysLeft}</strong> days left</span>
+              </div>
+              <div className="status-amount-needed">
+                <span>of <strong>${campaignDetails.amount_goal}</strong> needed</span>
+              </div>
+              <div className="clearfix"></div>
+              <div className="status-category">
+                <span>Emergency</span>
+              </div>
+              <div className="status-donors">
+                <span>raised from <strong>{campaignDetails.backers}</strong> people</span>
+              </div>
+              <div className="clearfix"></div>
+              <div className="status-button">
+                <button className="main-cta-btn">DONATE</button>
+              </div>
+            </section>
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <section className="campaign-details-info">
               <p className="description">{campaignDetails.description}</p>
-            </div>
-
-            <div className="author-section">
-              <div><span className="title">Who posted and how the money will be used</span></div>
+            </section>
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <section className="campaign-details-fundraiser">
+              <div className="section-title">Fundraiser</div>
               <div className="author">
                 <Avatar
                     alt={campaignDetails.fundraiser.name}
@@ -131,7 +135,7 @@ class CampaignDetails extends Component {
                 </div>
               </div>
               <p className="description">{campaignDetails.expenses_description}</p>
-            </div>
+            </section>
           </Grid>
         </Grid>
       </div>

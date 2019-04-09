@@ -91,7 +91,7 @@ class CampaignList extends Component {
 
     return (
       <div id="app-campaign-list" className={classes.root}>
-        <Grid className={classes.grid} container spacing={24}>
+        <Grid className={classes.grid} container spacing={16}>
           {campaignList}
         </Grid>
       </div>

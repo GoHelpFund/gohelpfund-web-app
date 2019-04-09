@@ -1,15 +1,39 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
 
 @import 'variables.less';
 
 body {
   margin: 0;
   padding: 0; 
-  font-family: 'Raleway', sans-serif;
+  // font-family: 'Raleway', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 #app-content {
   padding: 100px;
+
+  section {
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+  }
+}
+
+.main-cta-btn {
+  background: @main-green;
+  border: 2px solid @main-green;
+  box-sizing: border-box;
+  border-radius: 60px;
+  height: 40px;
+  min-width: 125px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+
+  &:hover {
+    cursor: pointer;
+    background: #fff;
+    color: @main-green;
+  }
 }
 
 @media screen and (max-width: 959px) {

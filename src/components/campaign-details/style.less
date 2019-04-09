@@ -4,90 +4,82 @@
 #app-campaign-details {
   margin-top: 10px;
 
-  .section {
-    box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
-    margin-bottom: 15px;
+  .campaign-details-gallery {
+    height: 350px;
 
-    .gallery-section {
-      padding: 10px;
-    }
-  }
-
-  .image-container {
-    
     img {
       object-fit: cover;
       width: 100%;
-      max-height: 400px;
+      height: 350px;
      }
   }
 
-  #app-media-gallery {
-    height: 420px;
+  .clearfix {
+    clear: both;
   }
 
-  .image-gallery-thumbnails-container {
-    display: none;
+  .section-title {
+    color: @dark-grey;
+    font-size: 18px;
+    text-align: center;
   }
 
-  #app-campaign-progress {
-    margin-bottom: 100px;
-  }
+  .campaign-details-title {
+    padding: 10px 20px;
+    text-align: center;
+    color: @main-blue;
+    font-weight: 500;
 
-  .details-section {
-    padding: 30px 50px;
-
-    .location {
-      font-size: 20px;
-      text-align: left;
-      font-weight: bold;
-      padding: 20px 10px 0 10px;
-    }
-
-    .time-left {
-      font-size: 20px;
-      text-align: right;
-      padding: 20px 10px 0 10px;
-
-      > span {
-        font-weight: bold;
-      }
-    }
-
-    .category {
-      text-align: left;
-      padding: 20px 0 0 10px;
-
-      img {
-        width: 50px;
-        height: auto;
-        margin-bottom: -12px;
-      }
-
-      span {
-        margin-left: 20px;
-        font-size: 20px;
-        font-weight: bold;
-      }
-    }
-
-    .help-btn {
-      height: 50px;
-      width: 250px;
-      font-size: 20px;
-      background: @main-green;
-      margin-right: 10px;
-      margin-top: 25px;
-      float: right;
-
-      &:hover {
-        background: darken(@main-green, 10%);
-      }
+    span {
+      font-size: 22px;
     }
   }
   
+  .campaign-details-status {
+    height: 350px;
+    padding: 25px;
+    position: relative;
+    color: @main-grey;
 
-  .about-section {
+    .status-location {
+      float: left;
+      font-size: 20px;
+      margin-top: 15px;
+    }
+
+    .status-amount-raised {
+      float: right;
+      font-size: 35px;
+      font-weight: bold;
+      color: @main-green;
+      font-weight: 600;
+    }
+
+    .status-days-left {
+      float: left;
+    }
+
+    .status-amount-needed {
+      float: right;
+    }
+
+    .status-category {
+      float: left;
+    }
+
+    .status-donors {
+      float: right;
+    }
+
+    .status-button {
+      position: absolute;
+      bottom: 25px;
+      right: 25px;
+    }
+  }
+
+  
+  .campaign-details-info {
     padding: 30px 50px;
     
     .title {
@@ -100,7 +92,7 @@
     }
   }
 
-  .author-section {
+  .campaign-details-fundraiser {
     padding: 30px 50px;
     
     .title {
@@ -140,6 +132,14 @@
     .description {
       margin-top: 30px;
     }
+  }
+
+  .image-gallery-thumbnails-container {
+    display: none;
+  }
+
+  #app-campaign-progress {
+    margin-bottom: 100px;
   }
 }
 
