@@ -10,6 +10,7 @@ body {
 }
 #app-content section {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  background: #fff;
 }
 .main-cta-btn {
   background: #03C9A9;
@@ -26,6 +27,22 @@ body {
   cursor: pointer;
   background: #fff;
   color: #03C9A9;
+}
+.secondary-cta-btn {
+  border: 2px solid #03C9A9;
+  box-sizing: border-box;
+  border-radius: 60px;
+  height: 40px;
+  min-width: 125px;
+  font-size: 15px;
+  font-weight: bold;
+  background: #fff;
+  color: #03C9A9;
+}
+.secondary-cta-btn:hover {
+  cursor: pointer;
+  background: #03C9A9;
+  color: #fff;
 }
 @media screen and (max-width: 959px) {
   #app-content {

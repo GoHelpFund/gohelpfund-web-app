@@ -34,6 +34,50 @@
       font-size: 22px;
     }
   }
+
+  .campaign-details-donate {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    text-align: center;
+
+    h3 {
+      margin: 30px 0;
+      color: @main-green;
+      font-weight: 500;
+    }
+
+    .donate-currency {
+      font-size: 25px;
+      margin-left: 10px;
+    }
+
+    .donate-button {
+      margin-top: 50px;
+    }
+
+    #amount-field {
+      width: 100px;
+      padding: 5px 10px;
+      font-size: 25px;
+      text-align: center;
+  
+      &::placeholder {
+        text-align: center;
+        font-size: 25px;
+      }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+  }
   
   .campaign-details-status {
     height: 350px;
@@ -95,43 +139,44 @@
   .campaign-details-fundraiser {
     padding: 30px 50px;
     
-    .title {
-      font-size: 20px;
-      font-weight: bold;
-      margin-bottom: 20px;
+    .fundraiser-image {
+      float: left;
+      margin-top: 25px;
     }
 
-    .author {
-      height: 160px;
-      padding: 20px 25px 20px 0;
-      width: fit-content;
-      float: left;
+    .fundraiser-details {
+      float: right;
+      margin-top: 25px;
+      width: ~'calc(100% - 95px)';
+      text-align: center;
 
-      .details {
-        float: left;
-        margin-left: 15px;
+      .fundraiser-type {
+        text-transform: uppercase;
+        color: @light-grey;
+        font-size: 13px;
+      }
+      
+      .fundraiser-name {
+        font-size: 15px;
+      }
 
-        .name {
-          font-weight: bold;
-          font-size: 18px;
-          margin-top: 25px;
-        }
+      .fundraiser-job {
+        font-size: 10px;
+      }
+    }
 
-        .job {
-          margin-top: 10px;
-          font-style: italic;
-          text-transform: capitalize;
-        }
-        
-        .company {
+    .fundraiser-social {
+      text-align: center;
 
+      a {
+        margin: 0 3px;
+
+        img {
+          width: 30px;
         }
       }
     }
 
-    .description {
-      margin-top: 30px;
-    }
   }
 
   .image-gallery-thumbnails-container {

@@ -2,12 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
 import classNames from 'classnames';
 import Avatar from '@material-ui/core/Avatar';
 import ImageGallery from 'react-image-gallery';
+import Zoom from '@material-ui/core/Zoom';
+import TextField from '@material-ui/core/TextField';
 
 import CampaignProgress from '../campaign-progress/component';
+import EmptyProfileImage from '../../assets/images/empty-profile-picture.svg';
+import SocialFacebook from '../../assets/images/social/facebook.svg';
+import SocialLinkedin from '../../assets/images/social/linkedin.svg';
+import SocialTwitter from '../../assets/images/social/twitter.svg';
 
 import './style.css';
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -35,8 +41,8 @@ const styles = theme => ({
     float: 'left'
   },
   bigAvatar: {
-    width: 100,
-    height: 100,
+    width: 75,
+    height: 75,
   },
 });
 
@@ -45,7 +51,8 @@ class CampaignDetails extends Component {
     super(props);
 
     this.state = {
-      campaignDetails: this.props.location.state ? this.props.location.state.referrer : {}
+      campaignDetails: this.props.location.state ? this.props.location.state.referrer : {},
+      isDonateScreenOpen: false
     }
     
     this.progressData = {
@@ -54,8 +61,13 @@ class CampaignDetails extends Component {
     };
   }
 
+  toggleDonationScreen = () => {
+    this.setState(state => ({ isDonateScreenOpen: !this.state.isDonateScreenOpen }));
+  };
+
   render() {
     const { classes } = this.props;
+    const { isDonateScreenOpen } = this.state;
     const campaignDetails = this.props.location.state ? this.props.location.state.referrer : {};
     const daysLeft = Math.round(Math.abs((new Date(campaignDetails.start_date).getTime() - new Date(campaignDetails.end_date).getTime())/(24*60*60*1000)));
 
@@ -110,31 +122,69 @@ class CampaignDetails extends Component {
               </div>
               <div className="clearfix"></div>
               <div className="status-button">
-                <button className="main-cta-btn">DONATE</button>
+                <button className="main-cta-btn" onClick={this.toggleDonationScreen.bind(this)}>HELP NOW</button>
               </div>
+              <Zoom in={isDonateScreenOpen} className="campaign-details-donate">
+                <Paper elevation={4} className={classes.paper}>
+                  <span className="close-btn" onClick={this.toggleDonationScreen.bind(this)}>x</span>
+                  <h3>How much would you like to give?</h3>
+                  <div>
+                    <TextField
+                      id="amount-field"
+                      placeholder="0"
+                      value={this.state.amount}
+                      // onChange={this.handleChange('amount')}
+                      // error={this.state.amount === '' && this.state.isNextPressed}
+                      margin="normal"
+                      className="step-input amount-input"
+                    />
+                    <span className="donate-currency">HELP</span>
+                  </div>
+                  <div className="donate-button">
+                    <button className="secondary-cta-btn" onClick={this.toggleDonationScreen.bind(this)}>DONATE</button>
+                  </div>
+                </Paper>
+              </Zoom>
             </section>
+           
           </Grid>
           <Grid item xs={12} md={8}>
             <section className="campaign-details-info">
               <p className="description">{campaignDetails.description}</p>
+              <p className="description">{campaignDetails.expenses_description}</p>
             </section>
           </Grid>
           <Grid item xs={12} md={4}>
             <section className="campaign-details-fundraiser">
               <div className="section-title">Fundraiser</div>
-              <div className="author">
+              <div className="fundraiser-image">
                 <Avatar
                     alt={campaignDetails.fundraiser.name}
-                    src={campaignDetails.fundraiser.profile_image_url}
+                    // src={campaignDetails.fundraiser.profile_image_url}
+                    src={EmptyProfileImage}
                     className={classNames(classes.avatar, classes.bigAvatar)}
                   />
-                <div className="details">
-                  <div className="name">{campaignDetails.fundraiser.name}</div>
-                  <div className="job">{campaignDetails.fundraiser.professional.jobTitle}</div>
-                  <div className="company">@ {campaignDetails.fundraiser.professional.companyName}</div>
-                </div>
               </div>
-              <p className="description">{campaignDetails.expenses_description}</p>
+              <div className="fundraiser-details">
+                <div className="fundraiser-type">Individual</div>
+                <div className="fundraiser-name">{campaignDetails.fundraiser.name}</div>
+                <div className="fundraiser-job">{campaignDetails.fundraiser.professional.job_title} @ {campaignDetails.fundraiser.professional.company_name}</div>
+              </div>
+              <div className="clearfix"></div>
+              <div className="fundraiser-social">
+                <a href={campaignDetails.fundraiser.social.facebook} target="_blank">
+                  <img src={SocialFacebook} />
+                </a>
+                <a href={campaignDetails.fundraiser.social.linkedin} target="_blank">
+                  <img src={SocialLinkedin} />
+                </a>
+                <a href={campaignDetails.fundraiser.social.twitter} target="_blank">
+                  <img src={SocialTwitter} />
+                </a>
+                {/* <a href={campaignDetails.fundraiser.social.facebook} target="_blank">
+                  <img src={SocialFacebook} />
+                </a> */}
+              </div>
             </section>
           </Grid>
         </Grid>
