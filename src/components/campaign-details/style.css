@@ -108,6 +108,14 @@
 #app-campaign-details .campaign-details-info .description {
   font-size: 17px;
 }
+#app-campaign-details .campaign-details-info p {
+  margin-top: 30px;
+}
+#app-campaign-details .campaign-details-info .ant-tabs-bar {
+  text-align: center;
+  width: 400px;
+  margin: 0 auto;
+}
 #app-campaign-details .campaign-details-fundraiser {
   padding: 30px 50px;
 }
@@ -130,7 +138,7 @@
   font-size: 15px;
 }
 #app-campaign-details .campaign-details-fundraiser .fundraiser-details .fundraiser-job {
-  font-size: 10px;
+  font-size: 11px;
 }
 #app-campaign-details .campaign-details-fundraiser .fundraiser-social {
   text-align: center;

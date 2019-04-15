@@ -8,6 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import ImageGallery from 'react-image-gallery';
 import Zoom from '@material-ui/core/Zoom';
 import TextField from '@material-ui/core/TextField';
+import { Tabs } from 'antd';
 
 import CampaignProgress from '../campaign-progress/component';
 import EmptyProfileImage from '../../assets/images/empty-profile-picture.svg';
@@ -15,8 +16,11 @@ import SocialFacebook from '../../assets/images/social/facebook.svg';
 import SocialLinkedin from '../../assets/images/social/linkedin.svg';
 import SocialTwitter from '../../assets/images/social/twitter.svg';
 
-import './style.css';
+import 'antd/dist/antd.css';
 import "react-image-gallery/styles/css/image-gallery.css";
+import './style.css';
+
+const TabPane = Tabs.TabPane;
 
 const styles = theme => ({
   root: {
@@ -64,6 +68,10 @@ class CampaignDetails extends Component {
   toggleDonationScreen = () => {
     this.setState(state => ({ isDonateScreenOpen: !this.state.isDonateScreenOpen }));
   };
+
+  callback(key) {
+    console.log(key);
+  }
 
   render() {
     const { classes } = this.props;
@@ -150,8 +158,17 @@ class CampaignDetails extends Component {
           </Grid>
           <Grid item xs={12} md={8}>
             <section className="campaign-details-info">
-              <p className="description">{campaignDetails.description}</p>
-              <p className="description">{campaignDetails.expenses_description}</p>
+              <Tabs defaultActiveKey="1" onChange={this.callback}>
+                <TabPane tab="Description" key="1">
+                  <p className="description">{campaignDetails.description}</p>
+                </TabPane>
+                <TabPane tab="Expenses" key="2">
+                  <p className="description">{campaignDetails.expenses_description}</p>
+                </TabPane>
+                <TabPane tab="Transactions" key="3">
+                  transactions
+                </TabPane>
+              </Tabs>
             </section>
           </Grid>
           <Grid item xs={12} md={4}>
