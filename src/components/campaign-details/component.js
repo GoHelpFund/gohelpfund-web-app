@@ -132,6 +132,17 @@ class CampaignDetails extends Component {
               <div className="status-button">
                 <button className="main-cta-btn" onClick={this.toggleDonationScreen.bind(this)}>HELP NOW</button>
               </div>
+
+              <div className="status-share">
+                <span className="icon-facebook"></span>
+                <span className="icon-twitter"></span>
+                <span className="icon-linkedin"></span>
+                <span className="icon-favorite"></span>
+                <span className="icon-link"></span>
+              </div>
+
+              
+
               <Zoom in={isDonateScreenOpen} className="campaign-details-donate">
                 <Paper elevation={4} className={classes.paper}>
                   <span className="close-btn" onClick={this.toggleDonationScreen.bind(this)}>x</span>
@@ -189,18 +200,10 @@ class CampaignDetails extends Component {
               </div>
               <div className="clearfix"></div>
               <div className="fundraiser-social">
-                <a href={campaignDetails.fundraiser.social.facebook} target="_blank">
-                  <img src={SocialFacebook} />
-                </a>
-                <a href={campaignDetails.fundraiser.social.linkedin} target="_blank">
-                  <img src={SocialLinkedin} />
-                </a>
-                <a href={campaignDetails.fundraiser.social.twitter} target="_blank">
-                  <img src={SocialTwitter} />
-                </a>
-                {/* <a href={campaignDetails.fundraiser.social.facebook} target="_blank">
-                  <img src={SocialFacebook} />
-                </a> */}
+                <span className="icon-facebook"></span>
+                <span className="icon-linkedin"></span>
+                <span className="icon-twitter"></span>
+                <span className="icon-email"></span>
               </div>
             </section>
           </Grid>

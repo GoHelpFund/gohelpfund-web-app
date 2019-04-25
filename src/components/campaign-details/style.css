@@ -98,6 +98,20 @@
   bottom: 25px;
   right: 25px;
 }
+#app-campaign-details .campaign-details-status .status-share {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+}
+#app-campaign-details .campaign-details-status .status-share span {
+  font-size: 35px;
+  margin-right: 5px;
+  cursor: pointer;
+  color: #BFBFBF;
+}
+#app-campaign-details .campaign-details-status .status-share span:hover {
+  color: #485460;
+}
 #app-campaign-details .campaign-details-info {
   padding: 30px 50px;
 }
@@ -142,6 +156,16 @@
 }
 #app-campaign-details .campaign-details-fundraiser .fundraiser-social {
   text-align: center;
+  margin-top: 20px;
+}
+#app-campaign-details .campaign-details-fundraiser .fundraiser-social span {
+  font-size: 30px;
+  margin-right: 5px;
+  cursor: pointer;
+  color: #BFBFBF;
+}
+#app-campaign-details .campaign-details-fundraiser .fundraiser-social span:hover {
+  color: #485460;
 }
 #app-campaign-details .campaign-details-fundraiser .fundraiser-social a {
   margin: 0 3px;
