@@ -74,6 +74,7 @@ class Onboarding extends Component {
 			let url = EndPoints.postSignUpUrl;
 			let params = {
 				username: this.state.username,
+				email: this.state.username,
 				password: this.state.password
 			};
 			let appToken = localStorage.getItem('appToken');

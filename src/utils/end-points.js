@@ -5,6 +5,7 @@ export const baseUrl = 'https://' + EnvConfig.env + '.gohelpfund.com/v1/';
  
 export const getAuthorizationToken = baseUrl + 'auth/oauth/token';
 export const getCampainsUrl = baseUrl + 'campaigns';
+export const getCampainByIdUrl = baseUrl + 'campaigns/{campaignId}';
 export const getCategoriesUrl = baseUrl + 'categories';
 export const getUploadInfoUrl = baseUrl + 'upload';
 export const postCampainsUrl = baseUrl + 'campaigns';

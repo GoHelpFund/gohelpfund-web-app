@@ -16,6 +16,9 @@ import SocialFacebook from '../../assets/images/social/facebook.svg';
 import SocialLinkedin from '../../assets/images/social/linkedin.svg';
 import SocialTwitter from '../../assets/images/social/twitter.svg';
 
+import * as EndPoints from '../../utils/end-points';
+import axios from 'axios';
+
 import 'antd/dist/antd.css';
 import "react-image-gallery/styles/css/image-gallery.css";
 import './style.css';
@@ -63,6 +66,8 @@ class CampaignDetails extends Component {
       raisedGoal: this.state.campaignDetails.amount_goal,
       raisedTotal: this.state.campaignDetails.amount_raised
     };
+
+    this.getCampaignData();
   }
 
   toggleDonationScreen = () => {
@@ -71,6 +76,29 @@ class CampaignDetails extends Component {
 
   callback(key) {
     console.log(key);
+  }
+
+  getCampaignData() {
+    if(!this.props.location.state) {
+      let url = EndPoints.getCampainByIdUrl;
+      let appToken = localStorage.getItem('appToken');
+      let config = {
+        headers: {'Authorization': "bearer " + appToken}
+      };
+      var that = this;
+
+      url = url.replace('{campaignId}', 'saf');
+
+      axios.get(url, config)
+        .then(response => {
+          that.setState({
+            campaignDetails: response.data.content
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   }
 
   render() {
