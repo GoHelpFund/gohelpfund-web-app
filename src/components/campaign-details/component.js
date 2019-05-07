@@ -18,6 +18,8 @@ import SocialTwitter from '../../assets/images/social/twitter.svg';
 
 import * as EndPoints from '../../utils/end-points';
 import axios from 'axios';
+import { withCookies, Cookies } from 'react-cookie';
+import compose from 'recompose/compose';
 
 import 'antd/dist/antd.css';
 import "react-image-gallery/styles/css/image-gallery.css";
@@ -59,7 +61,8 @@ class CampaignDetails extends Component {
 
     this.state = {
       campaignDetails: this.props.location.state ? this.props.location.state.referrer : {},
-      isDonateScreenOpen: false
+      isDonateScreenOpen: false,
+      amount: 0
     }
     
     this.progressData = {
@@ -74,6 +77,12 @@ class CampaignDetails extends Component {
     this.setState(state => ({ isDonateScreenOpen: !this.state.isDonateScreenOpen }));
   };
 
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+
   callback(key) {
     console.log(key);
   }
@@ -83,7 +92,7 @@ class CampaignDetails extends Component {
       let url = EndPoints.getCampainByIdUrl;
       let appToken = localStorage.getItem('appToken');
       let config = {
-        headers: {'Authorization': "bearer " + appToken}
+        headers: {'Authorization': "Bearer " + appToken}
       };
       var that = this;
 
@@ -102,13 +111,26 @@ class CampaignDetails extends Component {
   }
 
   donate() {
-    // axios.post(url, params, auth)
-    //   .then(response => {
-    //     console.log(response);
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
+    const { cookies } = this.props;
+    let appToken = cookies.get('accessToken');
+    let url = EndPoints.postDonationUrl;
+    let config = {
+      headers: {'Authorization': "Bearer " + appToken}
+    };
+    let params = {
+      amount: this.state.amount
+    };
+
+    url = url.replace('{campaignId}', this.props.location.pathname.slice(18));
+
+    axios.post(url, params, config)
+      .then(response => {
+        console.log(response);
+        this.toggleDonationScreen();
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   render() {
@@ -190,7 +212,7 @@ class CampaignDetails extends Component {
                       id="amount-field"
                       placeholder="0"
                       value={this.state.amount}
-                      // onChange={this.handleChange('amount')}
+                      onChange={this.handleChange('amount')}
                       // error={this.state.amount === '' && this.state.isNextPressed}
                       margin="normal"
                       className="step-input amount-input"
@@ -198,7 +220,7 @@ class CampaignDetails extends Component {
                     <span className="donate-currency">HELP</span>
                   </div>
                   <div className="donate-button">
-                    <button className="secondary-cta-btn" onClick={this.toggleDonationScreen.bind(this)}>DONATE</button>
+                    <button className="secondary-cta-btn" onClick={this.donate.bind(this)}>DONATE</button>
                   </div>
                 </Paper>
               </Zoom>
@@ -255,4 +277,7 @@ CampaignDetails.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CampaignDetails);
+export default compose(
+  withStyles(styles),
+  withCookies
+)(CampaignDetails);

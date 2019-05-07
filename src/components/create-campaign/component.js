@@ -404,15 +404,18 @@ class CreateCampaign extends Component {
   }
 
   postCampaign(imageData) {
+    const { cookies } = this.props;
     let url = EndPoints.postCampainsUrl;
-
+    let appToken = cookies.get('accessToken');
+    let config = {
+      headers: {'Authorization': "bearer " + appToken}
+    };
     let defaultImage = { 
       "format":"jpeg",
       "name":"CF8E3EB7-37F1-40A9-8BBD-DD6CEB4E98A4.jpeg",
       "url":"https://s3.eu-central-1.amazonaws.com/gohelpfund-resources/categories/charity.png",
       "type":"image"
     };
-
     let campaignData = {  
       "category": this.state.category,
       "start_date": new Date(this.state.startDate).toISOString().split('.')[0]+"Z",
@@ -425,12 +428,6 @@ class CreateCampaign extends Component {
       "location": this.state.location,
       "media_resources": imageData ? imageData : [defaultImage],
       "backers":0
-    };
-
-    const { cookies } = this.props;
-    let appToken = cookies.get('accessToken');
-    let config = {
-      headers: {'Authorization': "bearer " + appToken}
     };
     let that = this;
 
