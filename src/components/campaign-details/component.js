@@ -101,6 +101,16 @@ class CampaignDetails extends Component {
     }
   }
 
+  donate() {
+    // axios.post(url, params, auth)
+    //   .then(response => {
+    //     console.log(response);
+    //   })
+    //   .catch(function(error) {
+    //     console.log(error);
+    //   });
+  }
+
   render() {
     const { classes } = this.props;
     const { isDonateScreenOpen } = this.state;

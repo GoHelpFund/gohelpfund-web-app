@@ -17,6 +17,8 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import NumberFormat from 'react-number-format';
 
 import AWS from 'aws-sdk';
+import { withCookies, Cookies } from 'react-cookie';
+import compose from 'recompose/compose';
 
 import CategoryCard from '../category-card/component';
 import * as EndPoints from '../../utils/end-points';
@@ -328,7 +330,8 @@ class CreateCampaign extends Component {
 
   getUploadInfo() {
     let url = EndPoints.getUploadInfoUrl;
-    let appToken = localStorage.getItem('appToken');
+    const { cookies } = this.props;
+    let appToken = cookies.get('accessToken');
     let config = {
       headers: {'Authorization': "bearer " + appToken}
     };
@@ -424,7 +427,8 @@ class CreateCampaign extends Component {
       "backers":0
     };
 
-    let appToken = localStorage.getItem('appToken');
+    const { cookies } = this.props;
+    let appToken = cookies.get('accessToken');
     let config = {
       headers: {'Authorization': "bearer " + appToken}
     };
@@ -656,4 +660,7 @@ CreateCampaign.propTypes = {
   classes: PropTypes.object,
 };
 
-export default withStyles(styles)(CreateCampaign);
+export default compose(
+  withStyles(styles),
+  withCookies
+)(CreateCampaign);
