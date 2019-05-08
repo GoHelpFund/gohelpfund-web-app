@@ -16,6 +16,8 @@ import SocialFacebook from '../../assets/images/social/facebook.svg';
 import SocialLinkedin from '../../assets/images/social/linkedin.svg';
 import SocialTwitter from '../../assets/images/social/twitter.svg';
 
+import { FacebookShareButton, LinkedinShareButton, TwitterShareButton  } from 'react-share';
+
 import * as EndPoints from '../../utils/end-points';
 import axios from 'axios';
 import { withCookies, Cookies } from 'react-cookie';
@@ -59,8 +61,15 @@ class CampaignDetails extends Component {
   constructor(props) {
     super(props);
 
+    let emptyCampaignDetails = {
+      media_resources: [],
+      fundraiser: {
+        professional: {}
+      }
+    }
+
     this.state = {
-      campaignDetails: this.props.location.state ? this.props.location.state.referrer : {},
+      campaignDetails: this.props.location.state ? this.props.location.state.referrer : emptyCampaignDetails,
       isDonateScreenOpen: false,
       amount: 0
     }
@@ -96,12 +105,12 @@ class CampaignDetails extends Component {
       };
       var that = this;
 
-      url = url.replace('{campaignId}', 'saf');
+      url = url.replace('{campaignId}', this.props.location.pathname.slice(18));
 
       axios.get(url, config)
         .then(response => {
           that.setState({
-            campaignDetails: response.data.content
+            campaignDetails: response.data
           });
         })
         .catch(function(error) {
@@ -136,9 +145,9 @@ class CampaignDetails extends Component {
   render() {
     const { classes } = this.props;
     const { isDonateScreenOpen } = this.state;
-    const campaignDetails = this.props.location.state ? this.props.location.state.referrer : {};
+    const campaignDetails = this.state.campaignDetails;
     const daysLeft = Math.round(Math.abs((new Date(campaignDetails.start_date).getTime() - new Date(campaignDetails.end_date).getTime())/(24*60*60*1000)));
-
+    const campaignUrl = this.props.location.pathname;
     // const sliderImages = campaignDetails.media_resources ? campaignDetails.media_resources.map(resource => 
     //   <img src={resource.url} key={resource.id}></img>
     // ) : '';
@@ -194,11 +203,21 @@ class CampaignDetails extends Component {
               </div>
 
               <div className="status-share">
+                <FacebookShareButton
+                  url={campaignUrl}
+                  quote={'Share campaign'}>
                 <span className="icon-facebook"></span>
-                <span className="icon-twitter"></span>
+                </FacebookShareButton>
+                <LinkedinShareButton
+                  url={campaignUrl}
+                  quote={'Share campaign'}>
                 <span className="icon-linkedin"></span>
-                <span className="icon-favorite"></span>
-                <span className="icon-link"></span>
+                </LinkedinShareButton>
+                <TwitterShareButton
+                  url={campaignUrl}
+                  quote={'Share campaign'}>
+                  <span className="icon-twitter"></span>
+                </TwitterShareButton>
               </div>
 
               

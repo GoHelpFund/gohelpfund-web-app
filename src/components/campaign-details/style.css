@@ -103,6 +103,10 @@
   bottom: 25px;
   left: 25px;
 }
+#app-campaign-details .campaign-details-status .status-share > div {
+  float: left;
+  margin-right: 3px;
+}
 #app-campaign-details .campaign-details-status .status-share span {
   font-size: 35px;
   margin-right: 5px;
