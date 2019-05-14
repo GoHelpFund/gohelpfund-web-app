@@ -43,22 +43,23 @@ class Campaign extends Component {
           />
         </Link>
         <CardContent className="campaign-content">
-          <span className="title">
-            <Link to={{
-              pathname: "/campaign-details/" + campaignData.id,
-              state: { referrer: this.props.data }
-              }}>
-              {campaignData.title}
-            </Link>
-          </span>  
-          <span className="author">{campaignData.fundraiser.name}</span>
-          <p className="description">{campaignData.description}</p>
+          <div className="author">{campaignData.fundraiser.name}</div>
+          <div className="title-container">
+            <div className="title">
+              <Link to={{
+                pathname: "/campaign-details/" + campaignData.id,
+                state: { referrer: this.props.data }
+                }}>
+                {campaignData.title}
+              </Link>
+            </div>
+          </div>
         </CardContent>
         <div className="campaign-details">
           <span className="category"><img src={campaignData.category.image_url} alt=""/></span>
           <span className="time"><span className="value">{daysLeft}</span> days left</span>
-          <span className="backers"><span className="value">{campaignData.backers}</span> backers</span>
-          <span className="progress"><span className="value">{campaignData.amount_raised} %</span> raised</span>
+          {/* <span className="backers"><span className="value">{campaignData.backers}</span> backers</span> */}
+          <span className="progress"><span className="value">{campaignData.wallet.help.balance} HELP</span> raised</span>
         </div>
       </Card>
       </div>

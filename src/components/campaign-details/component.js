@@ -147,7 +147,7 @@ class CampaignDetails extends Component {
     const { isDonateScreenOpen } = this.state;
     const campaignDetails = this.state.campaignDetails;
     const daysLeft = Math.round(Math.abs((new Date(campaignDetails.start_date).getTime() - new Date(campaignDetails.end_date).getTime())/(24*60*60*1000)));
-    const campaignUrl = this.props.location.pathname;
+    const campaignUrl = 'www.gohelpfund.com/' + this.props.location.pathname;
     // const sliderImages = campaignDetails.media_resources ? campaignDetails.media_resources.map(resource => 
     //   <img src={resource.url} key={resource.id}></img>
     // ) : '';

@@ -6,9 +6,6 @@ body {
   padding: 0;
   font-family: 'Poppins', sans-serif;
 }
-#app-content {
-  padding: 100px;
-}
 #app-content section {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   background: #fff;
@@ -23,6 +20,7 @@ body {
   color: #fff;
   font-size: 15px;
   font-weight: bold;
+  padding: 0 10px;
 }
 .main-cta-btn:hover {
   cursor: pointer;
@@ -39,6 +37,7 @@ body {
   font-weight: bold;
   background: #fff;
   color: #03C9A9;
+  padding: 0 10px;
 }
 .secondary-cta-btn:hover {
   cursor: pointer;

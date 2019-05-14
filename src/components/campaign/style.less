@@ -9,33 +9,39 @@
    }
 
   .campaign-content {
-    height: 120px;
     
-    .title {
-      font-size: 18px;
 
-      a {
-        color: @steel-blue;
-        text-decoration: none;
+    .title-container {
+      height: 60px;
+      display: table;
+      padding-top: 10px;
+      width: 100%;
 
-        &:hover {
-          color: lighten(@steel-blue, 10%);
+      .title {
+        text-align: center;
+        font-size: 18px;
+        display: table-cell;
+        vertical-align: middle;
+  
+        a {
+          color: @steel-blue;
+          text-decoration: none;
+  
+          &:hover {
+            color: lighten(@steel-blue, 10%);
+          }
         }
       }
     }
 
     .author {
-      float: right;
-      font-size: 12px;
-    }
-
-    .description {
+      text-align: center;
       font-size: 12px;
     }
   }
 
   .campaign-details {
-    padding: 10px 25px 20px 25px;
+    padding: 0 25px 20px 25px;
     font-size: 14px;
 
     .category, .time, .backers {
@@ -56,7 +62,7 @@
 
     .progress {
       float: right;
-      color: #f50057 // #4CAF50;
+      color: @main-green; //#f50057 // #4CAF50;
     }
 
     .value {

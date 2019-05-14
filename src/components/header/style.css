@@ -1,6 +1,5 @@
 #app-header {
-  background: #fff;
-  border-bottom: 2px solid #e9e9e9;
+  background: #F5F6FA;
   padding: 15px 100px;
   position: fixed;
   top: 0;
@@ -16,7 +15,7 @@
   float: left;
 }
 #app-header .ghf-logo div {
-  color: #434547;
+  color: #485460;
   font-size: 30px;
   margin-left: 10px;
   vertical-align: middle;
@@ -32,13 +31,13 @@
 }
 #app-header .create-btn {
   height: 35px;
-  background: #00b0cd;
+  background: #6a89cc;
   margin-top: 10px;
   font-size: 15px;
   box-shadow: none;
 }
 #app-header .create-btn:hover {
-  background: #00849a;
+  background: #446bbf;
 }
 #app-header .header-action-container {
   float: right;

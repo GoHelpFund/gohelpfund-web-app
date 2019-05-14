@@ -1,4 +1,53 @@
 
+@import '../../variables.less';
+
 .app-home {
   margin-top: 10px;
+
+  > div {
+    padding: 0 100px;
+  }
+
+  h1 {
+  
+  }
+
+  h2 {
+    margin-top: 30px;
+  }
+
+  .illustration-container {
+    text-align: center;
+
+    img {
+      max-height: 300px;
+    }
+  }
+
+  #cta-section {
+    margin-top: 50px;
+    
+    button {
+      float: left;
+      margin-right: 20px;
+    }
+
+    .main-cta-btn {
+      color: @hero-background;
+
+      &:hover {
+        background: @hero-background;
+        color: @main-green;
+      }
+    }
+
+    .secondary-cta-btn {
+      background: @hero-background;
+
+      &:hover {
+        background: @main-green;
+        color: @hero-background;
+      }
+    }
+  }
 }
