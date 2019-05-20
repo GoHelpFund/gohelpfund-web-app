@@ -207,7 +207,7 @@ class CampaignDetails extends Component {
                 <span>{campaignDetails.location}</span>
               </div>
               <div className="status-amount-raised">
-                <span>${campaignDetails.amount_raised}</span>
+                <span>{campaignDetails.wallet.help.balance} HELP</span>
               </div>
               <div className="clearfix"></div>
               <div className="status-days-left">
