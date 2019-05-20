@@ -148,6 +148,7 @@
   
   .campaign-details-info {
     padding: 30px 50px;
+    min-height: 260px;
     
     .title {
       font-size: 25px;
@@ -230,6 +231,78 @@
 
   #app-campaign-progress {
     margin-bottom: 100px;
+  }
+
+  #campaign-transactions-tab {
+    padding: 20px;
+
+    .transactions-campaign-wallet {
+      background: rgba(191, 191, 191, 0.25);
+      padding: 6px 20px;
+      > div:nth-of-type(1) {
+        float: left;
+      }
+      
+      > div:nth-of-type(2) {
+        text-align: center;
+      }
+    }
+
+    .transaction-btn-explorer {
+      border: 1px solid #000;
+      background: white;
+      padding: 5px 10px;
+      color: #000;
+      float: right;
+
+      &:hover {
+        cursor: pointer;
+        color: @light-grey;
+        border-color: @light-grey;
+      }
+    }
+
+    #transactions-table {
+      margin-top: 25px;
+
+      .transactions-table-header, .transactions-table-row {
+        > div {
+          width: 25%;
+          text-align: center;
+          float: left;
+          height: 100%;
+          padding-top: 3px;
+        }
+      }
+
+      .transactions-table-row {
+        height: 30px;
+        margin-top: 5px;
+
+        &:nth-of-type(odd) {
+          background: rgba(191, 191, 191, 0.1);
+        }
+
+        &:nth-child(even) {
+          background: rgba(191, 191, 191, 0.2);
+        }
+      }
+
+      .transactions-table-header {
+        background: @medium-grey;
+        height: 30px;
+      }
+
+      .transaction-table-body {
+        max-height: 600px;
+        // overflow: scroll;
+      }
+
+      .transaction-address {
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
   }
 }
 

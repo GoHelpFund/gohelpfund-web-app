@@ -119,6 +119,7 @@
 }
 #app-campaign-details .campaign-details-info {
   padding: 30px 50px;
+  min-height: 260px;
 }
 #app-campaign-details .campaign-details-info .title {
   font-size: 25px;
@@ -183,6 +184,63 @@
 }
 #app-campaign-details #app-campaign-progress {
   margin-bottom: 100px;
+}
+#app-campaign-details #campaign-transactions-tab {
+  padding: 20px;
+}
+#app-campaign-details #campaign-transactions-tab .transactions-campaign-wallet {
+  background: rgba(191, 191, 191, 0.25);
+  padding: 6px 20px;
+}
+#app-campaign-details #campaign-transactions-tab .transactions-campaign-wallet > div:nth-of-type(1) {
+  float: left;
+}
+#app-campaign-details #campaign-transactions-tab .transactions-campaign-wallet > div:nth-of-type(2) {
+  text-align: center;
+}
+#app-campaign-details #campaign-transactions-tab .transaction-btn-explorer {
+  border: 1px solid #000;
+  background: white;
+  padding: 5px 10px;
+  color: #000;
+  float: right;
+}
+#app-campaign-details #campaign-transactions-tab .transaction-btn-explorer:hover {
+  cursor: pointer;
+  color: #BFBFBF;
+  border-color: #BFBFBF;
+}
+#app-campaign-details #campaign-transactions-tab #transactions-table {
+  margin-top: 25px;
+}
+#app-campaign-details #campaign-transactions-tab #transactions-table .transactions-table-header > div,
+#app-campaign-details #campaign-transactions-tab #transactions-table .transactions-table-row > div {
+  width: 25%;
+  text-align: center;
+  float: left;
+  height: 100%;
+  padding-top: 3px;
+}
+#app-campaign-details #campaign-transactions-tab #transactions-table .transactions-table-row {
+  height: 30px;
+  margin-top: 5px;
+}
+#app-campaign-details #campaign-transactions-tab #transactions-table .transactions-table-row:nth-of-type(odd) {
+  background: rgba(191, 191, 191, 0.1);
+}
+#app-campaign-details #campaign-transactions-tab #transactions-table .transactions-table-row:nth-child(even) {
+  background: rgba(191, 191, 191, 0.2);
+}
+#app-campaign-details #campaign-transactions-tab #transactions-table .transactions-table-header {
+  background: #C4C4C4;
+  height: 30px;
+}
+#app-campaign-details #campaign-transactions-tab #transactions-table .transaction-table-body {
+  max-height: 600px;
+}
+#app-campaign-details #campaign-transactions-tab #transactions-table .transaction-address {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 @media screen and (max-width: 959px) {
   #app-campaign-details .details-section .location {

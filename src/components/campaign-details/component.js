@@ -169,11 +169,16 @@ class CampaignDetails extends Component {
     const campaignDetails = this.state.campaignDetails;
     const daysLeft = Math.round(Math.abs((new Date(campaignDetails.start_date).getTime() - new Date(campaignDetails.end_date).getTime())/(24*60*60*1000)));
     const campaignUrl = 'www.gohelpfund.com/' + this.props.location.pathname;
-    // const sliderImages = campaignDetails.media_resources ? campaignDetails.media_resources.map(resource => 
-    //   <img src={resource.url} key={resource.id}></img>
-    // ) : '';
-
     const sliderImages = [];
+
+    const transactions = campaignDetails.wallet ? campaignDetails.wallet.help.transactions.map(transaction =>
+      <div className="transactions-table-row">
+        <div>{transaction.sender_name || 'Anonymus'}</div>
+        <div className="transaction-address">{transaction.sender_address}</div>
+        <div>{transaction.amount}</div>
+        <div><a href="#">View transaction</a></div>
+      </div>
+    ) : [];
 
     campaignDetails.media_resources.forEach(element => {
       sliderImages.push({
@@ -278,8 +283,28 @@ class CampaignDetails extends Component {
                 <TabPane tab="Expenses" key="2">
                   <p className="description">{campaignDetails.expenses_description}</p>
                 </TabPane>
-                <TabPane tab="Transactions" key="3">
-                  transactions
+                <TabPane tab="Transactions" id="campaign-transactions-tab" key="3">
+                  <Grid container>
+                    <Grid item xs={12} sm={7} md={9}>
+                      <div className="transactions-campaign-wallet">
+                        <div>Campaign wallet:</div>
+                        <div>{campaignDetails.wallet ? campaignDetails.wallet.help.address : 'Wallet not available'}</div>
+                      </div>
+                    </Grid>
+                    <Grid item xs={12} sm={5} md={3}>
+                      <button className="transaction-btn-explorer">Blockchain explorer</button>
+                    </Grid>
+                  </Grid>
+
+                  <div id="transactions-table">
+                    <div className="transactions-table-header">
+                      <div>Donor</div>
+                      <div>Wallet</div>
+                      <div>Amount</div>
+                      <div>Proof</div>
+                    </div>
+                    <div className="transaction-table-body">{transactions}</div>
+                  </div>
                 </TabPane>
               </Tabs>
             </section>
