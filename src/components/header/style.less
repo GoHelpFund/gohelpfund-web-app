@@ -3,12 +3,16 @@
 
 #app-header {
   background: @header-background;
-  // border-bottom: 2px solid @light-grey;
   padding: 15px 100px;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1;
+
+  &.has-bg {
+    background: #fff;
+    border-bottom: 2px solid @light-grey;
+  }
 
   .ghf-logo {
     min-height: 50px;

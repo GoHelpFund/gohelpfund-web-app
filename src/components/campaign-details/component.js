@@ -82,6 +82,27 @@ class CampaignDetails extends Component {
     this.getCampaignData();
   }
 
+  componentWillMount() {
+    let url = EndPoints.getFundraiserUrl;
+      let appToken = localStorage.getItem('appToken');
+      let config = {
+        headers: {'Authorization': "Bearer " + appToken}
+      };
+      var that = this;
+
+      url = url.replace('{fundraiserId}', localStorage.getItem('fundraiserId'));
+
+      axios.get(url, config)
+        .then(response => {
+          that.setState({
+            userBalance: response.data.wallet.help.balance
+          });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+  }
+
   toggleDonationScreen = () => {
     this.setState(state => ({ isDonateScreenOpen: !this.state.isDonateScreenOpen }));
   };
@@ -225,11 +246,13 @@ class CampaignDetails extends Component {
               <Zoom in={isDonateScreenOpen} className="campaign-details-donate">
                 <Paper elevation={4} className={classes.paper}>
                   <span className="close-btn" onClick={this.toggleDonationScreen.bind(this)}>x</span>
-                  <h3>How much would you like to give?</h3>
+                  <h2>How much would you like to give?</h2>
+                  <h3>You have {this.state.userBalance} HELP available.</h3>
                   <div>
                     <TextField
                       id="amount-field"
                       placeholder="0"
+                      type="number"
                       value={this.state.amount}
                       onChange={this.handleChange('amount')}
                       // error={this.state.amount === '' && this.state.isNextPressed}

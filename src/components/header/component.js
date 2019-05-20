@@ -16,9 +16,27 @@ class Header extends Component {
     super(props);
 
     this.state = {
-      isLoggedIn: this.props.isLoggedIn
+      isLoggedIn: this.props.isLoggedIn,
+      hasBg: false
     }
   }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll.bind(this));
+  };
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll.bind(this));
+  };
+
+  handleScroll(event) {
+    let scrollTop = event.srcElement.body.scrollTop;
+    if (window.scrollY > 30) {
+      this.setState({hasBg: true});
+    } else {
+      this.setState({hasBg: false});
+    }
+  };
 
   componentWillReceiveProps(props) {
     this.setState({isLoggedIn: props.isLoggedIn});
@@ -36,7 +54,7 @@ class Header extends Component {
                                         : <Link to="/onboarding">Log in</Link>;
 
     return (
-      <div id="app-header">
+      <div id="app-header" className={ this.state.hasBg ? 'has-bg' : ''}>
         <Link to="/home" className="ghf-logo">
             <img src={logo} />
             <div>go help fund</div>

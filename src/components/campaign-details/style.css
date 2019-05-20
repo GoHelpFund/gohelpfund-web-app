@@ -1,5 +1,6 @@
 #app-campaign-details {
-  margin-top: 10px;
+  margin-top: 50px;
+  padding: 50px 100px;
 }
 #app-campaign-details .campaign-details-gallery {
   height: 350px;
@@ -35,7 +36,7 @@
   padding: 20px;
   text-align: center;
 }
-#app-campaign-details .campaign-details-donate h3 {
+#app-campaign-details .campaign-details-donate h2 {
   margin: 30px 0;
   color: #03C9A9;
   font-weight: 500;

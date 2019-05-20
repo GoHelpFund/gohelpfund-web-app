@@ -38,6 +38,16 @@ class Onboarding extends Component {
 		this.setState({loginPage: !this.state.loginPage});
 	}
 
+	setLoginData(data) {
+		const { cookies } = this.props;
+		cookies.set('accessToken', data.access_token, { path: '/', maxAge: data.expires_in});
+		localStorage.setItem('fundraiserId', data.fundraiser_id);
+		this.props.updateLoginState(true);
+		this.props.history.push({
+			pathname: '/home/',
+		})
+	}
+
 	signIn() {
 		if (this.validateLoginFields()) {
 			let url = EndPoints.postSignInUrl;
@@ -55,13 +65,7 @@ class Onboarding extends Component {
 			var that = this;
 			axios.post(url, params, auth)
 				.then(response => {
-					const { cookies } = this.props;
-					cookies.set('accessToken', response.data.access_token, { path: '/', maxAge: response.data.expires_in})
-					that.props.updateLoginState(true);
-					that.props.history.push({
-						pathname: '/home/',
-					})
-					console.log(response);
+					this.setLoginData(response.data);
 				})
 				.catch(function(error) {
 					console.log(error);
@@ -87,10 +91,7 @@ class Onboarding extends Component {
 			var that = this;
 			axios.post(url, params, auth)
 				.then(response => {
-					that.props.history.push({
-						pathname: '/home/',
-					})
-					console.log(response);
+					this.setLoginData(response.data);
 				})
 				.catch(function(error) {
 					console.log(error);

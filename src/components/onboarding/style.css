@@ -1,3 +1,6 @@
+#app-onboarding {
+  margin-top: 120px;
+}
 #app-onboarding .box-section {
   max-width: 600px;
   margin: 0 auto;
@@ -31,7 +34,7 @@
   cursor: pointer;
 }
 #app-onboarding .onboarding-switch a:hover {
-  color: #00b0cd;
+  color: #6a89cc;
 }
 #app-onboarding .error-messages {
   margin-top: 20px;

@@ -6,6 +6,10 @@
   width: 100%;
   z-index: 1;
 }
+#app-header.has-bg {
+  background: #fff;
+  border-bottom: 2px solid #BFBFBF;
+}
 #app-header .ghf-logo {
   min-height: 50px;
   float: left;
