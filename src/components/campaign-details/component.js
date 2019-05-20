@@ -330,7 +330,6 @@ class CampaignDetails extends Component {
                 <span className="icon-facebook"></span>
                 <span className="icon-linkedin"></span>
                 <span className="icon-twitter"></span>
-                <span className="icon-email"></span>
               </div>
             </section>
           </Grid>

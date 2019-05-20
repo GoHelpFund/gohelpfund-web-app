@@ -1,5 +1,6 @@
 #app-header {
-  background: #F5F6FA;
+  background: #fff;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   padding: 15px 100px;
   position: fixed;
   top: 0;
@@ -7,8 +8,8 @@
   z-index: 1;
 }
 #app-header.has-bg {
-  background: #fff;
-  border-bottom: 2px solid #BFBFBF;
+  background: #F5F6FA;
+  box-shadow: none;
 }
 #app-header .ghf-logo {
   min-height: 50px;

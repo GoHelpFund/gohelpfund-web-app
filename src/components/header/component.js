@@ -17,11 +17,14 @@ class Header extends Component {
 
     this.state = {
       isLoggedIn: this.props.isLoggedIn,
-      hasBg: false
+      hasBg: window.location.pathname === '/home' ? true : false
     }
   }
 
   componentDidMount() {
+    // if(window.location.pathname === '/home') {
+    //   this.setState({hasBg: true});
+    // }
     window.addEventListener('scroll', this.handleScroll.bind(this));
   };
 
@@ -30,12 +33,17 @@ class Header extends Component {
   };
 
   handleScroll(event) {
-    let scrollTop = event.srcElement.body.scrollTop;
-    if (window.scrollY > 30) {
-      this.setState({hasBg: true});
+    if(window.location.pathname === '/home') {
+      let scrollTop = event.srcElement.body.scrollTop;
+      if (window.scrollY > 30) {
+        this.setState({hasBg: false});
+      } else {
+        this.setState({hasBg: true});
+      }
     } else {
       this.setState({hasBg: false});
     }
+   
   };
 
   componentWillReceiveProps(props) {
@@ -49,13 +57,17 @@ class Header extends Component {
     this.props.updateLoginState(false);
   }
 
+  goToHomePage() {
+    this.setState({hasBg: true});
+  }
+
   render() {
     const authActionButton = this.state.isLoggedIn ? <a onClick={this.logOut.bind(this)}>Log out</a>
                                         : <Link to="/onboarding">Log in</Link>;
 
     return (
       <div id="app-header" className={ this.state.hasBg ? 'has-bg' : ''}>
-        <Link to="/home" className="ghf-logo">
+        <Link to="/home" className="ghf-logo" onClick={this.goToHomePage.bind(this)}>
             <img src={logo} />
             <div>go help fund</div>
         </Link>

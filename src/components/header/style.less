@@ -2,7 +2,8 @@
 @import '../../variables.less';
 
 #app-header {
-  background: @header-background;
+  background: #fff;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   padding: 15px 100px;
   position: fixed;
   top: 0;
@@ -10,8 +11,8 @@
   z-index: 1;
 
   &.has-bg {
-    background: #fff;
-    border-bottom: 2px solid @light-grey;
+    background: @header-background;
+    box-shadow: none;
   }
 
   .ghf-logo {
