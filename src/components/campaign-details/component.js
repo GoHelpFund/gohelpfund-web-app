@@ -168,7 +168,7 @@ class CampaignDetails extends Component {
     const { isDonateScreenOpen } = this.state;
     const campaignDetails = this.state.campaignDetails;
     const daysLeft = Math.round(Math.abs((new Date(campaignDetails.start_date).getTime() - new Date(campaignDetails.end_date).getTime())/(24*60*60*1000)));
-    const campaignUrl = 'www.gohelpfund.com/' + this.props.location.pathname;
+    const campaignUrl = 'www.beta.gohelpfund.com' + this.props.location.pathname;
     const sliderImages = [];
 
     const transactions = campaignDetails.wallet ? campaignDetails.wallet.help.transactions.map(transaction =>
@@ -218,6 +218,7 @@ class CampaignDetails extends Component {
               </div>
               <div className="clearfix"></div>
               <div className="status-category">
+                <img src={campaignDetails.category.image_url}></img>
                 <span>Emergency</span>
               </div>
               <div className="status-donors">
@@ -327,9 +328,9 @@ class CampaignDetails extends Component {
               </div>
               <div className="clearfix"></div>
               <div className="fundraiser-social">
-                <span className="icon-facebook"></span>
-                <span className="icon-linkedin"></span>
-                <span className="icon-twitter"></span>
+                <a href={campaignDetails.fundraiser.social ? campaignDetails.fundraiser.social.facebook : '#'} target="_blank"><span className="icon-facebook"></span></a>
+                <a href={campaignDetails.fundraiser.social ? campaignDetails.fundraiser.social.linkedin : '#'} target="_blank"><span className="icon-linkedin"></span></a>
+                <a href={campaignDetails.fundraiser.social ? campaignDetails.fundraiser.social.twitter : '#'} target="_blank"><span className="icon-twitter"></span></a>
               </div>
             </section>
           </Grid>
