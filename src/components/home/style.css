@@ -1,36 +1,46 @@
-.app-home {
+#app-home {
   margin-top: 10px;
 }
-.app-home > div {
+#app-home > div {
   padding: 0 100px;
 }
-.app-home h2 {
+#app-home h2 {
   margin-top: 30px;
 }
-.app-home .illustration-container {
+#app-home .illustration-container {
   text-align: center;
 }
-.app-home .illustration-container img {
+#app-home .illustration-container img {
   max-height: 300px;
 }
-.app-home #cta-section {
+#app-home #cta-section {
   margin-top: 50px;
 }
-.app-home #cta-section button {
+#app-home #cta-section button {
   float: left;
   margin-right: 20px;
 }
-.app-home #cta-section .main-cta-btn {
+#app-home #cta-section .main-cta-btn {
   color: #F5F6FA;
 }
-.app-home #cta-section .main-cta-btn:hover {
+#app-home #cta-section .main-cta-btn:hover {
   background: #F5F6FA;
   color: #03C9A9;
 }
-.app-home #cta-section .secondary-cta-btn {
+#app-home #cta-section .secondary-cta-btn {
   background: #F5F6FA;
 }
-.app-home #cta-section .secondary-cta-btn:hover {
+#app-home #cta-section .secondary-cta-btn:hover {
   background: #03C9A9;
   color: #F5F6FA;
+}
+@media screen and (max-width: 959px) {
+  #app-home > div {
+    padding: 0 10px;
+  }
+  #app-home h1,
+  #app-home h2,
+  #app-home #cta-section {
+    text-align: center;
+  }
 }

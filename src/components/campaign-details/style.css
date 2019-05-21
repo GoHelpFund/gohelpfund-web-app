@@ -243,6 +243,10 @@
   text-overflow: ellipsis;
 }
 @media screen and (max-width: 959px) {
+  #app-campaign-details {
+    margin-top: 100px;
+    padding: 50px 10px;
+  }
   #app-campaign-details .details-section .location {
     text-align: center;
   }

@@ -1,7 +1,7 @@
 
 @import '../../variables.less';
 
-.app-home {
+#app-home {
   margin-top: 10px;
 
   > div {
@@ -48,6 +48,18 @@
         background: @main-green;
         color: @hero-background;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 959px) {
+  #app-home {
+    > div {
+      padding: 0 10px;
+    }
+
+    h1, h2,  #cta-section {
+      text-align: center;
     }
   }
 }

@@ -161,33 +161,37 @@ class CreateCampaign extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      activeStep: 0,
-      skipped: new Set(),
-      single: '',
-      popper: '',
-      suggestions: [],
-      isNextPressed: false,
-      categories: [],
-      category: '',
-      title: '',
-      description: '',
-      amount: '',
-      expensesDescription: '',
-      startDate: '',
-      endDate: '',
-      location: '',
-      image: '',
-      images: [],
-    };
-
+    if(this.props.location && this.props.location.state && this.props.location.state.referrer) {
+      this.state = this.props.location.state.referrer;
+      this.completeSteps();
+    } else {
+      this.state = {
+        activeStep: 0,
+        skipped: new Set(),
+        single: '',
+        popper: '',
+        suggestions: [],
+        isNextPressed: false,
+        categories: [],
+        category: '',
+        title: '',
+        description: '',
+        amount: '',
+        expensesDescription: '',
+        startDate: '',
+        endDate: '',
+        location: '',
+        image: '',
+        images: [],
+      };
+    }
   }
 
   componentWillMount() {
     let url = EndPoints.getCategoriesUrl;
     let appToken = localStorage.getItem('appToken');
     let config = {
-      headers: {'Authorization': "bearer " + appToken}
+      headers: {'Authorization': "Bearer " + appToken}
     };
     var that = this;
     axios.get(url, config)
@@ -333,7 +337,7 @@ class CreateCampaign extends Component {
     const { cookies } = this.props;
     let appToken = cookies.get('accessToken');
     let config = {
-      headers: {'Authorization': "bearer " + appToken}
+      headers: {'Authorization': "Bearer " + appToken}
     };
 
     axios.get(url, config)
@@ -346,11 +350,13 @@ class CreateCampaign extends Component {
   }
 
   finishCampaign() {
-    if(global.accessToken) {
+    const { cookies } = this.props;
+    if(cookies.get('accessToken')) {
       this.completeSteps();
     } else {
       this.props.history.push({
         pathname: '/onboarding/',
+        state: { referrer: this.props.state }
       })
     }
   }
@@ -408,7 +414,7 @@ class CreateCampaign extends Component {
     let url = EndPoints.postCampainsUrl;
     let appToken = cookies.get('accessToken');
     let config = {
-      headers: {'Authorization': "bearer " + appToken}
+      headers: {'Authorization': "Bearer " + appToken}
     };
     let defaultImage = { 
       "format":"jpeg",
@@ -462,7 +468,7 @@ class CreateCampaign extends Component {
     };
 
     const categoryList = this.state.categories.map(category => 
-      <Grid item xs={12} sm={6} md={4} key={category.id} onClick={this.setCategory.bind(this, category)}>
+      <Grid item xs={6} sm={6} md={4} key={category.id} onClick={this.setCategory.bind(this, category)}>
         <CategoryCard category={category.name} imgUrl={category.image_url} />
       </Grid>
     );

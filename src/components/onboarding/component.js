@@ -43,9 +43,17 @@ class Onboarding extends Component {
 		cookies.set('accessToken', data.access_token, { path: '/', maxAge: data.expires_in});
 		localStorage.setItem('fundraiserId', data.fundraiser_id);
 		this.props.updateLoginState(true);
-		this.props.history.push({
-			pathname: '/home/',
-		})
+
+		if(this.props.location && this.props.location.state && this.props.location.state.referrer) {
+			this.props.history.push({
+				pathname: '/create-campaign/',
+				state: { referrer: this.props.location.state.referrer }
+			})
+		} else {
+			this.props.history.push({
+				pathname: '/home/',
+			})
+		}
 	}
 
 	signIn() {

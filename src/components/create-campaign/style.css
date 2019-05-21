@@ -1,5 +1,6 @@
 #app-create-campaign {
-  margin-top: 10px;
+  padding: 0 100px;
+  margin-top: 120px;
   width: 100%;
 }
 #app-create-campaign .section {
@@ -46,10 +47,10 @@
   max-width: 300px;
 }
 #app-create-campaign .stepper .next-button {
-  background: #3e965d;
+  background: #03C9A9;
 }
 #app-create-campaign .stepper .next-button:hover {
-  background: #2f7247;
+  background: #02977f;
 }
 #app-create-campaign .browse-btn {
   width: 0.1px;
@@ -62,15 +63,15 @@
 #app-create-campaign .browse-btn + label {
   font-size: 1.25em;
   font-weight: 700;
-  color: #00b0cd;
-  border: 2px solid #00b0cd;
+  color: #6a89cc;
+  border: 2px solid #6a89cc;
   background-color: #fff;
   display: inline-block;
   padding: 10px 50px;
 }
 #app-create-campaign .browse-btn:focus + label,
 #app-create-campaign .browse-btn + label:hover {
-  background-color: #00b0cd;
+  background-color: #6a89cc;
   color: #fff;
 }
 #app-create-campaign .browse-btn + label {
@@ -90,4 +91,13 @@
 #app-create-campaign #app-category-card {
   margin: 0 auto;
   cursor: pointer;
+}
+@media screen and (max-width: 959px) {
+  #app-create-campaign {
+    padding: 0 10px;
+    margin-top: 150px;
+  }
+  #app-create-campaign .section {
+    padding: 30px 10px;
+  }
 }

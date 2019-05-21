@@ -14,7 +14,7 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="app-home">
+      <div id="app-home">
         <Hero
           color='white'
           bg='#F5F6FA'
