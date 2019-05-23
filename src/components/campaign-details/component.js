@@ -196,7 +196,7 @@ class CampaignDetails extends Component {
         <div>{transaction.sender_name || 'Anonymus'}</div>
         <div className="transaction-address">{transaction.sender_address}</div>
         <div>{transaction.amount}</div>
-        <div><a href="#">View transaction</a></div>
+        <div><a href={'http://insight.gohelpfund.com/insight/tx/' + transaction.blockchain_transaction_id} target="_blank">View transaction</a></div>
       </div>
     ) : [];
 
@@ -313,7 +313,7 @@ class CampaignDetails extends Component {
                       </div>
                     </Grid>
                     <Grid item xs={12} sm={5} md={3}>
-                      <button className="transaction-btn-explorer">Blockchain explorer</button>
+                      <a href={'http://insight.gohelpfund.com/insight/address/' + campaignDetails.wallet.help.address} target="_blank" className="transaction-btn-explorer">Blockchain explorer</a>
                     </Grid>
                   </Grid>
 
