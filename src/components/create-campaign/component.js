@@ -163,7 +163,7 @@ class CreateCampaign extends Component {
 
     if(this.props.location && this.props.location.state && this.props.location.state.referrer) {
       this.state = this.props.location.state.referrer;
-      this.completeSteps();
+      this.getUploadInfo();
     } else {
       this.state = {
         activeStep: 0,
@@ -203,8 +203,6 @@ class CreateCampaign extends Component {
     .catch(function(error) {
       console.log(error);
     });
-
-    this.getUploadInfo();
   }
 
   isStepOptional = step => {
@@ -343,6 +341,7 @@ class CreateCampaign extends Component {
     axios.get(url, config)
       .then(response => {
         uploadInfo = response.data;
+        this.completeSteps();
       })
       .catch(function(error) {
         console.log(error);
@@ -352,11 +351,11 @@ class CreateCampaign extends Component {
   finishCampaign() {
     const { cookies } = this.props;
     if(cookies.get('accessToken')) {
-      this.completeSteps();
+      this.getUploadInfo();
     } else {
       this.props.history.push({
         pathname: '/onboarding/',
-        state: { referrer: this.props.state }
+        state: { referrer: this.state }
       })
     }
   }
@@ -371,7 +370,6 @@ class CreateCampaign extends Component {
 
     const S3 = new AWS.S3({ params: { Bucket: uploadInfo.bucket_name } });
 
-    // var totalSize = 0;
     var imageCount = this.state.images.length;
     var uploadedImages = [];
     let that = this;
@@ -383,8 +381,6 @@ class CreateCampaign extends Component {
         Body: this.state.images[counter],
         ACL: 'public-read'
       };
-
-      // totalSize += this.state.images[counter].size; 
 
       S3.upload(params, (err, data) => {
         if (err) {
