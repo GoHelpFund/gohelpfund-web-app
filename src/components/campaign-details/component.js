@@ -71,7 +71,8 @@ class CampaignDetails extends Component {
     this.state = {
       campaignDetails: this.props.location.state ? this.props.location.state.referrer : emptyCampaignDetails,
       isDonateScreenOpen: this.props.location.state ? (this.props.location.state.fromDonateScreen ? true : false) : false,
-      amount: 0
+      amount: 0,
+      thanksMessage: false
     }
     
     this.progressData = {
@@ -174,7 +175,7 @@ class CampaignDetails extends Component {
     axios.post(url, params, config)
       .then(response => {
         console.log(response);
-        this.setState({campaignDetails: response.data});
+        this.setState({campaignDetails: response.data, thanksMessage: true});
         this.toggleDonationScreen();
         this.getFundraiserData();
       })
@@ -199,6 +200,8 @@ class CampaignDetails extends Component {
         <div><a href={'http://insight.gohelpfund.com/insight/tx/' + transaction.blockchain_transaction_id} target="_blank">View transaction</a></div>
       </div>
     ) : [];
+
+    const thanksMessage = this.state.thanksMessage ? <div className="thanks-message">Thank you for your donation!</div> : '';
 
     campaignDetails.media_resources.forEach(element => {
       sliderImages.push({
@@ -245,6 +248,7 @@ class CampaignDetails extends Component {
                 <span>raised from <strong>{campaignDetails.backers}</strong> people</span>
               </div>
               <div className="clearfix"></div>
+              {thanksMessage}
               <div className="status-button">
                 <button className="main-cta-btn" onClick={this.toggleDonationScreen.bind(this)}>HELP NOW</button>
               </div>

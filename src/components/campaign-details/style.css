@@ -123,6 +123,11 @@
 #app-campaign-details .campaign-details-status .status-share span:hover {
   color: #485460;
 }
+#app-campaign-details .campaign-details-status .thanks-message {
+  text-align: right;
+  color: #03C9A9;
+  font-size: 15px;
+}
 #app-campaign-details .campaign-details-info {
   padding: 30px 50px;
   min-height: 260px;
