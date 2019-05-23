@@ -70,7 +70,7 @@ class CampaignDetails extends Component {
 
     this.state = {
       campaignDetails: this.props.location.state ? this.props.location.state.referrer : emptyCampaignDetails,
-      isDonateScreenOpen: false,
+      isDonateScreenOpen: this.props.location.state ? (this.props.location.state.fromDonateScreen ? true : false) : false,
       amount: 0
     }
     
@@ -83,28 +83,46 @@ class CampaignDetails extends Component {
   }
 
   componentWillMount() {
+    this.getFundraiserData();
+  }
+
+  isLoggedIn = () => {
+    const { cookies } = this.props;
+      let appToken = cookies.get('accessToken');
+  
+      return appToken ? true : false;
+  }
+
+  getFundraiserData() {
     let url = EndPoints.getFundraiserUrl;
-      let appToken = localStorage.getItem('appToken');
-      let config = {
-        headers: {'Authorization': "Bearer " + appToken}
-      };
-      var that = this;
+    let appToken = localStorage.getItem('appToken');
+    let config = {
+      headers: {'Authorization': "Bearer " + appToken}
+    };
+    var that = this;
 
-      url = url.replace('{fundraiserId}', localStorage.getItem('fundraiserId'));
+    url = url.replace('{fundraiserId}', localStorage.getItem('fundraiserId'));
 
-      axios.get(url, config)
-        .then(response => {
-          that.setState({
-            userBalance: response.data.wallet.help.balance
-          });
-        })
-        .catch(function(error) {
-          console.log(error);
+    axios.get(url, config)
+      .then(response => {
+        that.setState({
+          userBalance: response.data.wallet.help.balance
         });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   toggleDonationScreen = () => {
-    this.setState(state => ({ isDonateScreenOpen: !this.state.isDonateScreenOpen }));
+    if(!this.isLoggedIn()) {
+      this.props.history.push({
+        pathname: '/onboarding/',
+        state: { fromDonateScreen: true, campaignDetails: this.state.campaignDetails }
+      })
+    } else {
+      this.setState(state => ({ isDonateScreenOpen: !this.state.isDonateScreenOpen }));
+    }
   };
 
   handleChange = name => event => {
@@ -156,7 +174,9 @@ class CampaignDetails extends Component {
     axios.post(url, params, config)
       .then(response => {
         console.log(response);
+        this.setState({campaignDetails: response.data});
         this.toggleDonationScreen();
+        this.getFundraiserData();
       })
       .catch(function(error) {
         console.log(error);

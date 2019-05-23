@@ -44,6 +44,15 @@ class Onboarding extends Component {
 		localStorage.setItem('fundraiserId', data.fundraiser_id);
 		this.props.updateLoginState(true);
 
+		if(this.props.location.state.fromDonateScreen) {
+			this.props.history.push({
+				pathname: '/campaign-details/' + this.props.location.state.campaignDetails.id,
+				state: { fromDonateScreen: true, referrer: this.props.location.state.campaignDetails }
+			})
+
+			return;
+		}
+
 		if(this.props.location && this.props.location.state && this.props.location.state.referrer) {
 			this.props.history.push({
 				pathname: '/create-campaign/',
