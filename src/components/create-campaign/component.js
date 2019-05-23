@@ -544,7 +544,7 @@ class CreateCampaign extends Component {
                           margin="normal"
                           className="step-input amount-input"
                           InputProps={{
-                            startAdornment: <InputAdornment position="start">$</InputAdornment>,
+                            startAdornment: <InputAdornment position="start">HELP</InputAdornment>,
                             inputComponent: NumberFormatCustom,
                           }}
                         />

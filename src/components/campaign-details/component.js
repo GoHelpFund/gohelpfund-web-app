@@ -202,6 +202,7 @@ class CampaignDetails extends Component {
     ) : [];
 
     const thanksMessage = this.state.thanksMessage ? <div className="thanks-message">Thank you for your donation!</div> : '';
+    const emptyTransactions = campaignDetails.wallet && !campaignDetails.wallet.help.transactions.length ? <div className="empty-transactions">No transactions yet.</div> : '';
 
     campaignDetails.media_resources.forEach(element => {
       sliderImages.push({
@@ -328,6 +329,7 @@ class CampaignDetails extends Component {
                       <div>Amount</div>
                       <div>Proof</div>
                     </div>
+                    {emptyTransactions}
                     <div className="transaction-table-body">{transactions}</div>
                   </div>
                 </TabPane>

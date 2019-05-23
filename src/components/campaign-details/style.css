@@ -128,6 +128,11 @@
   color: #03C9A9;
   font-size: 15px;
 }
+#app-campaign-details .empty-transactions {
+  text-align: center;
+  font-size: 15px;
+  padding: 10px 0;
+}
 #app-campaign-details .campaign-details-info {
   padding: 30px 50px;
   min-height: 260px;
