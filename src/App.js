@@ -14,6 +14,7 @@ import Home from './components/home/component';
 import CampaignDetails from './components/campaign-details/component';
 import CreateCampaign from './components/create-campaign/component';
 import Onboarding from './components/onboarding/component';
+import LiveEvent from './components/live-event/component';
 
 class App extends Component {
   static propTypes = {
@@ -35,11 +36,13 @@ class App extends Component {
   }
 
   render() {
+    const liveEventsPage = window.location ? window.location.pathname == '/live-event' : false;
+    const header = !liveEventsPage ? <Header isLoggedIn={this.state.isLoggedIn} updateLoginState={this.updateLoginState} /> : '';
     return (
       <React.Fragment>
         <CookiesProvider>
           <CssBaseline />
-          <Header isLoggedIn={this.state.isLoggedIn} updateLoginState={this.updateLoginState} />
+          {header}
           <div id="app-content">
             {/* <Redirect to="/home" component={Home} /> */}
             <Route path="/home" component={Home} />
@@ -47,6 +50,7 @@ class App extends Component {
             <Route path="/create-campaign" component={CreateCampaign} />
             <Route path="/onboarding" render={(props) => <Onboarding {...props} updateLoginState={this.updateLoginState} />} />
           </div>
+          <Route path="/live-event" component={LiveEvent} />
         </CookiesProvider>
       </React.Fragment>
     );
