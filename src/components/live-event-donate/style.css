@@ -1,0 +1,10 @@
+#app-live-event-donate > div {
+  text-align: center;
+  margin: 30px;
+}
+#app-live-event-donate h2 {
+  margin: 30px 0;
+}
+#app-live-event-donate .checkbox-container {
+  margin: 30px 0;
+}

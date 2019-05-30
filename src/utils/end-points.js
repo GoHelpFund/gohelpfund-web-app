@@ -14,6 +14,7 @@ export const postSignUpUrl = baseUrl + 'auth/signup';
 export const postSignInUrl = baseUrl + 'auth/oauth/token';
 export const postDonationUrl = baseUrl + 'campaigns/{campaignId}/donate';
 export const getFundraiserUrl = baseUrl + 'fundraisers/{fundraiserId}';
+export const postEventDonateUrl = baseUrl + 'events/{eventId}/donate';
 
 
 
