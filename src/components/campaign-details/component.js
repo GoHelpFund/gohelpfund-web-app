@@ -238,7 +238,7 @@ class CampaignDetails extends Component {
                 <span><strong>{daysLeft}</strong> days left</span>
               </div>
               <div className="status-amount-needed">
-                <span>of <strong>${campaignDetails.amount_goal}</strong> needed</span>
+                <span>of <strong>{campaignDetails.amount_goal} HELP</strong> needed</span>
               </div>
               <div className="clearfix"></div>
               <div className="status-category">

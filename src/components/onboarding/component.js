@@ -87,6 +87,9 @@ class Onboarding extends Component {
 					this.setLoginData(response.data);
 				})
 				.catch(function(error) {
+					if(error.response.data.error_description == 'Bad credentials') {
+						that.setState({errorMessages: ['Invalid credentials. Please try again.']});
+					}
 					console.log(error);
 				});
 		}

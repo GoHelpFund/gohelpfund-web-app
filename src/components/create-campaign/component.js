@@ -627,7 +627,7 @@ class CreateCampaign extends Component {
                   {activeStep === 4 && 
                     <div className="step-4">
                     <h1 className="step-title">Media gallery</h1>
-                    <h2 className="step-subtitle">Upload an images that could give a better understanding of the cause</h2>
+                    <h2 className="step-subtitle">Upload images that could give a better understanding of the cause</h2>
                     <div className="step-content">
                       <div className="browse-container">
                         <input className="browse-btn" multiple id="file" type="file" accept='image/png' onChange={(e) => this.onChange(e)}/>
