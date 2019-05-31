@@ -20,6 +20,7 @@ import AWS from 'aws-sdk';
 import { withCookies, Cookies } from 'react-cookie';
 import compose from 'recompose/compose';
 import { Skeleton } from 'antd';
+import { DatePicker } from 'antd';
 
 import CategoryCard from '../category-card/component';
 import * as EndPoints from '../../utils/end-points';
@@ -281,7 +282,7 @@ class CreateCampaign extends Component {
 
   handleChange = name => event => {
     this.setState({
-      [name]: event.target.value,
+      [name]: event.target ? event.target.value : event._d,
     });
   };
 
@@ -585,7 +586,21 @@ class CreateCampaign extends Component {
                     <h1 className="step-title">Date and location</h1>
                     <h2 className="step-subtitle">When and where?</h2>
                     <div className="step-content">
-                    <TextField
+                    <DatePicker
+                        id="startDate"
+                        placeholder="Start date"
+                        defaultValue={this.state.startDate}
+                        onChange={this.handleChange('startDate')}
+                        error={this.state.startDate === '' && this.state.isNextPressed}
+                    />
+                    <DatePicker
+                        id="endDate"
+                        placeholder="End date"
+                        defaultValue={this.state.endDate}
+                        onChange={this.handleChange('endDate')}
+                        error={this.state.endDate === '' && this.state.isNextPressed}
+                    />
+                    {/* <TextField
                         id="startDate"
                         label="Start date"
                         value={this.state.startDate}
@@ -595,8 +610,8 @@ class CreateCampaign extends Component {
                         InputLabelProps={{
                           shrink: true,
                         }}
-                      />
-                      <TextField
+                      /> */}
+                      {/* <TextField
                         id="endDate"
                         label="End date"
                         value={this.state.endDate}
@@ -606,11 +621,12 @@ class CreateCampaign extends Component {
                         InputLabelProps={{
                           shrink: true,
                         }}
-                      />
+                      /> */}
                       <Autosuggest
                         {...autosuggestProps}
                         inputProps={{
                           classes,
+                          className: 'location-input',
                           label: 'Location',
                           placeholder: 'Location',
                           value: this.state.location,

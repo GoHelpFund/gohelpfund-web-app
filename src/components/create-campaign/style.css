@@ -105,6 +105,12 @@
   top: 0;
   left: 0;
 }
+#app-create-campaign .location-input {
+  margin-top: 20px;
+}
+#app-create-campaign #endDate {
+  margin-left: 20px;
+}
 @media screen and (max-width: 959px) {
   #app-create-campaign {
     padding: 0 10px;

@@ -72,7 +72,8 @@ class CampaignDetails extends Component {
       campaignDetails: this.props.location.state ? this.props.location.state.referrer : emptyCampaignDetails,
       isDonateScreenOpen: this.props.location.state ? (this.props.location.state.fromDonateScreen ? true : false) : false,
       amount: 0,
-      thanksMessage: false
+      thanksMessage: false,
+      amountValidation: false
     }
     
     this.progressData = {
@@ -160,6 +161,11 @@ class CampaignDetails extends Component {
   }
 
   donate() {
+    if(this.state.amount > this.state.userBalance) {
+      this.setState({amountValidation: true});
+      return;
+    }
+
     const { cookies } = this.props;
     let appToken = cookies.get('accessToken');
     let url = EndPoints.postDonationUrl;
@@ -203,6 +209,8 @@ class CampaignDetails extends Component {
 
     const thanksMessage = this.state.thanksMessage ? <div className="thanks-message">Thank you for your donation!</div> : '';
     const emptyTransactions = campaignDetails.wallet && !campaignDetails.wallet.help.transactions.length ? <div className="empty-transactions">No transactions yet.</div> : '';
+
+    const amountValidation = this.state.amountValidation ? <div className="amount-validation">You don't have enough HELP.</div> : '';
 
     campaignDetails.media_resources.forEach(element => {
       sliderImages.push({
@@ -292,6 +300,7 @@ class CampaignDetails extends Component {
                     />
                     <span className="donate-currency">HELP</span>
                   </div>
+                  {amountValidation}
                   <div className="donate-button">
                     <button className="secondary-cta-btn" onClick={this.donate.bind(this)}>DONATE</button>
                   </div>

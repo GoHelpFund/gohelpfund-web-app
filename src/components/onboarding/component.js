@@ -116,6 +116,7 @@ class Onboarding extends Component {
 					this.setLoginData(response.data);
 				})
 				.catch(function(error) {
+					that.setState({errorMessages: ['This username already exists. Please try again.']});
 					console.log(error);
 				});
 		}
