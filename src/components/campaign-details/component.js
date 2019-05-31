@@ -318,7 +318,7 @@ class CampaignDetails extends Component {
                       </div>
                     </Grid>
                     <Grid item xs={12} sm={5} md={3}>
-                      <a href={'http://insight.gohelpfund.com/insight/address/' + campaignDetails.wallet.help.address} target="_blank" className="transaction-btn-explorer">Blockchain explorer</a>
+                      <a href={'http://insight.gohelpfund.com/insight/address/' + (campaignDetails.wallet ? campaignDetails.wallet.help.address : '')} target="_blank" className="transaction-btn-explorer">Blockchain explorer</a>
                     </Grid>
                   </Grid>
 

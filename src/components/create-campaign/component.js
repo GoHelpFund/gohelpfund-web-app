@@ -19,6 +19,7 @@ import NumberFormat from 'react-number-format';
 import AWS from 'aws-sdk';
 import { withCookies, Cookies } from 'react-cookie';
 import compose from 'recompose/compose';
+import { Skeleton } from 'antd';
 
 import CategoryCard from '../category-card/component';
 import * as EndPoints from '../../utils/end-points';
@@ -162,6 +163,7 @@ class CreateCampaign extends Component {
     super(props);
 
     if(this.props.location && this.props.location.state && this.props.location.state.referrer) {
+      this.setState({displaySkeleton: true});
       this.state = this.props.location.state.referrer;
       this.getUploadInfo();
     } else {
@@ -183,6 +185,7 @@ class CreateCampaign extends Component {
         location: '',
         image: '',
         images: [],
+        displaySkeleton: false
       };
     }
   }
@@ -374,6 +377,11 @@ class CreateCampaign extends Component {
     var uploadedImages = [];
     let that = this;
 
+    if (!imageCount) {
+      this.postCampaign();
+      return;
+    }
+
     for (var counter = 0; counter < imageCount; counter++) {
       const params = {
         Key: this.state.images[counter].name,
@@ -433,14 +441,18 @@ class CreateCampaign extends Component {
     };
     let that = this;
 
+    this.setState({displaySkeleton: true});
+
     axios.post(url, campaignData, config)
       .then(response => {
+        this.setState({displaySkeleton: false});
         that.props.history.push({
           pathname: '/campaign-details/' + response.data.id,
           state: { referrer: response.data }
         })
       })
       .catch(function(error) {
+        this.setState({displaySkeleton: false});
         console.log(error);
       });
 
@@ -472,6 +484,12 @@ class CreateCampaign extends Component {
     const imagesNames = this.state.images && this.state.images.length ? this.state.images.map(image => 
       <div className="file-name" key={image.lastModified}>{image.name}</div>
     ) : '';
+
+    const displaySkeleton = this.state.displaySkeleton ? <div className="spinner-container">
+                                                          <Skeleton/>
+                                                          <Skeleton/>
+                                                          <Skeleton/>
+                                                        </div> : '';
 
     return (
       <div id="app-create-campaign" className={classes.root}>
@@ -649,6 +667,7 @@ class CreateCampaign extends Component {
               </div>
             )}
           </div>
+         {displaySkeleton}
         </div>
       </div>
     );
