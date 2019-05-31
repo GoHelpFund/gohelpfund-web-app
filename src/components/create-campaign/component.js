@@ -192,6 +192,9 @@ class CreateCampaign extends Component {
   }
 
   componentWillMount() {
+    if(this.props.location && this.props.location.state && this.props.location.state.referrer) {
+      this.setState({displaySkeleton: true});
+    }
     let url = EndPoints.getCategoriesUrl;
     let appToken = localStorage.getItem('appToken');
     let config = {
