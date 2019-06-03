@@ -36,11 +36,24 @@
 }
 @media screen and (max-width: 959px) {
   #app-home > div {
-    padding: 0 10px;
+    padding: 75px 10px;
+  }
+  #app-home h1 {
+    font-size: 25px;
+  }
+  #app-home h2 {
+    font-size: 18px;
   }
   #app-home h1,
   #app-home h2,
   #app-home #cta-section {
     text-align: center;
+  }
+  #app-home #cta-section {
+    margin-top: 20px;
+  }
+  #app-home #cta-section a {
+    display: inline-block;
+    margin-bottom: 10px;
   }
 }

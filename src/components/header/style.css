@@ -70,6 +70,9 @@
   #app-header .create-btn-link {
     float: initial;
   }
+  #app-header .header-action-container {
+    padding: 15px 5px;
+  }
 }
 @media screen and (max-width: 959px) {
   #app-header .header-action-container {
