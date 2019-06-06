@@ -8,6 +8,9 @@ import './style.css';
 class LiveEvent extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentScreen: null
+    }
   }
 
   isLoggedIn() {
@@ -15,9 +18,14 @@ class LiveEvent extends Component {
     return cookies.get('accessToken') ? true : false;
   }
 
+  nextStep() {
+
+  }
+
   render() {
     const isLoggedIn = this.isLoggedIn();
-    const currentScreen = isLoggedIn ? <LiveEventDonate /> : <LiveEventOnboarding />
+    // const LiveEventWelcome = <div onClick={this.state.nextStep.bind(this)}>welcome screen</div>;
+    let currentScreen = isLoggedIn ? <LiveEventDonate /> : <LiveEventOnboarding />;
 
     return(
       <div id="app-live-event">

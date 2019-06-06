@@ -108,11 +108,11 @@ class LiveEventOnboarding extends Component {
 		isUsernameValid = this.state.username && !!this.state.username.match(/.+@.+\..+/);
 
 		if(!isUsernameValid) {
-			errorMessages.push('Please provide a valid email address.');
+			errorMessages.push('Introduceți o adresă de email validă');
 		}
 
 		if(!isPasswordValid) {
-			errorMessages.push('The password must have at least 6 characters');
+			errorMessages.push('Parola trebuie să aibă minim 6 caractere');
 		}
 
 		
@@ -143,11 +143,11 @@ class LiveEventOnboarding extends Component {
 		isUsernameValid = this.state.username && !!this.state.username.match(/.+@.+/);
 
 		if(!isUsernameValid) {
-			errorMessages.push('Please provide a valid email address.');
+			errorMessages.push('Introduceți o adresă de email validă');
 		}
 
 		if(!isPasswordValid) {
-			errorMessages.push('The password must have at least 6 characters.');
+			errorMessages.push('Parola trebuie să aibă minim 6 caractere');
 		}
 
 		if(isUsernameValid && isPasswordValid) {
@@ -177,7 +177,7 @@ class LiveEventOnboarding extends Component {
 		);
 
 		return (
-				<div id="app-onboarding">
+				<div id="app-live-event-onboarding">
 					{this.state.loginPage ? (
 						<div id="login-page"className="box-section">
 						<h1 className="box-title">Log in</h1>
@@ -214,16 +214,16 @@ class LiveEventOnboarding extends Component {
 							{errorMessages}
 						</div>
 						<div className="onboarding-input-container">
-							<div className="onboarding-switch">New to GoHelpFund? <a onClick={this.switchPage.bind(this)}>Sign up</a></div>
+							<div className="onboarding-switch">New to GoHelpFund? <a onClick={this.switchPage.bind(this)}>Sign Up</a></div>
 						</div>
 					</div>
 					) : (
 						<div id="login-page"className="box-section">
-						<h1 className="box-title">Sign Up</h1>
+						<h1 className="box-title">Date de contact donator</h1>
 						<div className="onboarding-input-container">
 							<TextField
 								id="name"
-								label="Nume complet"
+								label="Nume și prenume"
 								value={this.state.name}
 								onChange={this.handleChange('name')}
 								margin="normal"
@@ -244,7 +244,7 @@ class LiveEventOnboarding extends Component {
 							<TextField
 								error={!this.state.isPasswordValid}
 								id="password"
-								label="Parola"
+								label="Parolă"
 								type="password"
 								value={this.state.password}
 								onChange={this.handleChange('password')}
@@ -256,7 +256,7 @@ class LiveEventOnboarding extends Component {
 							<TextField
 								error={!this.state.isPasswordValid}
 								id="table-number"
-								label="Numarul mesei"
+								label="Număr masă"
 								type="number"
 								value={this.state.tableNumber}
 								onChange={this.handleChange('tableNumber')}
@@ -266,14 +266,11 @@ class LiveEventOnboarding extends Component {
 						</div>
 						<div className="onboarding-input-container">
 							<Button onClick={this.signUp.bind(this)} variant="contained" color="primary" className="onboarding-btn">
-								Sign Up
+								Doresc să donez
 							</Button>
 						</div>
 						<div className="error-messages">
 							{errorMessages}
-						</div>
-						<div className="onboarding-input-container">
-							<div className="onboarding-switch">Already have an account? <a  onClick={this.switchPage.bind(this)}>Sign in</a></div>
 						</div>
 					</div>
 					)}

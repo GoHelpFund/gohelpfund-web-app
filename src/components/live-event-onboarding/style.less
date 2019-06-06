@@ -1,1 +1,59 @@
- 
+
+#app-live-event-onboarding {
+    background: url('../../assets/images/event-bg-mobile.png');
+    background-size: cover;
+    text-align: center;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 35px;
+    display: table;
+
+    #login-page {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .onboarding-input-container {
+        > div {
+            width: 100%;
+        }
+
+        label {
+            color: #fff;
+        }
+
+        &::before {
+            border-color: #fff !important;
+        }
+
+        font-weight: normal;
+    }
+
+    .onboarding-btn {
+        background: #cc3333;
+        text-transform: initial;
+        border-radius: 15px;
+        margin: 35px 0;
+        font-weight: normal;
+        font-size: 20px;
+        padding: 12px 40px;
+        
+        &:hover, &:active {
+            background: lighten(#cc3333, 5%);
+            cursor: pointer;
+        }
+    }
+
+    .box-title {
+        font-size: 25px;
+        text-transform: uppercase;
+        color: #fff;
+    }
+
+    .MuiInput-underline-21:before {
+        border-bottom: 2px solid #00ffff; 
+    }
+}

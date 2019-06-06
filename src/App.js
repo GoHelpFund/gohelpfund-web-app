@@ -15,6 +15,7 @@ import CampaignDetails from './components/campaign-details/component';
 import CreateCampaign from './components/create-campaign/component';
 import Onboarding from './components/onboarding/component';
 import LiveEvent from './components/live-event/component';
+import LiveEventDisplay from './components/live-event-display/component';
 
 class App extends Component {
   static propTypes = {
@@ -51,6 +52,7 @@ class App extends Component {
             <Route path="/onboarding" render={(props) => <Onboarding {...props} updateLoginState={this.updateLoginState} />} />
           </div>
           <Route path="/live-event" component={LiveEvent} />
+          <Route path="/live-event-display" component={LiveEventDisplay} />
         </CookiesProvider>
       </React.Fragment>
     );
