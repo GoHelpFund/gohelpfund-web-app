@@ -56,7 +56,7 @@ class LiveEventDonate extends Component {
           <h3>Donez suma de:</h3>
           <InputNumber
             defaultValue={this.state.amount}
-            formatter={value => `€ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
             parser={value => value.replace(/\€\s?|(,*)/g, '')}
             onChange={this.onChange.bind(this)}
             className="amount-field"
