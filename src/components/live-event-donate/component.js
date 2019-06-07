@@ -38,6 +38,9 @@ class LiveEventDonate extends Component {
 
     axios.post(url, params, config)
       .then(response => {
+        this.props.history.push({
+          pathname: '/live-event-success/'
+        })
         console.log(response);
       })
       .catch(function(error) {
