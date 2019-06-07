@@ -47,7 +47,7 @@ class App extends Component {
           <CssBaseline />
           {header}
           <div id="app-content">
-            <Redirect to="/home" component={Home} />
+            {/* <Redirect to="/home" component={Home} /> */}
             <Route path="/home" component={Home} />
             <Route path="/campaign-details" component={CampaignDetails} />
             <Route path="/create-campaign" component={CreateCampaign} />
