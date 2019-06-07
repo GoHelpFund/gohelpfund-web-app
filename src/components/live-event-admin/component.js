@@ -9,6 +9,7 @@ import './style.css';
 class LiveEventAdmin extends Component {
     constructor(props) {
         super(props);
+        this.modifyAmount();
     }
 
     modifyAmount() {
@@ -19,7 +20,7 @@ class LiveEventAdmin extends Component {
         headers: {'Authorization': "Bearer " + appToken}
         };
         let params = {
-            amount: this.state.amount
+            amount: -7
         };
 
         url = url.replace('{eventId}', 'bal81764-bea1-4249-b86d-f8fb8182eec1');

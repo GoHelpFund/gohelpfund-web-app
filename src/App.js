@@ -16,6 +16,7 @@ import CreateCampaign from './components/create-campaign/component';
 import Onboarding from './components/onboarding/component';
 import LiveEvent from './components/live-event/component';
 import LiveEventDisplay from './components/live-event-display/component';
+import LiveEventAdmin from './components/live-event-admin/component';
 
 class App extends Component {
   static propTypes = {
@@ -53,6 +54,7 @@ class App extends Component {
           </div>
           <Route path="/live-event" component={LiveEvent} />
           <Route path="/live-event-display" component={LiveEventDisplay} />
+          <Route path="/live-event-admin" component={LiveEventAdmin} />
         </CookiesProvider>
       </React.Fragment>
     );

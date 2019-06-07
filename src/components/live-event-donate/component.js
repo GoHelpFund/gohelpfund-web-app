@@ -49,17 +49,21 @@ class LiveEventDonate extends Component {
     return(
       <div id="app-live-event-donate">
         <div>
-          <h2>Introduceti suma pe care doriti sa o donati</h2>
+          <h2>Orice sumă donată ne aduce mai aproape de o lume așa cum ne dorim.</h2>
+          <h3>Donez suma de:</h3>
           <InputNumber
             defaultValue={this.state.amount}
             formatter={value => `€ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
             parser={value => value.replace(/\€\s?|(,*)/g, '')}
             onChange={this.onChange.bind(this)}
+            className="amount-field"
           />
           <div className="checkbox-container">
-            <Checkbox onChange={this.toggleCheckbox.bind(this)}>Ma angajez sa depun in contul ce imi va fi comunicat suma de €{this.state.amount}</Checkbox>
+            <Checkbox onChange={this.toggleCheckbox.bind(this)}>Mă angajez să virez suma de €{this.state.amount} în contul 
+Fundației Serviciilor Sociale Bethany 
+până la data de 30 iunie 2019.</Checkbox>
           </div>
-          <Button type="primary" disabled={!this.state.isChecked} onClick={this.donate.bind(this)}>Donează</Button>
+          <Button className="donate-btn" variant="contained" type="primary" disabled={!this.state.isChecked} onClick={this.donate.bind(this)}>Finalizează angajamentul</Button>
         </div>
       </div>
     );
