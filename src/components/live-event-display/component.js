@@ -5,11 +5,16 @@ import * as EndPoints from '../../utils/end-points';
 import axios from 'axios';
 
 import './style.css';
+import { setInterval } from 'timers';
 
 class LiveEventDisplay extends Component {
     constructor(props) {
         super(props);
-        this.getEventData()
+        this.state={
+          amount: 0
+        }
+        this.getEventData();
+        setInterval(this.getEventData, 100000);
     }
 
     getEventData() {
@@ -24,6 +29,7 @@ class LiveEventDisplay extends Component {
     
         axios.get(url, config)
           .then(response => {
+            this.setState({amount: response.data.wallet.promise.balance});
             console.log(response.data);
           })
           .catch(function(error) {
@@ -33,8 +39,8 @@ class LiveEventDisplay extends Component {
 
     render() {
         return(
-            <div>
-
+            <div id="app-live-event-display">
+              <div>€{this.state.amount}</div>
             </div>
         );
     }
