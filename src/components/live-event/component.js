@@ -24,7 +24,6 @@ class LiveEvent extends Component {
 
   render() {
     const isLoggedIn = this.isLoggedIn();
-    // const LiveEventWelcome = <div onClick={this.state.nextStep.bind(this)}>welcome screen</div>;
     let currentScreen = isLoggedIn ? <LiveEventDonate /> : <LiveEventOnboarding />;
 
     return(

@@ -4,6 +4,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
+import { ScrollDownIndicator } from 'react-landing-page';
+
+import balLogo from '../../assets/images/live-event/logo-bal.png';
+import aquafeeriaLogo from '../../assets/images/live-event/logo-aquafeeria.png';
 
 import * as EndPoints from '../../utils/end-points';
 
@@ -25,7 +29,8 @@ class LiveEventOnboarding extends Component {
 			loginPage: false,
 			isUsernameValid: true,
 			isPasswordValid: true,
-			errorMessages: [] 
+			errorMessages: [],
+			displayWelcome: true
 		}
 	}
 
@@ -167,8 +172,8 @@ class LiveEventOnboarding extends Component {
 		}
 	}
 
-	saveSessionData() {
-
+	nextStep() {
+		this.setState({displayWelcome: false});
 	}
 
 	render() {
@@ -178,45 +183,14 @@ class LiveEventOnboarding extends Component {
 
 		return (
 				<div id="app-live-event-onboarding">
-					{this.state.loginPage ? (
+					{this.state.displayWelcome ? (
 						<div id="login-page"className="box-section">
-						<h1 className="box-title">Log in</h1>
-						<div className="onboarding-input-container">
-							<TextField
-								error={!this.state.isUsernameValid}
-								id="username"
-								label="Email address"
-								value={this.state.username}
-								onChange={this.handleChange('username')}
-								type="email"
-								margin="normal"
-								className="onboarding-input"
-							/>
+							<div><img className="bal-logo" src={balLogo}/></div>
+							<div><img className="aqua-logo" src={aquafeeriaLogo}/></div>
+							<h2 className="welcome-text-1">Prin această platformă te poți angaja să faci o donație, indiferent de sumă, pentru cauzele susținute de Fundația Serviciilor Sociale Bethany.</h2>
+							<h2 className="welcome-text-2"> Îți mulțumim pentru generozitate!</h2>
+							<div className="arrow-container"><ScrollDownIndicator onClick={this.nextStep.bind(this)} /></div>
 						</div>
-						<div className="onboarding-input-container">
-							<TextField
-								error={!this.state.isPasswordValid}
-								id="password"
-								label="Password"
-								type="password"
-								value={this.state.password}
-								onChange={this.handleChange('password')}
-								margin="normal"
-								className="onboarding-input"
-							/>
-						</div>
-						<div className="onboarding-input-container">
-							<Button onClick={this.signIn.bind(this)} variant="contained" color="primary" className="onboarding-btn">
-								Log in
-							</Button>
-						</div>
-						<div className="error-messages">
-							{errorMessages}
-						</div>
-						<div className="onboarding-input-container">
-							<div className="onboarding-switch">New to GoHelpFund? <a onClick={this.switchPage.bind(this)}>Sign Up</a></div>
-						</div>
-					</div>
 					) : (
 						<div id="login-page"className="box-section">
 						<h1 className="box-title">Date de contact donator</h1>

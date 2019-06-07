@@ -14,10 +14,14 @@
   display: table-cell;
   vertical-align: middle;
 }
+#app-live-event-success > div > img {
+  max-width: 150px;
+}
 #app-live-event-success h1 {
+  margin-top: 50px;
   margin-bottom: 30px;
   color: #fff;
-  font-size: 20px;
+  font-size: 25px;
 }
 #app-live-event-success h2 {
   margin-top: 20px;

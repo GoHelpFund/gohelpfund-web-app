@@ -36,11 +36,11 @@ class LiveEventDonate extends Component {
 
     url = url.replace('{eventId}', 'bal81764-bea1-4249-b86d-f8fb8182eec1');
 
+    let that = this;
+
     axios.post(url, params, config)
       .then(response => {
-        this.props.history.push({
-          pathname: '/live-event-success/'
-        })
+        window.location.pathname = '/live-event-success';
         console.log(response);
       })
       .catch(function(error) {

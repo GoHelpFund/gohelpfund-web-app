@@ -26,6 +26,9 @@
 #app-live-event-onboarding .onboarding-input-container::before {
   border-color: #fff !important;
 }
+#app-live-event-onboarding .onboarding-input-container input {
+  color: #fff;
+}
 #app-live-event-onboarding .onboarding-btn {
   background: #cc3333;
   text-transform: initial;
@@ -47,4 +50,29 @@
 }
 #app-live-event-onboarding .MuiInput-underline-21:before {
   border-bottom: 2px solid #00ffff;
+}
+#app-live-event-onboarding .bal-logo {
+  max-width: 150px;
+}
+#app-live-event-onboarding .aqua-logo {
+  max-width: 250px;
+  margin-top: 30px;
+}
+#app-live-event-onboarding .welcome-text-1 {
+  color: #fff;
+  margin-top: 50px;
+  font-size: 13px;
+}
+#app-live-event-onboarding .welcome-text-2 {
+  color: #fff;
+  margin-top: 20px;
+  font-size: 11px;
+}
+#app-live-event-onboarding .arrow-container {
+  text-align: -webkit-auto;
+}
+#app-live-event-onboarding .arrow-container > div {
+  position: relative;
+  margin-top: 49px;
+  cursor: pointer;
 }
