@@ -1,0 +1,71 @@
+#app-live-event-admin {
+    background: url('../../assets/images/event-bg-mobile.png');
+    background-size: cover;
+    text-align: center;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 35px;
+    display: table;
+  
+    > div {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .amount-field {
+      background : rgba(0, 56, 179, 0.7);
+      border: none;
+      border-radius: 15px;
+      height: 50px;
+      min-width: 200px;
+      color: #fff;
+      font-size: 20px;
+      padding: 10px;
+  
+      input {
+        text-align: center;
+      }
+    }
+
+    .donate-btn {
+      background: #cc3333;
+      text-transform: initial;
+      border-radius: 15px;
+      margin: 35px 0;
+      font-weight: normal;
+      font-size: 20px;
+      padding: 12px 40px;
+      height: 100%;
+      border: none;
+      
+      &:hover, &:active {
+          background: lighten(#cc3333, 5%);
+          cursor: pointer;
+      }
+  
+      &[disabled] {
+        color: white;
+        background: lighten(#cc3333, 15%);
+        cursor: not-allowed;
+      }
+  }
+
+    .server-message {
+      margin-top: 25px;
+      font-size: 18px;
+      font-weight: bold;
+      background : rgba(0, 56, 179, 0.4);
+      color: #fff;
+    }
+
+    .checkbox-container {
+      margin-top: 25px;
+
+      span {
+        color: #fff;
+      }
+    }
+}
