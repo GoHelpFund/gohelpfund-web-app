@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputLabel from '@material-ui/core/InputLabel';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import { ScrollDownIndicator } from 'react-landing-page';
@@ -30,8 +34,12 @@ class LiveEventOnboarding extends Component {
 			isUsernameValid: true,
 			isPasswordValid: true,
 			errorMessages: [],
-			displayWelcome: true
+			displayWelcome: true,
+			type: 'natural'
 		}
+
+		localStorage.removeItem('totalDonated');
+		localStorage.removeItem('userName');
 	}
 
 	handleChange = name => event => {
@@ -51,31 +59,6 @@ class LiveEventOnboarding extends Component {
 		this.props.updateLoginState(true);
 	}
 
-	signIn() {
-		if (this.validateLoginFields()) {
-			let url = EndPoints.postSignInUrl;
-			let params = {
-				username: this.state.username,
-				password: this.state.password,
-				grant_type: 'password',
-			};
-			let auth =  {
-				auth: {
-					username: 'gohelpfund',
-					password: 'ghfsecret'
-				}
-			}
-			var that = this;
-			axios.post(url, params, auth)
-				.then(response => {
-					this.setLoginData(response.data);
-				})
-				.catch(function(error) {
-					console.log(error);
-				});
-		}
-	}
-
 	signUp() {
 		if(this.validateSignUpFields()) {
 			let url = EndPoints.postSignUpUrl + '?event=bal81764-bea1-4249-b86d-f8fb8182eec1&table=' + this.state.tableNumber;
@@ -83,7 +66,8 @@ class LiveEventOnboarding extends Component {
 				username: this.state.username,
 				email: this.state.username,
 				password: this.state.password,
-				name: this.state.name
+				name: this.state.name,
+				type: this.state.type
 			};
 			let appToken = localStorage.getItem('appToken');
 			let auth =  {
@@ -92,6 +76,7 @@ class LiveEventOnboarding extends Component {
 					password: 'ghfsecret'
 				}
 			}
+			localStorage.setItem('userName', this.state.name);
 			var that = this;
 			axios.post(url, params, auth)
 				.then(response => {
@@ -103,70 +88,26 @@ class LiveEventOnboarding extends Component {
 		}
 	}
 
-	validateLoginFields() {
-		let errorMessages = [];
-		let isPasswordValid = true;
-		let isUsernameValid = true;
-
-
-		isPasswordValid = this.state.password && this.state.password.length >= 6;
-		isUsernameValid = this.state.username && !!this.state.username.match(/.+@.+\..+/);
-
-		if(!isUsernameValid) {
-			errorMessages.push('Introduceți o adresă de email validă');
-		}
-
-		if(!isPasswordValid) {
-			errorMessages.push('Parola trebuie să aibă minim 6 caractere');
-		}
-
-		
-
-		if(isUsernameValid && isPasswordValid) {
-			this.setState({
-				errorMessages: errorMessages,
-				isUsernameValid: isUsernameValid,
-				isPasswordValid: isPasswordValid
-			});
-			return true;
-		} else {
-			this.setState({
-				errorMessages: errorMessages,
-				isUsernameValid: isUsernameValid,
-				isPasswordValid: isPasswordValid
-			});
-			return false;
-		}
-	}
-
 	validateSignUpFields() {
 		let errorMessages = [];
-		let isPasswordValid = true;
 		let isUsernameValid = true;
 
-		isPasswordValid = this.state.password && this.state.password.length >= 6;
 		isUsernameValid = this.state.username && !!this.state.username.match(/.+@.+/);
 
 		if(!isUsernameValid) {
 			errorMessages.push('Introduceți o adresă de email validă');
 		}
 
-		if(!isPasswordValid) {
-			errorMessages.push('Parola trebuie să aibă minim 6 caractere');
-		}
-
-		if(isUsernameValid && isPasswordValid) {
+		if(isUsernameValid) {
 			this.setState({
 				errorMessages: errorMessages,
 				isUsernameValid: isUsernameValid,
-				isPasswordValid: isPasswordValid,
 			});
 			return true;
 		} else {
 			this.setState({
 				errorMessages: errorMessages,
 				isUsernameValid: isUsernameValid,
-				isPasswordValid: isPasswordValid,
 			});
 			return false;
 		}
@@ -216,19 +157,6 @@ class LiveEventOnboarding extends Component {
 						</div>
 						<div className="onboarding-input-container">
 							<TextField
-								error={!this.state.isPasswordValid}
-								id="password"
-								label="Parolă"
-								type="password"
-								value={this.state.password}
-								onChange={this.handleChange('password')}
-								margin="normal"
-								className="onboarding-input"
-							/>
-						</div>
-						<div className="onboarding-input-container">
-							<TextField
-								error={!this.state.isPasswordValid}
 								id="table-number"
 								label="Număr masă"
 								type="number"
@@ -237,6 +165,17 @@ class LiveEventOnboarding extends Component {
 								margin="normal"
 								className="onboarding-input"
 							/>
+							</div>
+							<div className="onboarding-input-container select-container">
+							 <FormControl>
+								<InputLabel htmlFor="age-simple">Contribui prin</InputLabel>
+								<Select
+									value={this.state.type}
+									onChange={this.handleChange('type')}>
+									<MenuItem value={'natural'}>Donație (persoană fizică)</MenuItem>
+									<MenuItem value={'legal'}>Sponsorizare (persoană juridică)</MenuItem>
+								</Select>
+							</FormControl>
 						</div>
 						<div className="onboarding-input-container">
 							<Button onClick={this.signUp.bind(this)} variant="contained" color="primary" className="onboarding-btn">

@@ -76,3 +76,13 @@
   margin-top: 49px;
   cursor: pointer;
 }
+#app-live-event-onboarding .select-container {
+  margin-top: 10px;
+}
+#app-live-event-onboarding .select-container div {
+  color: #fff;
+  text-align: left;
+}
+#app-live-event-onboarding .select-container svg {
+  color: #fff;
+}

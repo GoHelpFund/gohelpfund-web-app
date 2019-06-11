@@ -9,8 +9,9 @@ import './style.css';
 class LiveEventDonate extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      amount: 10,
+      amount: 200,
       isChecked: false
     }
   }
@@ -40,6 +41,7 @@ class LiveEventDonate extends Component {
 
     axios.post(url, params, config)
       .then(response => {
+        localStorage.setItem('totalDonated', response.data.total_amount_donated);
         window.location.pathname = '/live-event-success';
         console.log(response);
       })
@@ -49,11 +51,15 @@ class LiveEventDonate extends Component {
   }
 
   render() {
+    const userName = localStorage.getItem('userName');
+    const totalDonated = localStorage.getItem('totalDonated');
+    const thanksMessage = totalDonated ? <span className="thanks-message"> Până acum ai donat <span className="donated-amount">{totalDonated} RON</span>. Îți mulțumim!</span> : <span> Orice sumă donată ne aduce mai aproape de o lume așa cum ne dorim.</span>;
     return(
       <div id="app-live-event-donate">
         <div>
-          <h2>Orice sumă donată ne aduce mai aproape de o lume așa cum ne dorim.</h2>
-          <h3>Donez suma de:</h3>
+          <div className="welcome-message">Bine ai venit<span className="user-name">{' ' + userName}!</span>{thanksMessage}</div>
+          {/* <h2>Orice sumă donată ne aduce mai aproape de o lume așa cum ne dorim.</h2> */}
+          <h3>Suma donată în RON:</h3>
           <InputNumber
             defaultValue={this.state.amount}
             formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
@@ -62,7 +68,7 @@ class LiveEventDonate extends Component {
             className="amount-field"
           />
           <div className="checkbox-container">
-            <Checkbox onChange={this.toggleCheckbox.bind(this)}>Mă angajez să virez suma de €{this.state.amount} în contul 
+            <Checkbox onChange={this.toggleCheckbox.bind(this)}>Mă angajez să virez suma de {this.state.amount} RON în contul 
 Fundației Serviciilor Sociale Bethany 
 până la data de 30 iunie 2019.</Checkbox>
           </div>
