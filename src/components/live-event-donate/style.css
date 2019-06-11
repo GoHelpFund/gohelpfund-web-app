@@ -17,6 +17,7 @@
 #app-live-event-donate h2 {
   margin: 30px 0;
   color: #fff;
+  font-size: 17px;
 }
 #app-live-event-donate .checkbox-container {
   margin: 30px 0;
@@ -64,4 +65,12 @@
 }
 #app-live-event-donate .amount-field input {
   text-align: center;
+}
+#app-live-event-donate .welcome-message {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+#app-live-event-donate .welcome-message .user-name,
+#app-live-event-donate .welcome-message .donated-amount {
+  font-weight: bold;
 }
