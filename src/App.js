@@ -39,7 +39,7 @@ class App extends Component {
   }
 
   render() {
-    const liveEventsPage = window.location ? (window.location.pathname == '/live-event' || window.location.pathname == '/live-event-success' || window.location.pathname == '/live-event-display') : false;
+    const liveEventsPage = window.location ? (window.location.pathname == '/live-event' || window.location.pathname == '/live-event-success' || window.location.pathname == '/live-event-display' || window.location.pathname == '/live-event-admin') : false;
     const header = !liveEventsPage ? <Header isLoggedIn={this.state.isLoggedIn} updateLoginState={this.updateLoginState} /> : '';
     return (
       <React.Fragment>
