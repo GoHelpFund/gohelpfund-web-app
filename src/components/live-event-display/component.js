@@ -19,8 +19,7 @@ class LiveEventDisplay extends Component {
     componentWillMount() {
       let url = EndPoints.getAuthorizationToken;
       let data = {
-        grant_type: 'client_credentials',
-        scope: 'web-client'
+        grant_type: 'client_credentials'
       };
       let auth =  {
         auth: {
@@ -40,7 +39,7 @@ class LiveEventDisplay extends Component {
         });
     }
 
-    getEventData() {
+    getEventData = () => {
         let url = EndPoints.getEventDataUrl;
         let appToken = localStorage.getItem('appToken');
         let config = {
@@ -52,7 +51,8 @@ class LiveEventDisplay extends Component {
     
         axios.get(url, config)
           .then(response => {
-            that.setState({amount: response.data.wallet.promise.balance});
+            let newAmount = response.data.wallet.promise.balance;
+            this.setState({amount: newAmount});
             console.log(response.data);
           })
           .catch(function(error) {
