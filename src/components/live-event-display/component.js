@@ -13,7 +13,7 @@ class LiveEventDisplay extends Component {
         this.state={
           amount: 0
         }
-        setInterval(this.getEventData, 30000);
+        setInterval(this.getEventData, 10000);
     }
 
     componentWillMount() {
@@ -52,7 +52,7 @@ class LiveEventDisplay extends Component {
     
         axios.get(url, config)
           .then(response => {
-            this.setState({amount: response.data.wallet.promise.balance});
+            that.setState({amount: response.data.wallet.promise.balance});
             console.log(response.data);
           })
           .catch(function(error) {

@@ -12,7 +12,8 @@ class LiveEventDonate extends Component {
 
     this.state = {
       amount: 200,
-      isChecked: false
+      isChecked: false,
+      disableBtn: false
     }
   }
 
@@ -25,6 +26,7 @@ class LiveEventDonate extends Component {
   }
 
   donate() {
+    this.setState({disableBtn: true});
     const { cookies } = this.props;
     let appToken = cookies.get('accessToken');
     let url = EndPoints.postEventDonateUrl;
@@ -53,7 +55,7 @@ class LiveEventDonate extends Component {
   render() {
     const userName = localStorage.getItem('userName');
     const totalDonated = localStorage.getItem('totalDonated');
-    const thanksMessage = totalDonated ? <span className="thanks-message"> Până acum ai donat <span className="donated-amount">{totalDonated} RON</span>. Îți mulțumim!</span> : <span> Orice sumă donată ne aduce mai aproape de o lume așa cum ne dorim.</span>;
+    const thanksMessage = totalDonated ? <div className="thanks-message"> Până acum ai donat <span className="donated-amount">{totalDonated} RON</span>. Îți mulțumim!</div> : <div> Orice sumă donată ne aduce mai aproape de o lume așa cum ne dorim.</div>;
     return(
       <div id="app-live-event-donate">
         <div>
@@ -72,7 +74,7 @@ class LiveEventDonate extends Component {
 Fundației Serviciilor Sociale Bethany 
 până la data de 30 iunie 2019.</Checkbox>
           </div>
-          <Button className="donate-btn" variant="contained" type="primary" disabled={!this.state.isChecked} onClick={this.donate.bind(this)}>Finalizează angajamentul</Button>
+          <Button className="donate-btn" variant="contained" type="primary" disabled={!this.state.isChecked || this.state.disableBtn} onClick={this.donate.bind(this)}>Finalizează angajamentul</Button>
         </div>
       </div>
     );
