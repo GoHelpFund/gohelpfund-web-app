@@ -13,8 +13,31 @@ class LiveEventDisplay extends Component {
         this.state={
           amount: 0
         }
-        this.getEventData();
         setInterval(this.getEventData, 30000);
+    }
+
+    componentWillMount() {
+      let url = EndPoints.getAuthorizationToken;
+      let data = {
+        grant_type: 'client_credentials',
+        scope: 'web-client'
+      };
+      let auth =  {
+        auth: {
+          username: 'gohelpfund',
+          password: 'ghfsecret'
+        }
+      }
+      var that = this;
+      axios.post(url, data, auth)
+        .then(response => {
+          localStorage.setItem('appToken', response.data.access_token);
+          that.getEventData();
+          console.log(response);
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
 
     getEventData() {
@@ -39,7 +62,8 @@ class LiveEventDisplay extends Component {
 
     render() {
         let amount = this.state.amount;
-        let euroAmount = amount / 4.75;
+        amount = parseInt(amount);
+        let euroAmount = parseInt(amount / 4.75);
         euroAmount = euroAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         let ronAmount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         
