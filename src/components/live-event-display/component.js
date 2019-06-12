@@ -14,7 +14,7 @@ class LiveEventDisplay extends Component {
           amount: 0
         }
         this.getEventData();
-        setInterval(this.getEventData, 100000);
+        setInterval(this.getEventData, 30000);
     }
 
     getEventData() {
@@ -38,9 +38,19 @@ class LiveEventDisplay extends Component {
       }
 
     render() {
+        let amount = this.state.amount;
+        let euroAmount = amount / 4.75;
+        euroAmount = euroAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        let ronAmount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        
         return(
             <div id="app-live-event-display">
-              <div>€{this.state.amount}</div>
+              <div>
+                <div className="display-heading">Total donații până în prezent:</div>
+                <div className="euro-amount">€{euroAmount}</div>
+                <div className="ron-amount">{ronAmount} RON</div>
+                <div className="thanks-heading">Vă mulțumim pentru generozitate!</div>
+              </div>
             </div>
         );
     }
