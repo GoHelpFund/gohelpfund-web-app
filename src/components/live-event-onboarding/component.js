@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import { instanceOf } from 'prop-types';
 import { withCookies, Cookies } from 'react-cookie';
 import { ScrollDownIndicator } from 'react-landing-page';
+import { Checkbox  } from 'antd';
 
 import balLogo from '../../assets/images/live-event/logo-bal.png';
 import aquafeeriaLogo from '../../assets/images/live-event/logo-aquafeeria.png';
@@ -35,7 +36,8 @@ class LiveEventOnboarding extends Component {
 			isPasswordValid: true,
 			errorMessages: [],
 			displayWelcome: true,
-			type: 'natural'
+			type: 'natural',
+			isChecked: false
 		}
 
 		localStorage.removeItem('totalDonated');
@@ -113,6 +115,10 @@ class LiveEventOnboarding extends Component {
 		}
 	}
 
+	toggleCheckbox() {
+    this.setState({isChecked: !this.state.isChecked});
+  }
+
 	nextStep() {
 		this.setState({displayWelcome: false});
 	}
@@ -177,8 +183,12 @@ class LiveEventOnboarding extends Component {
 								</Select>
 							</FormControl>
 						</div>
+						<div className="checkbox-container">
+            	<Checkbox onChange={this.toggleCheckbox.bind(this)}>DA, sunt de acord cu prelucrarea datelor personale în scop informativ. Datele vor fi
+șterse după finalizarea donației.</Checkbox>
+						</div>
 						<div className="onboarding-input-container">
-							<Button onClick={this.signUp.bind(this)} variant="contained" color="primary" className="onboarding-btn">
+							<Button onClick={this.signUp.bind(this)} disabled={!this.state.isChecked} variant="contained" color="primary" className="onboarding-btn">
 								Doresc să donez
 							</Button>
 						</div>
