@@ -36,6 +36,7 @@
 }
 #app-live-event-onboarding .onboarding-btn {
   background: #cc3333;
+  background-image: linear-gradient(#f16663, #ee2b47);
   text-transform: initial;
   border-radius: 15px;
   margin: 35px 0;
