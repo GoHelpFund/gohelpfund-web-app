@@ -28,6 +28,10 @@
 }
 #app-live-event-onboarding .onboarding-input-container input {
   color: #fff;
+  font-family: 'Noto Serif', serif;
+}
+#app-live-event-onboarding .onboarding-input-container label {
+  font-family: 'Noto Serif', serif;
 }
 #app-live-event-onboarding .onboarding-btn {
   background: #cc3333;
@@ -52,6 +56,7 @@
   font-size: 25px;
   text-transform: uppercase;
   color: #fff;
+  font-weight: bold;
 }
 #app-live-event-onboarding .MuiInput-underline-21:before {
   border-bottom: 2px solid #00ffff;
@@ -67,11 +72,14 @@
   color: #fff;
   margin-top: 50px;
   font-size: 13px;
+  padding: 0 20px;
 }
 #app-live-event-onboarding .welcome-text-2 {
   color: #fff;
   margin-top: 20px;
-  font-size: 11px;
+  padding: 0 40px;
+  font-size: 15px;
+  font-weight: bold;
 }
 #app-live-event-onboarding .arrow-container {
   text-align: -webkit-auto;
