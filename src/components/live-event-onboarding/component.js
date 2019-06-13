@@ -158,6 +158,7 @@ class LiveEventOnboarding extends Component {
 							<TextField
 								id="username"
 								label="Email"
+								type="email"
 								value={this.state.username}
 								onChange={this.handleChange('username')}
 								margin="normal"

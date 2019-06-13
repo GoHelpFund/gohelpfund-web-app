@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withCookies, Cookies } from 'react-cookie';
 import { InputNumber, Checkbox, Button  } from 'antd';
+import TextField from '@material-ui/core/TextField';
 import * as EndPoints from '../../utils/end-points';
 import axios from 'axios';
 
@@ -11,7 +12,7 @@ class LiveEventDonate extends Component {
     super(props);
 
     this.state = {
-      amount: 200,
+      amount: null,
       isChecked: false,
       disableBtn: false
     }
@@ -34,7 +35,7 @@ class LiveEventDonate extends Component {
       headers: {'Authorization': "Bearer " + appToken}
     };
     let params = {
-      amount: this.state.amount
+      amount: this.state.amount ? this.state.amount : 200
     };
 
     url = url.replace('{eventId}', 'bal81764-bea1-4249-b86d-f8fb8182eec1');
@@ -65,13 +66,15 @@ class LiveEventDonate extends Component {
           <h3>Suma donată în RON:</h3>
           <InputNumber
             defaultValue={this.state.amount}
-            formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            parser={value => value.replace(/\€\s?|(,*)/g, '')}
             onChange={this.onChange.bind(this)}
+            type="number"
+            placeholder="200"
+            min={1}
+            max={50000}
             className="amount-field"
           />
           <div className="checkbox-container">
-            <Checkbox onChange={this.toggleCheckbox.bind(this)}>Mă angajez să virez suma de {this.state.amount} RON în contul <strong>Fundației Serviciilor Sociale Bethany</strong> până la data de 30 iunie 2019.</Checkbox>
+            <Checkbox onChange={this.toggleCheckbox.bind(this)}>Mă angajez să virez suma de {this.state.amount ? this.state.amount : 200} RON în contul <strong>Fundației Serviciilor Sociale Bethany</strong> până la data de 30 iunie 2019.</Checkbox>
           </div>
           <Button className="donate-btn" variant="contained" type="primary" disabled={!this.state.isChecked || this.state.disableBtn} onClick={this.donate.bind(this)}>Finalizează angajamentul</Button>
         </div>
