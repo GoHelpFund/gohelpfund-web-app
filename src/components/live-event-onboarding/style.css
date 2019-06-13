@@ -29,8 +29,6 @@
 #app-live-event-onboarding .onboarding-input-container input {
   color: #fff;
   font-family: 'Noto Serif', serif;
-}
-#app-live-event-onboarding .onboarding-input-container input:before {
   border-bottom: 2px solid #00ffff;
 }
 #app-live-event-onboarding .onboarding-input-container label {
@@ -60,9 +58,6 @@
   text-transform: uppercase;
   color: #fff;
   font-weight: bold;
-}
-#app-live-event-onboarding .jss25:before {
-  border-bottom: 2px solid #00ffff;
 }
 #app-live-event-onboarding .bal-logo {
   max-width: 150px;
@@ -94,6 +89,9 @@
 }
 #app-live-event-onboarding .select-container {
   margin-top: 10px;
+}
+#app-live-event-onboarding .select-container > div {
+  border-bottom: 2px solid #00ffff;
 }
 #app-live-event-onboarding .select-container div {
   color: #fff;
