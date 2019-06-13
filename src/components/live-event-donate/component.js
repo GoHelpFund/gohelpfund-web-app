@@ -48,6 +48,7 @@ class LiveEventDonate extends Component {
         console.log(response);
       })
       .catch(function(error) {
+        that.setState({disableBtn: false});
         console.log(error);
       });
   }

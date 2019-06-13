@@ -30,6 +30,9 @@
   color: #fff;
   font-family: 'Noto Serif', serif;
 }
+#app-live-event-onboarding .onboarding-input-container input:before {
+  border-bottom: 2px solid #00ffff;
+}
 #app-live-event-onboarding .onboarding-input-container label {
   font-family: 'Noto Serif', serif;
 }
@@ -58,7 +61,7 @@
   color: #fff;
   font-weight: bold;
 }
-#app-live-event-onboarding .MuiInput-underline-21:before {
+#app-live-event-onboarding .jss25:before {
   border-bottom: 2px solid #00ffff;
 }
 #app-live-event-onboarding .bal-logo {
