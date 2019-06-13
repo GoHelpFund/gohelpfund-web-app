@@ -25,6 +25,11 @@
 #app-live-event-donate .checkbox-container span {
   color: #fff;
 }
+#app-live-event-donate input[type=number]::-webkit-inner-spin-button,
+#app-live-event-donate input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 #app-live-event-donate .donate-btn {
   background: #cc3333;
   background-image: linear-gradient(#f16663, #ee2b47);
