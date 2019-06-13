@@ -9,6 +9,7 @@
   margin: 0 auto;
   padding: 35px;
   display: table;
+  font-family: 'Noto Serif', serif;
 }
 #app-live-event-success > div {
   display: table-cell;
@@ -27,4 +28,7 @@
   margin-top: 20px;
   color: #fff;
   font-size: 15px;
+}
+#app-live-event-success h2:first-of-type {
+  font-weight: bold;
 }

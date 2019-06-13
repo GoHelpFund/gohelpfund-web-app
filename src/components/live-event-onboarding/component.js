@@ -134,7 +134,7 @@ class LiveEventOnboarding extends Component {
 						<div id="login-page"className="box-section">
 							<div><img className="bal-logo" src={balLogo}/></div>
 							<div><img className="aqua-logo" src={aquafeeriaLogo}/></div>
-							<h2 className="welcome-text-1">Prin această platformă te poți angaja să faci o donație, indiferent de sumă, pentru cauzele susținute de Fundația Serviciilor Sociale Bethany.</h2>
+							<h2 className="welcome-text-1">Prin această platformă te poți angaja să faci o donație, indiferent de sumă, pentru cauzele susținute de <strong>Fundația Serviciilor Sociale Bethany</strong>.</h2>
 							<h2 className="welcome-text-2"> Îți mulțumim pentru generozitate!</h2>
 							<div className="arrow-container"><ScrollDownIndicator onClick={this.nextStep.bind(this)} /></div>
 						</div>

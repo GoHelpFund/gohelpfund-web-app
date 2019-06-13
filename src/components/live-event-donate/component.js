@@ -70,9 +70,7 @@ class LiveEventDonate extends Component {
             className="amount-field"
           />
           <div className="checkbox-container">
-            <Checkbox onChange={this.toggleCheckbox.bind(this)}>Mă angajez să virez suma de {this.state.amount} RON în contul 
-Fundației Serviciilor Sociale Bethany 
-până la data de 30 iunie 2019.</Checkbox>
+            <Checkbox onChange={this.toggleCheckbox.bind(this)}>Mă angajez să virez suma de {this.state.amount} RON în contul <strong>Fundației Serviciilor Sociale Bethany</strong> până la data de 30 iunie 2019.</Checkbox>
           </div>
           <Button className="donate-btn" variant="contained" type="primary" disabled={!this.state.isChecked || this.state.disableBtn} onClick={this.donate.bind(this)}>Finalizează angajamentul</Button>
         </div>
