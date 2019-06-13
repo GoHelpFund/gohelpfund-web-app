@@ -37,7 +37,8 @@ class LiveEventOnboarding extends Component {
 			errorMessages: [],
 			displayWelcome: true,
 			type: 'natural',
-			isChecked: false
+			isChecked: false,
+			disableBtn: false
 		}
 
 		localStorage.removeItem('totalDonated');
@@ -63,6 +64,7 @@ class LiveEventOnboarding extends Component {
 
 	signUp() {
 		if(this.validateSignUpFields()) {
+			this.setState({disableBtn: true});
 			let url = EndPoints.postSignUpUrl + '?event=bal81764-bea1-4249-b86d-f8fb8182eec1&table=' + this.state.tableNumber;
 			let params = {
 				username: this.state.username,
@@ -85,6 +87,7 @@ class LiveEventOnboarding extends Component {
 					this.setLoginData(response.data);
 				})
 				.catch(function(error) {
+					that.setState({disableBtn: false});
 					console.log(error);
 				});
 		}
@@ -188,7 +191,7 @@ class LiveEventOnboarding extends Component {
 șterse după finalizarea donației.</Checkbox>
 						</div>
 						<div className="onboarding-input-container">
-							<Button onClick={this.signUp.bind(this)} disabled={!this.state.isChecked} variant="contained" color="primary" className="onboarding-btn">
+							<Button onClick={this.signUp.bind(this)} disabled={!this.state.isChecked || this.state.disableBtn} variant="contained" color="primary" className="onboarding-btn">
 								Doresc să donez
 							</Button>
 						</div>
