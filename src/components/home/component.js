@@ -9,13 +9,18 @@ import ScrollableAnchor from 'react-scrollable-anchor';
 import Illustration from '../../assets/images/illustration.svg';
 
 import './style.css';
+import {Layout} from "antd";
+
+const { Header, Content, Footer } = Layout;
 
 class Home extends Component {
 
   render() {
     return (
-      <div id="app-home">
-        <Hero
+        <Layout className="layout">
+          <Content style={{ padding: '0 300px' }}>
+         <div id="app-home">
+            <Hero
           color='white'
           bg='#F5F6FA'
           // backgroundImage={BackgroundImage}
@@ -47,10 +52,13 @@ class Home extends Component {
           <ScrollDownIndicator />
         </a>
         </Hero>
-        <ScrollableAnchor id={'app-campaign-list-container'}>
+            <ScrollableAnchor id={'app-campaign-list-container'}>
           <CampaignList />
         </ScrollableAnchor>
-      </div>
+              </div>
+          </Content>
+          <Footer style={{ textAlign: 'center' }}>GoHelpFund ©2019</Footer>
+        </Layout>
     );
   }
 }

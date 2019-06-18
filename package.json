@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "npm": "^6.9.0",
     "@aws-amplify/cli": "^0.1.18",
     "@material-ui/core": "^1.3.0",
-    "antd": "^3.15.2",
+    "antd": "^3.19.1",
+    "rc-queue-anim": "^1.6.12",
     "autosuggest-highlight": "^3.1.1",
     "aws-amplify": "^1.0.8",
     "aws-amplify-react": "^2.0.0",
@@ -34,8 +36,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "docker:build": "docker build -t gohelpfund/ghf-web-app:${BUILD_NAME} .",
-    "docker:push": "docker push gohelpfund/ghf-web-app:${BUILD_NAME}",
+    "docker:build": "docker build -t gohelpfund/ghf-web-app:latest .",
+    "docker:push": "docker push gohelpfund/ghf-web-app:latest",
     "docker:deploy:local": "docker-compose -f docker/local-web/docker-compose.yml up",
     "docker:deploy:dev": "ecs-cli compose --file docker/dev-web/docker-compose.yml up",
     "docker:deploy:prod": "ecs-cli compose --file docker/prod-web/docker-compose.yml up"

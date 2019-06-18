@@ -3,10 +3,10 @@ ghf-web-app:
   mem_limit: 553741824
   ports:
   - "443:443"
+  - "80:80"
   environment:
     OPENSSL_KEY:            $HTTPS_OPENSSL_KEY
     OPENSSL_IV:             $HTTPS_OPENSSL_IV
     PROFILE: "dev-web"
     PLATFORM_ENV: "dev"
-    SERVER_PORT: "443"
     REST_API_URI: "http://dev-api.gohelpfund.com"

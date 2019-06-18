@@ -13,6 +13,7 @@ import Header from './components/header/component';
 import Home from './components/home/component';
 import CampaignDetails from './components/campaign-details/component';
 import CreateCampaign from './components/create-campaign/component';
+import CreateCampaignAnt from './components/create-campaign-ant/component';
 import Onboarding from './components/onboarding/component';
 
 class App extends Component {
@@ -45,6 +46,7 @@ class App extends Component {
             <Route path="/home" component={Home} />
             <Route path="/campaign-details" component={CampaignDetails} />
             <Route path="/create-campaign" component={CreateCampaign} />
+            <Route path="/create-campaign-ant" component={CreateCampaignAnt} />
             <Route path="/onboarding" render={(props) => <Onboarding {...props} updateLoginState={this.updateLoginState} />} />
           </div>
         </CookiesProvider>

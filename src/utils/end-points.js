@@ -1,7 +1,8 @@
-
 import * as EnvConfig from '../env-config';
 
-export const baseUrl = 'https://' + EnvConfig.env + '.gohelpfund.com/v1/';
+export const ssl_enabled = true;
+export const uri_scheme = ssl_enabled ? 'https' : 'http';
+export const baseUrl = uri_scheme + ':' + EnvConfig.env_authority;
  
 export const getAuthorizationToken = baseUrl + 'auth/oauth/token';
 export const getCampainsUrl = baseUrl + 'campaigns';

@@ -2,6 +2,7 @@ ghf-web-app:
   image: gohelpfund/ghf-web-app:${BUILD_NAME}
   ports:
   - "443:443"
+  - "80:80"
   environment:
     $NGINXSERVER_PORT:      "443"
     OPENSSL_KEY:            $HTTPS_OPENSSL_KEY
