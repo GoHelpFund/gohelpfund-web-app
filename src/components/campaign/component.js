@@ -18,6 +18,10 @@ const styles = {
   },
 };
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 class Campaign extends Component {
   constructor(props) {
     super(props);
@@ -35,7 +39,7 @@ class Campaign extends Component {
     const { loading } = this.state;
     const { classes } = this.props;
     const campaignData = this.props.data;
-    const percentage = campaignData.wallet.help.balance + 85;
+    const percentage = Math.trunc((campaignData.wallet.help.balance / campaignData.amount_goal) * 100);
     const progressStatus = percentage >= 100 ? "success" : "active"
 
     const daysLeft = Math.round(Math.abs((new Date(campaignData.start_date).getTime() - new Date(campaignData.end_date).getTime())/(24*60*60*1000)));
@@ -43,7 +47,6 @@ class Campaign extends Component {
     return (
 
       <div id="app-campaign">
-        <Switch checked={!loading} onChange={this.onChange} />
         <Skeleton loading={loading} active paragraph={{ rows: 7 }}>
           <div hidden={!loading}>
           </div>
@@ -78,7 +81,7 @@ class Campaign extends Component {
             <Progress percent={ percentage }  status={progressStatus}/>
           </div>
             <p align="center"><Button type="dashed" size="default">
-                Raised: {campaignData.wallet.help.balance} HELP
+                Raised: {numberWithCommas(campaignData.wallet.help.balance)} HELP
             </Button>
             </p>
         </Card>

@@ -57,7 +57,7 @@ class Home extends Component {
         </ScrollableAnchor>
               </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>GoHelpFund ©2019</Footer>
+          <Footer style={{ textAlign: 'center' }}>GoHelpFund ©2019 Help causes that matter to you</Footer>
         </Layout>
     );
   }

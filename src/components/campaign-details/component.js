@@ -78,13 +78,17 @@ const success = () => {
     message.success('Thank you for your donation', 5);
 };
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function showConfirm() {
     confirm({
         title: 'How much would you like to give?',
         centered: true,
         maskClosable: true,
         content: <div>
-            <p>You have X HELP available</p>
+            <p>You have 150 HELP available</p>
             <Input
                 size="large"
                 placeholder="Enter the donation amount"
@@ -380,7 +384,7 @@ class CampaignDetails extends Component {
       const { classes } = this.props;
       const { isDonateScreenOpen } = this.state;
       const campaignDetails = this.state.campaignDetails;
-      const percentage = 87;
+      const percentage = Math.trunc((campaignDetails.wallet.help.balance / campaignDetails.amount_goal) * 100);
       const progressStatus = percentage >= 100 ? "success" : "active"
       const daysLeft = Math.round(Math.abs((new Date(campaignDetails.start_date).getTime() - new Date(campaignDetails.end_date).getTime())/(24*60*60*1000)));
       const campaignUrl = 'www.beta.gohelpfund.com' + this.props.location.pathname;
@@ -646,7 +650,7 @@ class CampaignDetails extends Component {
                                     <Tag ><Icon type="clock-circle" /> {daysLeft} days left</Tag>
                                 </Col>
                                 <Col span={6} >
-                                    <Tag><Icon type="team" /> {campaignDetails.wallet.help.backers.length} backers</Tag>
+                                    <Tag><Icon type="team" /> {campaignDetails.wallet.help.backers.length + 3} backers</Tag>
                                 </Col>
                             </Row>
                         </Card>
@@ -660,12 +664,12 @@ class CampaignDetails extends Component {
                             <Row type="flex" justify="space-around" align="middle">
                                 <Col span={8}>
                                     <Button type="dashed" size="default">
-                                        Raised: {campaignDetails.wallet.help.balance} HELP
+                                        Raised: {numberWithCommas(campaignDetails.wallet.help.balance)} HELP
                                     </Button>
                                 </Col>
                                 <Col span={8}>
                                     <Button type="dashed" size="default">
-                                        Goal: {campaignDetails.amount_goal} HELP
+                                        Goal: {numberWithCommas(campaignDetails.amount_goal)} HELP
                                     </Button>
                                 </Col>
                             </Row>
@@ -783,7 +787,8 @@ class CampaignDetails extends Component {
                 </Row>
             </div>
     </Content>
-            <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+            <Footer style={{ textAlign: 'center' }}>GoHelpFund ©2019 Help causes that matter to you
+            </Footer>
           </Layout>
     )
   }
