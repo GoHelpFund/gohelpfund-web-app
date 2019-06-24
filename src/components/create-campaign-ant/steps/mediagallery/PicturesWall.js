@@ -1,7 +1,7 @@
 import React from "react";
 import compose from "recompose/compose";
 
-import {Icon, message, Modal, Select, Typography, Upload} from 'antd';
+import {Form, Icon, message, Modal, Select, Typography, Upload} from 'antd';
 
 const {Text} = Typography;
 const {Option} = Select;
@@ -26,7 +26,8 @@ class PicturesWall extends React.Component {
         previewVisible: false,
         previewImage: '',
         fileList: this.props.fileList,
-        selectedItem: this.props.selectedItem
+        selectedItem: this.props.selectedItem,
+        selectedItemStatus: (this.props.selectedItem !== undefined && this.props.selectedItem !== '') ? 'success' : 'validating'
     };
 
     handleCancel = () => {
@@ -43,11 +44,13 @@ class PicturesWall extends React.Component {
 
         if (this.state.selectedItem === file.uid) {
             const newSelectedItem = newFileList.length === 0 ? undefined : newFileList[0].uid;
+            const status = (newSelectedItem === undefined) ? 'validating' : 'success';
             this.setState({
                 fileList: newFileList,
-                selectedItem: newSelectedItem
+                selectedItem: newSelectedItem,
+                selectedItemStatus: status
             });
-            this.props.handleSelectChange(newSelectedItem);
+            this.props.handleSelectChange(newSelectedItem, status);
         } else {
             this.setState({
                 fileList: newFileList,
@@ -116,13 +119,15 @@ class PicturesWall extends React.Component {
     };
 
     handleSelectChange = selectedItem => {
-        console.log('select: ' + selectedItem);
-        this.setState({selectedItem});
-        this.props.handleSelectChange(selectedItem);
+        const status = (selectedItem === '') ? 'validating' : 'success';
+        this.setState({selectedItem,
+        selectedItemStatus: status
+        });
+        this.props.handleSelectChange(selectedItem, status);
     };
 
     render() {
-        const {previewVisible, previewImage, fileList, selectedItem} = this.state;
+        const {previewVisible, previewImage, fileList, selectedItem, selectedItemStatus} = this.state;
         const props = {
             action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
             name: 'file',
@@ -142,17 +147,22 @@ class PicturesWall extends React.Component {
 
         return (
             <div className="clearfix">
-                <Select
-                    placeholder="Select the campaign profile image."
-                    mode="default"
-                    onChange={this.handleSelectChange}
-                    value={selectedItem}
-                    style={{width: '100%', marginBottom: '20px'}}
-                >
-                    {fileList.map((item, index) => (
-                        <Option value={item.uid} key={item.uid}><Text code>{index + 1}</Text> {item.name}</Option>
-                    ))}
-                </Select>
+                <Form>
+                    <Form.Item hasFeedback validateStatus={selectedItemStatus}>
+                        <Select
+                            placeholder="Select the campaign profile image."
+                            mode="default"
+                            onChange={this.handleSelectChange}
+                            value={selectedItem}
+                            style={{width: '100%', marginBottom: '20px'}}
+                        >
+                            {fileList.map((item, index) => (
+                                <Option value={item.uid} key={item.uid}><Text code>{index + 1}</Text> {item.name}
+                                </Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                </Form>
                 <Dragger {...props}>
                     <p className="ant-upload-drag-icon">
                         <Icon type="cloud-upload"/>

@@ -1,6 +1,6 @@
 import React from "react";
 import compose from "recompose/compose";
-import {Col, Icon, Input, Row, Tooltip} from "antd";
+import {Col, Form, Icon, Input, Row, Tooltip} from "antd";
 import QueueAnim from "rc-queue-anim";
 import Step2 from "../../../../assets/images/campaigns/campaign-creation/step2.svg";
 
@@ -12,18 +12,25 @@ class Description extends React.Component {
 
         this.state = {
             title: (this.props.title === undefined) ? undefined : this.props.title,
-            description: (this.props.description === undefined) ? undefined : this.props.description
+            description: (this.props.description === undefined) ? undefined : this.props.description,
+            titleStatus: (this.props.title !== undefined && this.props.title !== '') ? 'success' : 'validating',
+            descriptionStatus: (this.props.description !== undefined && this.props.description !== '') ? 'success' : 'validating'
         };
     }
 
     handleValueChange = (event) => {
-        this.setState({[event.target.name]: event.target.value});
-        this.props.handleChange(event);
+        const status = (event.target.value === '') ? 'validating' : 'success';
+        const statusType = event.target.name + 'Status';
+        this.setState({
+            [event.target.name]: event.target.value,
+            [statusType]: status
+        });
+        this.props.handleChange(event, status);
     };
 
-    render(){
-        const {title, description} = this.state;
-        return(
+    render() {
+        const {title, description, titleStatus, descriptionStatus} = this.state;
+        return (
             <QueueAnim className="demo-content"
                        key="description"
                        type={['right', 'left']}
@@ -33,24 +40,23 @@ class Description extends React.Component {
                         <Col span={11}>
                             <h3>What problem do you have?</h3>
                             <br/>
-                            <Input placeholder="Campaign Title" style={{}}
-                                   name="title"
-                                   value={title}
-                                   onChange={(e) => this.handleValueChange(e)}
-                                   prefix={<Icon type="flag" style={{color: 'rgba(0,0,0,.25)'}}/>}
-                                   suffix={
-                                       <Tooltip title="Extra information">
-                                           <Icon type="info-circle" style={{color: 'rgba(0,0,0,.45)'}}/>
-                                       </Tooltip>
-                                   }
-                            />
-                            <br/>
-                            <TextArea placeholder={"Campaign Description"} rows={10}
-                                      name="description"
-                                      value={description}
-                                      onChange={(e) => this.handleValueChange(e)}
-                                      style={{margin: '16px 0'}}
-                            />
+                            <Form>
+                                <Form.Item hasFeedback validateStatus={titleStatus}>
+                                    <Input placeholder="Campaign Title"
+                                           name="title"
+                                           value={title}
+                                           onChange={(e) => this.handleValueChange(e)}
+                                           prefix={<Icon type="flag" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                                    />
+                                </Form.Item>
+                                <Form.Item hasFeedback validateStatus={descriptionStatus}>
+                                    <TextArea placeholder={"Campaign Description"} rows={10}
+                                              name="description"
+                                              value={description}
+                                              onChange={(e) => this.handleValueChange(e)}
+                                    />
+                                </Form.Item>
+                            </Form>
                         </Col>
                         <Col span={10} offset={2}>
                             <img alt="description-step"

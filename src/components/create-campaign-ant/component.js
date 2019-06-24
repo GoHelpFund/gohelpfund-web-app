@@ -5,7 +5,7 @@ import QueueAnim from 'rc-queue-anim';
 import {Link} from "react-router-dom";
 
 import './style.css';
-import {Button, Col, Icon, Layout, message, Row, Steps} from 'antd';
+import {Button, Col, Form, Icon, Layout, message, Row, Steps} from 'antd';
 
 import Category from './steps/category/component';
 import Description from './steps/description/component';
@@ -27,18 +27,54 @@ class CreateCampaignAnt extends React.Component {
 
         this.state = {
             currentStep: 0,
+            stepsStatus: [
+                {
+                    category: 'validating'
+                },
+                {
+                    title: 'validating',
+                    description: 'validating'
+                },
+                [
+                    {
+                        amount: 'validating',
+                        description: 'validating'
+                    }
+                ],
+                {
+                    dateInterval: 'validating',
+                    location: 'validating'
+                },
+                {
+                    profileImage: 'validating'
+                }
+            ],
+
             category: undefined,
+
             title: undefined,
             description: undefined,
+
             expenses: [],
             expensesForm: undefined,
+
             startDate: undefined,
             endDate: undefined,
             location: undefined,
+
             fileList: [],
             profileImage: undefined
         };
     }
+
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                console.log('Received values of form: ', values);
+            }
+        });
+    };
 
     handleFileListChange = (fileList) => {
         console.log('filelist', fileList);
@@ -47,75 +83,134 @@ class CreateCampaignAnt extends React.Component {
         })
     };
 
-    handleProfileImageChange = (selectedItem) => {
-        console.log('selectedItem', selectedItem);
+    handleProfileImageChange = (selectedItem, status) => {
         this.setState({
             profileImage: selectedItem
         })
+        this.updateStepStatus(4, 'profileImage', status);
     };
 
-    handleExpensesChange = (dynamicExpenses, dynamicForm) => {
+    handleExpensesChange = (dynamicExpenses, status, dynamicForm) => {
         console.log('expenses', dynamicExpenses);
         console.log('form', dynamicForm);
         this.setState({
             expenses: dynamicExpenses,
             expensesForm: dynamicForm
-        })
+        });
+        this.updateStepStatus(2, null, status);
     };
 
-    handleDateChange = (startDate, endDate) => {
+    handleDateChange = (startDate, endDate, status) => {
         this.setState({
             startDate: startDate,
             endDate: endDate
         })
+        this.updateStepStatus(3, 'dateInterval', status);
     };
 
-    handleChange = event => {
+    handleLocationChange = (event, status) => {
         if (event.target !== undefined) {
             this.setState({
                 [event.target.name]: event.target.value
-            })
-        } else {
-            this.setState({
-                category: event.props.value
-            })
+            });
+            this.updateStepStatus(3, event.target.name, status);
         }
     };
 
-    nextStep() {
-        const currentStep = this.state.currentStep + 1;
-        this.setState({currentStep});
+    handleCategoryChange = (category, status) => {
         this.setState({
-            show: !this.state.show
+            category: category
         });
-    }
+        this.updateStepStatus(0, 'category', status);
+    };
 
-    prevStep() {
+    handleDescriptionChange = (event, status) => {
+        if (event.target !== undefined) {
+            this.setState({
+                [event.target.name]: event.target.value
+            });
+            this.updateStepStatus(1, event.target.name, status);
+        }
+    };
+
+    updateStepStatus = (step, property, status) => {
+        let items = this.state.stepsStatus;
+        // 2. Make a shallow copy of the item you want to mutate
+        let item = {...items[step]};
+        // 3. Replace the property you're intested in
+        if (step === 2) {
+            item = status;
+        } else {
+            item[property] = status;
+        }
+        // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
+        items[step] = item;
+        // 5. Set the state to our new copy
+        this.setState({
+            stepsStatus: items
+        })
+    };
+
+
+    nextStep = event => {
+        const {currentStep, stepsStatus} = this.state;
+        const obj = stepsStatus[currentStep];
+
+
+        if (currentStep === 2) {
+            if (true) {
+                this.setState({
+                    show: !this.state.show,
+                    currentStep: currentStep + 1
+                });
+            } else {
+                message.warning('Please fill in all required fields', 2);
+            }
+        } else {
+            if (Object.keys(obj).map(k => obj[k]).every((val, i, arr) => val === 'success')) {
+                if (currentStep === 4) {
+                    message.success('Campaign created successfully')
+                } else {
+                    this.setState({
+                        show: !this.state.show,
+                        currentStep: currentStep + 1
+                    });
+                }
+            } else {
+                message.warning('Please fill in all required fields', 2);
+            }
+        }
+
+    };
+
+    prevStep = event => {
         const currentStep = this.state.currentStep - 1;
         this.setState({currentStep});
-    }
+    };
 
     render() {
         const {Step} = Steps;
         const steps = [
             {
                 title: 'Category',
+                id: 'category',
                 icon_type: "tags",
                 description: "choose the category that best fits your campaign",
                 render: () => (
                     <Category
-                        handleChange={this.handleChange}
+                        handleChange={this.handleCategoryChange}
                         category={this.state.category}
                     />
                 )
             },
             {
                 title: 'Description',
+                id: 'description',
                 icon_type: "question-circle",
                 description: "what problem do you have?",
                 render: () => (
                     <Description
-                        handleChange={this.handleChange}
+                        handleChange={this.handleDescriptionChange}
                         title={this.state.title}
                         description={this.state.description}
                     />
@@ -123,6 +218,7 @@ class CreateCampaignAnt extends React.Component {
             },
             {
                 title: 'Expenses',
+                id: 'expenses',
                 icon_type: "pie-chart",
                 description: "How much money do you need and how will you use it?",
                 render: () => (
@@ -135,12 +231,13 @@ class CreateCampaignAnt extends React.Component {
             },
             {
                 title: 'Date & Location',
+                id: 'datelocation',
                 icon_type: "clock-circle",
                 description: "When and where?",
                 render: () => (
                     <DateLocation
                         handleDateChange={this.handleDateChange}
-                        handleLocationChange={this.handleChange}
+                        handleLocationChange={this.handleLocationChange}
                         startDate={this.state.startDate}
                         endDate={this.state.endDate}
                         location={this.state.location}
@@ -149,6 +246,7 @@ class CreateCampaignAnt extends React.Component {
             },
             {
                 title: 'Media gallery',
+                id: 'mediagallery',
                 icon_type: "file-image",
                 description: "Upload images that could give a better understanding of the cause",
                 render: () => (
@@ -161,7 +259,7 @@ class CreateCampaignAnt extends React.Component {
                 )
             }
         ];
-        const {currentStep} = this.state;
+        const {currentStep, stepsStatus} = this.state;
 
         return (
             <Layout className="layout">
@@ -194,7 +292,7 @@ class CreateCampaignAnt extends React.Component {
                                     )}
                                     {currentStep > 0 && (
                                         <Col span={3}>
-                                            <Button block size="default" icon="left" onClick={() => this.prevStep()}>
+                                            <Button block size="default" icon="left" onClick={this.prevStep}>
                                                 Previous
                                             </Button>
                                         </Col>
@@ -202,7 +300,7 @@ class CreateCampaignAnt extends React.Component {
 
                                     {currentStep < steps.length - 1 && (
                                         <Col span={3}>
-                                            <Button block size="default" type="primary" onClick={() => this.nextStep()}>
+                                            <Button block size="default" type="primary" onClick={this.nextStep}>
                                                 Next <Icon type="right"/>
                                             </Button>
                                         </Col>
@@ -211,7 +309,7 @@ class CreateCampaignAnt extends React.Component {
                                     {currentStep === steps.length - 1 && (
                                         <Col span={3}>
                                             <Button block size="default" type="primary"
-                                                    onClick={() => message.success('Campaign created successfully')}>
+                                                    onClick={this.nextStep}>
                                                 Publish <Icon type="check"/>
                                             </Button>
                                         </Col>

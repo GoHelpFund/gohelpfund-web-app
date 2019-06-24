@@ -24,8 +24,8 @@ class MediaGallery extends React.Component {
         this.props.handleFileListChange(fileList);
     };
 
-    handleSelectChange = (selectedItem) => {
-        this.props.handleProfileImageChange(selectedItem);
+    handleSelectChange = (selectedItem, status) => {
+        this.props.handleProfileImageChange(selectedItem, status);
     };
 
     render() {

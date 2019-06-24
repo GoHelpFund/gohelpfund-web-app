@@ -28,8 +28,31 @@ class Expenses extends React.Component {
                 expensesKeys: finalKeys,
                 expensesValues: merged
             });
-            this.props.handleChange(merged, this.state.WrappedDynamicFieldSet);
+            this.props.handleChange(merged, this.getStatus(merged), this.state.WrappedDynamicFieldSet);
         }
+    };
+
+
+    getStatus = (dynamicExpenses) => {
+
+        const expenses = dynamicExpenses.slice();
+        let expensesStatus = new Array(expenses.length)
+            .fill({amount: "validating", description: "validating"});
+
+        expenses.forEach((el, i, arr) => {
+            if (el !== undefined) {
+                let obj = {amount: "validating", description: "validating"};
+                for (let [key, value] of Object.entries(el)) {
+                    if (value !== undefined && value !== '') {
+                        obj[key] = 'success';
+                    } else {
+                        obj[key] = 'validating';
+                    }
+                }
+                expensesStatus[i] = obj;
+            }
+        });
+        return expensesStatus;
     };
 
     handleExpensesChange = (dynamicExpenses, dynamicForm) => {
