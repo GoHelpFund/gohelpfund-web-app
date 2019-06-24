@@ -55,11 +55,6 @@ class Expenses extends React.Component {
         return expensesStatus;
     };
 
-    handleExpensesChange = (dynamicExpenses, dynamicForm) => {
-        this.props.handleChange(dynamicExpenses, dynamicForm);
-    };
-
-
     render() {
         const {WrappedDynamicFieldSet} = this.state;
         return (

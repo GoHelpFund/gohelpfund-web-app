@@ -1,5 +1,5 @@
 import compose from 'recompose/compose';
-import React from 'react';
+import React, {isValidElement} from 'react';
 import PropTypes from 'prop-types';
 import QueueAnim from 'rc-queue-anim';
 import {Link} from "react-router-dom";
@@ -21,9 +21,7 @@ class CreateCampaignAnt extends React.Component {
     constructor(props) {
         super(props);
 
-        message.config({
-            maxCount: 2,
-        });
+        this.messageConfig(1);
 
         this.state = {
             currentStep: 0,
@@ -66,6 +64,12 @@ class CreateCampaignAnt extends React.Component {
             profileImage: undefined
         };
     }
+
+    messageConfig = maxCount => {
+        message.config({
+            maxCount: maxCount,
+        });
+    };
 
     handleSubmit = e => {
         e.preventDefault();
@@ -151,41 +155,76 @@ class CreateCampaignAnt extends React.Component {
         })
     };
 
-
     nextStep = event => {
         const {currentStep, stepsStatus} = this.state;
         const obj = stepsStatus[currentStep];
 
-
-        if (currentStep === 2) {
-            if (true) {
-                this.setState({
-                    show: !this.state.show,
-                    currentStep: currentStep + 1
-                });
-            } else {
-                message.warning('Please fill in all required fields', 2);
-            }
-        } else {
-            if (Object.keys(obj).map(k => obj[k]).every((val, i, arr) => val === 'success')) {
-                if (currentStep === 4) {
-                    message.success('Campaign created successfully')
-                } else {
-                    this.setState({
-                        show: !this.state.show,
-                        currentStep: currentStep + 1
-                    });
-                }
-            } else {
-                message.warning('Please fill in all required fields', 2);
-            }
-        }
-
+        this.isValidStep(currentStep) ? this.proceed(currentStep) : this.invalidate(currentStep);
     };
 
     prevStep = event => {
         const currentStep = this.state.currentStep - 1;
         this.setState({currentStep});
+    };
+
+    isValidStep = currentStep => {
+        const {stepsStatus} = this.state;
+        const obj = stepsStatus[currentStep];
+
+        let valid = false;
+        if (currentStep === 2) {
+            valid = true;
+        } else {
+            if (Object.keys(obj).map(k => obj[k]).every((val, i, arr) => val === 'success')) {
+                valid = true;
+            }
+        }
+        return valid;
+    };
+
+    proceed = currentStep => {
+        switch(currentStep){
+            case 3:
+                this.messageConfig(2);
+                this.proceedShow(currentStep);
+                break;
+            case 4:
+                message.success('Campaign published successfully', 2);
+                break;
+            default:
+                this.proceedShow(currentStep);
+                break;
+        }
+    };
+
+    proceedShow = currentStep => {
+        this.setState({
+            show: !this.state.show,
+            currentStep: currentStep + 1
+        });
+    };
+
+    invalidate = currentStep => {
+        switch (currentStep) {
+            case 0:
+                message.error('Please select category', 2);
+                break;
+            case 1:
+                message.error('Please add title and description', 2);
+                break;
+            case 2:
+                message.error('Please add amount and description to all expenses', 2);
+                break;
+            case 3:
+                message.error('Please select date interval and location', 2);
+                break;
+            case 4:
+                message.error('Please select the campaign profile image', 2);
+                break;
+            default:
+                break;
+        }
+
     };
 
     render() {
