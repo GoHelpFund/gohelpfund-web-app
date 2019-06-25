@@ -12,7 +12,7 @@ const ExpenseInput = ({value: expenseData, name, onChange, handleRemove, handleC
     const triggerChange = changedData => {
         let data = Object.assign({}, expenseData, changedData);
         onChange(data);
-        handleChange(data);
+        handleChange(id, data);
 
     };
 
@@ -27,59 +27,50 @@ const ExpenseInput = ({value: expenseData, name, onChange, handleRemove, handleC
 
     const id = name;
 
-    const validate = (expenseData) => {
-        let status = 'validating';
-
-        if (expenseData.amount !== undefined && expenseData.amount !== '' && expenseData.description !== undefined && expenseData.description !== '') {
-            status = 'success';
-        }
-        return status;
-    };
-
     return (
-        <Form.Item
-            hasFeedback validateStatus={validate(expenseData)}
-            label={''}
-            style={{fontWeight: "bold"}}
-
-        >
-            <InputGroup size="default">
-                <Row gutter={4} type="flex" justify="space-around" align="middle">
-                    <Col span={6}>
-                        <Input placeholder="Amount"
-                               name="amount"
-                               defaultValue={expenseData.amount || undefined}
-                               onChange={e => handleValueChange(e)}
-                               prefix={<Icon type="pie-chart" style={{color: 'rgba(0,0,0,.25)'}}/>}
+        <InputGroup size="default">
+            <Row gutter={4} type="flex" justify="space-around" align="middle">
+                <Col span={6}>
+                    <Input placeholder="Amount"
+                           name="amount"
+                           defaultValue={expenseData.amount || undefined}
+                           onChange={e => handleValueChange(e)}
+                           prefix={<Icon type="pie-chart" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                    />
+                </Col>
+                <Col span={15}>
+                    <TextArea
+                        placeholder="Expense description"
+                        name="description"
+                        defaultValue={expenseData.description || undefined}
+                        onChange={e => handleValueChange(e)}
+                        autosize={{minRows: 1, maxRows: 3}}/>
+                </Col>
+                <Col span={3}>
+                    {id > 0 ? (
+                        <Icon
+                            className="dynamic-delete-button"
+                            type="minus-circle-o"
+                            onClick={e => onRemove(e)}
                         />
-                    </Col>
-                    <Col span={15}>
-                        <TextArea
-                            placeholder="Expense description"
-                            name="description"
-                            defaultValue={expenseData.description || undefined}
-                            onChange={e => handleValueChange(e)}
-                            autosize={{minRows: 1, maxRows: 3}}/>
-                    </Col>
-                    <Col span={3}>
-                        {id > 0 ? (
-                            <Icon
-                                className="dynamic-delete-button"
-                                type="minus-circle-o"
-                                onClick={e => onRemove(e)}
-                            />
-                        ) : null
-                        }
-                    </Col>
-                </Row>
-            </InputGroup>
-        </Form.Item>
+                    ) : null
+                    }
+                </Col>
+            </Row>
+        </InputGroup>
     );
 };
+
+let counter = 1;
 
 class DynamicFieldSet extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            expensesValues: this.props.expensesValues,
+            expensesKeys: this.props.expensesKeys
+        }
     }
 
     remove = k => {
@@ -91,9 +82,11 @@ class DynamicFieldSet extends React.Component {
             return;
         }
 
+        const newKeys = keys.filter(key => key !== k);
+
         // can use data-binding to set
         form.setFieldsValue({
-            keys: keys.filter(key => key !== k),
+            keys: newKeys
         });
     };
 
@@ -103,33 +96,65 @@ class DynamicFieldSet extends React.Component {
         // can use data-binding to get
         const keys = form.getFieldValue('keys');
 
-        const nextKeys = keys.concat(this.props.expensesKeys.length);
+        const nextKeys = keys.concat(counter++);
         // can use data-binding to set
         // important! notify form to detect changes
         form.setFieldsValue({
             keys: nextKeys,
         });
+
+        this.setState({
+            expensesKeys: nextKeys
+        });
     };
 
-    handleChange = (data) => {
+    handleChange = (key, data) => {
+        console.log(key);
         console.log(data);
+
+        let items = this.state.expensesValues;
+        // 3. Replace the property you're intested in
+        let item = Object.assign({}, item, data);
+        // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
+        items[key] = item;
+        // 5. Set the state to our new copy
+        this.setState({
+            expensesValues: items
+        })
+    };
+
+    validate = (expenseData) => {
+        let status = 'validating';
+
+        if (expenseData !== undefined && expenseData.amount !== undefined && expenseData.amount !== '' && expenseData.description !== undefined && expenseData.description !== '') {
+            status = 'success';
+        }
+        return status;
     };
 
     render() {
         const {getFieldDecorator, getFieldValue} = this.props.form;
-        let wat = getFieldDecorator('keys', {initialValue: this.props.expensesKeys});
+        const {expensesKeys, expensesValues} = this.state;
+
+        getFieldDecorator('keys', {initialValue: expensesKeys});
         const keys = getFieldValue('keys');
         const formItems = keys.map((k, index) => (
-            <div key={index}>
-                {getFieldDecorator(`expenses[${k}]`, {initialValue: this.props.expensesValues[k] !== undefined ? this.props.expensesValues[k] : {}})(
+            <Form.Item
+                hasFeedback validateStatus={this.validate(expensesValues[k])}
+                label={''}
+                style={{fontWeight: "bold"}}
+                key={k}
+
+            >
+                {getFieldDecorator(`expenses[${k}]`, {initialValue: expensesValues[k] !== undefined ? expensesValues[k] : {}})(
                     (<ExpenseInput
-                        name={index}
+                        name={k}
                         handleRemove={this.remove}
                         handleChange={this.handleChange}
 
                     />)
                 )}
-            </div>
+            </Form.Item>
         ));
         return (
             <Form>

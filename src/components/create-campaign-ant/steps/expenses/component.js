@@ -20,16 +20,40 @@ class Expenses extends React.Component {
     }
 
     onValuesChange = (props, changedValues, allValues) => {
-        const {keys, expenses} = allValues;
+        let {keys, expenses} = allValues;
+        let op = 'init';
+        let merged = [];
+        let finalKeys = [];
+
         if (expenses !== undefined) {
-            let merged = keys.map(key => expenses[key]);
-            let finalKeys = merged.map((el, index) => index);
-            this.setState({
-                expensesKeys: finalKeys,
-                expensesValues: merged
-            });
-            this.props.handleChange(merged, this.getStatus(merged), this.state.WrappedDynamicFieldSet);
+            op = (keys.length > expenses.length) ? 'add' : 'remove';
         }
+
+        switch (op) {
+            case "add":
+                merged = keys.map((key, index, arr) => {
+                    console.log('');
+                    return expenses[index] !== undefined ? expenses[index] : {}
+                });
+                finalKeys = merged.map((el, index) => index);
+                break;
+            case "remove":
+                merged = keys.map((key, index, arr) => {
+                    console.log('');
+                    return expenses[key] !== undefined ? expenses[key] : {}
+                });
+                merged.map((key, index, arr) => finalKeys.push(index));
+                break;
+            default:
+                expenses = new Array(keys.length).fill({});
+                break;
+        }
+
+        this.setState({
+            expensesKeys: finalKeys,
+            expensesValues: merged
+        });
+        this.props.handleChange(merged, this.getStatus(merged), this.state.WrappedDynamicFieldSet);
     };
 
 
@@ -68,8 +92,8 @@ class Expenses extends React.Component {
                             <h3>How much money do you need and how will you use it?</h3>
                             <br/>
                             <WrappedDynamicFieldSet
-                            expensesKeys={this.state.expensesKeys}
-                            expensesValues={this.state.expensesValues}
+                                expensesKeys={this.state.expensesKeys}
+                                expensesValues={this.state.expensesValues}
                             />
                         </Col>
                         <Col span={11}>

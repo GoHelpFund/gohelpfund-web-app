@@ -53,7 +53,7 @@ class CreateCampaignAnt extends React.Component {
             title: undefined,
             description: undefined,
 
-            expenses: [],
+            expenses: [{}],
             expensesForm: undefined,
 
             startDate: undefined,
@@ -173,7 +173,10 @@ class CreateCampaignAnt extends React.Component {
 
         let valid = false;
         if (currentStep === 2) {
-            valid = true;
+            valid = obj.every((el, index, array) => {
+                let v = Object.keys(el).map(k => el[k]).every((val, i, arr) => val === 'success');
+                return v === true;
+            });
         } else {
             if (Object.keys(obj).map(k => obj[k]).every((val, i, arr) => val === 'success')) {
                 valid = true;
