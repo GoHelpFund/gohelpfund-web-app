@@ -1,5 +1,5 @@
 import compose from 'recompose/compose';
-import React, {isValidElement} from 'react';
+import React, {Component, isValidElement} from 'react';
 import PropTypes from 'prop-types';
 import QueueAnim from 'rc-queue-anim';
 import {Link} from "react-router-dom";
@@ -20,7 +20,7 @@ import {withCookies} from "react-cookie";
 
 const {Content, Footer} = Layout;
 
-class CreateCampaignAnt extends React.Component {
+class CreateCampaignAnt extends Component {
   popperNode = null;
 
   constructor(props) {

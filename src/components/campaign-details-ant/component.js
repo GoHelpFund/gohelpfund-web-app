@@ -72,8 +72,6 @@ const InputGroup = Input.Group;
 
 const {Option} = Select;
 
-const confirm = Modal.success;
-
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -103,159 +101,6 @@ const styles = theme => ({
 
 let id = 0;
 
-const success = () => {
-  message.success('Thank you for your donation', 5);
-};
-
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-// return true if in range, otherwise false
-function inRange(x, min, max) {
-  return ((x - min) * (x - max) <= 0);
-}
-
-function showConfirm() {
-  confirm({
-    title: 'If you only give once a month, please think of me next time',
-    centered: true,
-    maskClosable: true,
-    content: <div>
-      <p>You have 150 HELP available</p>
-      <Input
-        size="large"
-        placeholder="Enter the donation amount"
-        prefix={<Icon type="pie-chart" style={{color: 'rgba(0,0,0,.25)'}}/>}
-        suffix={
-          <Tooltip title="Extra information">
-            <Icon type="info-circle" style={{color: 'rgba(0,0,0,.45)'}}/>
-          </Tooltip>
-        }
-      />
-    </div>,
-    okText: 'Donate',
-    icon: <Icon type="smile" theme="twoTone"/>,
-    onOk() {
-      return new Promise((resolve, reject) => {
-        setTimeout(resolve, 3000);
-      })
-        .then(function (value) {
-          success();
-        })
-        .catch(() => console.log('Oops errors!'));
-    },
-    onCancel() {
-    },
-  });
-}
-
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  });
-}
-
-class DynamicFieldSet extends React.Component {
-  remove = k => {
-    const {form} = this.props;
-    // can use data-binding to get
-    const keys = form.getFieldValue('keys');
-    // We need at least one passenger
-    if (keys.length === 1) {
-      return;
-    }
-
-    // can use data-binding to set
-    form.setFieldsValue({
-      keys: keys.filter(key => key !== k),
-    });
-  };
-
-  add = () => {
-    const {form} = this.props;
-    // can use data-binding to get
-    const keys = form.getFieldValue('keys');
-    const nextKeys = keys.concat(id++);
-    // can use data-binding to set
-    // important! notify form to detect changes
-    form.setFieldsValue({
-      keys: nextKeys,
-    });
-  };
-
-  handleSubmit = e => {
-    e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        const {keys, names} = values;
-        console.log('Received values of form: ', values);
-        console.log('Merged values:', keys.map(key => names[key]));
-      }
-    });
-  };
-
-  render() {
-    const {getFieldDecorator, getFieldValue} = this.props.form;
-    getFieldDecorator('keys', {initialValue: []});
-    const keys = getFieldValue('keys');
-    const formItems = keys.map((k, index) => (
-      <Form.Item
-        label={''}
-        required={false}
-        key={k}
-      >
-        {getFieldDecorator(`names[${k}]`, {
-          validateTrigger: ['onChange', 'onBlur'],
-          rules: [
-            {
-              required: true,
-              whitespace: true,
-              message: "Please add amount and description or delete this row.",
-            },
-          ],
-        })(
-          <InputGroup size="default" style={{width: '90%', marginRight: 8}}>
-            <Row gutter={4} type="flex" justify="space-around" align="middle">
-              <Col span={6}>
-                <Input placeholder="Amount"
-                       prefix={<Icon type="pie-chart" style={{color: 'rgba(0,0,0,.25)'}}/>}
-                />
-              </Col>
-              <Col span={18}>
-                <TextArea
-                  placeholder="Expense description"
-                  autosize={{minRows: 1, maxRows: 3}}/>
-              </Col>
-            </Row>
-          </InputGroup>
-        )}
-        {keys.length > 1 ? (
-          <Icon
-            className="dynamic-delete-button"
-            type="minus-circle-o"
-            onClick={() => this.remove(k)}
-          />
-        ) : null}
-      </Form.Item>
-    ));
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        {formItems}
-        <Form.Item>
-          <Button type="dashed" onClick={this.add} style={{width: '30%'}}>
-            <Icon type="plus"/> Add expense
-          </Button>
-        </Form.Item>
-      </Form>
-    );
-  }
-}
-
-
 class CampaignDetailsAnt extends Component {
   constructor(props) {
     super(props);
@@ -269,11 +114,12 @@ class CampaignDetailsAnt extends Component {
 
     this.state = {
       campaignDetails: this.props.location.state ? this.props.location.state.referrer : emptyCampaignDetails,
-      isDonateScreenOpen: this.props.location.state ? (this.props.location.state.fromDonateScreen ? true : false) : false,
       amount: 0,
-      thanksMessage: false,
       current: 0,
-      visible: false
+      donateModalVisible: false,
+      donateModalLoading: false,
+      donationAmount: undefined,
+      userBalance: undefined
     };
 
     const showHeader = true;
@@ -303,11 +149,30 @@ class CampaignDetailsAnt extends Component {
     this.getFundraiserData();
   }
 
+  numberWithCommas = x => {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+  handleDonationChange = e => {
+    const number = parseInt(e.target.value || 0, 10);
+    if (Number.isNaN(number)) {
+      return;
+    }
+    this.setState({
+      [e.target.name]: number,
+    });
+  };
+
   isLoggedIn = () => {
     const {cookies} = this.props;
     let appToken = cookies.get('accessToken');
 
     return appToken ? true : false;
+  };
+
+  // return true if in range, otherwise false
+  inRange = (x, min, max) => {
+    return ((x - min) * (x - max) <= 0);
   };
 
   getFundraiserData() {
@@ -331,27 +196,11 @@ class CampaignDetailsAnt extends Component {
       });
   }
 
-
-  toggleDonationScreen = () => {
-    if (!this.isLoggedIn()) {
-      this.props.history.push({
-        pathname: '/onboarding/',
-        state: {fromDonateScreen: true, campaignDetails: this.state.campaignDetails}
-      })
-    } else {
-      this.setState(state => ({isDonateScreenOpen: !this.state.isDonateScreenOpen}));
-    }
-  };
-
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
     });
   };
-
-  callback(key) {
-    console.log(key);
-  }
 
   getCampaignData() {
     if (!this.props.location.state) {
@@ -362,7 +211,7 @@ class CampaignDetailsAnt extends Component {
       };
       var that = this;
 
-      url = url.replace('{campaignId}', this.props.location.pathname.slice(18));
+      url = url.replace('{campaignId}', this.props.location.pathname.slice(this.props.location.pathname.length - 36));
 
       axios.get(url, config)
         .then(response => {
@@ -376,7 +225,28 @@ class CampaignDetailsAnt extends Component {
     }
   }
 
-  donate() {
+  showDonateModal = () => {
+    this.setState({
+      donateModalVisible: true
+    });
+  };
+
+  handleDonateModalOk = e => {
+    console.log(e);
+    this.setState({
+      donateModalLoading: true,
+    });
+    this.doDonate();
+  };
+
+  handleDonateModalCancel = e => {
+    console.log(e);
+    this.setState({
+      donateModalVisible: false,
+    });
+  };
+
+  doDonate() {
     const {cookies} = this.props;
     let appToken = cookies.get('accessToken');
     let url = EndPoints.postDonationUrl;
@@ -384,22 +254,26 @@ class CampaignDetailsAnt extends Component {
       headers: {'Authorization': "Bearer " + appToken}
     };
     let params = {
-      amount: this.state.amount
+      amount: this.state.donationAmount
     };
 
-    url = url.replace('{campaignId}', this.props.location.pathname.slice(18));
+    url = url.replace('{campaignId}', this.props.location.pathname.slice(this.props.location.pathname.length - 36));
 
     axios.post(url, params, config)
       .then(response => {
         console.log(response);
-        this.setState({campaignDetails: response.data, thanksMessage: true});
-        this.toggleDonationScreen();
+        message.success("Thank you for the donation.");
+        this.setState({
+          campaignDetails: response.data,
+          donateModalVisible: false,
+          donateModalLoading: false
+        });
         this.getFundraiserData();
       })
       .catch(function (error) {
         console.log(error);
       });
-  }
+  };
 
   next() {
     const current = this.state.current + 1;
@@ -414,13 +288,11 @@ class CampaignDetailsAnt extends Component {
   renderExpense = (e, index, arr, amountRaised) => {
     let prevPartialAmount = 0;
 
-    amountRaised = 273;
-
     for (let i = 0; i < index; i++) {
       prevPartialAmount += arr[i].amount;
     }
     let nextPartialAmount = prevPartialAmount + arr[index].amount;
-    const isInRange = inRange(amountRaised, prevPartialAmount, nextPartialAmount);
+    const isInRange = this.inRange(amountRaised, prevPartialAmount, nextPartialAmount);
 
     if (isInRange === true && amountRaised !== nextPartialAmount) {
       return (<Icon type="loading"/>)
@@ -501,6 +373,16 @@ class CampaignDetailsAnt extends Component {
         ),
       },
     ];
+
+    const realData = campaignDetails.wallet.help.transactions.map(t => {
+      return {
+        key: t.id,
+        name: t.sender_name,
+        amount: t.amount,
+        date: moment(moment(t.date).utc(), "YYYY-MM-DD[T]HH:mm:ss[Z]").fromNow(),
+        transaction_id: t.blockchain_transaction_id
+      }
+    });
 
     const data = [
       {
@@ -652,7 +534,7 @@ class CampaignDetailsAnt extends Component {
       }
     ];
 
-    const hasData = true;
+    const hasData = campaignDetails.wallet.help.transactions.length !== 0;
 
     const expenseItems = campaignDetails.expenses.map((e, index, arr) => (
       <Timeline.Item
@@ -667,6 +549,9 @@ class CampaignDetailsAnt extends Component {
         <img alt="example" src={e.url} style={{width: '630px'}}/>
       </div>
     ));
+
+    const {donateModalVisible, donateModalLoading, donationAmount, userBalance} = this.state;
+    const campaignUrl = 'www.beta.gohelpfund.com' + this.props.location.pathname;
 
     return (
       <Layout className="layout">
@@ -702,7 +587,7 @@ class CampaignDetailsAnt extends Component {
                       <Tag><Icon type="clock-circle"/> {daysLeft} days left</Tag>
                     </Col>
                     <Col span={6}>
-                      <Tag><Icon type="team"/> {campaignDetails.wallet.help.backers.length + 3} backers</Tag>
+                      <Tag><Icon type="team"/> {campaignDetails.wallet.help.backers.length} backers</Tag>
                     </Col>
                   </Row>
                 </Card>
@@ -715,12 +600,12 @@ class CampaignDetailsAnt extends Component {
                   <Row type="flex" justify="space-around" align="middle">
                     <Col span={8}>
                       <Button type="dashed" size="default">
-                        Raised: {numberWithCommas(campaignDetails.wallet.help.balance)} HELP
+                        Raised: {this.numberWithCommas(campaignDetails.wallet.help.balance)} HELP
                       </Button>
                     </Col>
                     <Col span={8}>
                       <Button type="dashed" size="default">
-                        Goal: {numberWithCommas(campaignDetails.amount_goal)} HELP
+                        Goal: {this.numberWithCommas(campaignDetails.amount_goal)} HELP
                       </Button>
                     </Col>
                   </Row>
@@ -728,25 +613,75 @@ class CampaignDetailsAnt extends Component {
                   <Divider dashed orientation="left">Share</Divider>
                   <Row>
                     <Col span={2} offset={9}>
-                      <span className="icon-facebook" style={{fontSize: '32px', color: '#d9d9d9'}}/>
+                      <FacebookShareButton
+                        url={campaignUrl}
+                        quote={'Share campaign'}>
+                        <Button type="link">
+                          <span className="icon-facebook" style={{fontSize: '32px', color: '#d9d9d9'}}/>
+                        </Button>
+                      </FacebookShareButton>
                     </Col>
                     <Col span={2}>
-                      <span className="icon-linkedin" style={{fontSize: '32px', color: '#d9d9d9'}}/>
+                      <LinkedinShareButton
+                        url={campaignUrl}
+                        quote={'Share campaign'}>
+                        <Button type="link">
+                          <span className="icon-linkedin" style={{fontSize: '32px', color: '#d9d9d9'}}/>
+                        </Button>
+                      </LinkedinShareButton>
                     </Col>
                     <Col span={2}>
-                      <span className="icon-twitter" style={{fontSize: '32px', color: '#d9d9d9'}}/>
+                      <TwitterShareButton
+                        url={campaignUrl}
+                        quote={'Share campaign'}>
+                        <Button type="link">
+                          <span className="icon-twitter" style={{fontSize: '32px', color: '#d9d9d9'}}/>
+                        </Button>
+                      </TwitterShareButton>
                     </Col>
                   </Row>
                   <Divider dashed orientation="left">Help</Divider>
                   <Row type="flex" justify="space-around" align="middle">
                     <Col span={8}>
-                      <Button block type="primary" onClick={showConfirm} size="large">
-                        <Icon type="smile" theme="twoTone"/> Give
-                      </Button>
-
+                      <div>
+                        <Button block type="primary" onClick={this.showDonateModal} size="large">
+                          <Icon type="smile" theme="twoTone"/> Give
+                        </Button>
+                        <Modal
+                          visible={donateModalVisible}
+                          onOk={this.handleDonateModalOk}
+                          onCancel={this.handleDonateModalCancel}
+                          title='If you only give once a month, please think of me next time'
+                          centered="true"
+                          maskClosable="true"
+                          footer={[
+                            <Button key="submit" type="primary" loading={donateModalLoading}
+                                    onClick={this.handleDonateModalOk}>
+                              Donate
+                            </Button>
+                          ]}
+                        >
+                          <div>
+                            <p>You have {userBalance} HELP available</p>
+                            <Input
+                              value={donationAmount}
+                              style={{width: 300}}
+                              size="large"
+                              placeholder="Enter the donation amount"
+                              name="donationAmount"
+                              onChange={this.handleDonationChange}
+                              prefix={<Icon type="pie-chart" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                              suffix={
+                                <Tooltip title="Extra information">
+                                  <Icon type="info-circle" style={{color: 'rgba(0,0,0,.45)'}}/>
+                                </Tooltip>
+                              }
+                            />
+                          </div>
+                        </Modal>
+                      </div>
                     </Col>
                   </Row>
-
                 </Card>
               </Col>
             </Row>
@@ -775,7 +710,7 @@ class CampaignDetailsAnt extends Component {
                       </div>
                     </TabPane>
                     <TabPane key="3" tab={<span><Icon type="smile" theme="twoTone"/>Donations</span>}>
-                      <Table {...this.tableState} columns={columns} dataSource={hasData ? data : null}/>
+                      <Table {...this.tableState} columns={columns} dataSource={hasData ? realData : null}/>
                     </TabPane>
                   </Tabs>
                 </Card>
