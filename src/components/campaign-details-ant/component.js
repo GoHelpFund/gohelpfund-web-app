@@ -538,6 +538,7 @@ class CampaignDetailsAnt extends Component {
 
     const expenseItems = campaignDetails.expenses.map((e, index, arr) => (
       <Timeline.Item
+        key={index}
         dot={this.renderExpense(e, index, arr, amountRaised)}
       >
         <Button type="dashed">${e.amount} - {e.description}</Button>
@@ -545,7 +546,7 @@ class CampaignDetailsAnt extends Component {
     ));
 
     const mediaResources = campaignDetails.media_resources.map((e, index, arr) => (
-      <div>
+      <div key={index}>
         <img alt="example" src={e.url} style={{width: '630px'}}/>
       </div>
     ));
@@ -557,188 +558,193 @@ class CampaignDetailsAnt extends Component {
       <Layout className="layout">
         <Content style={{padding: '0 300px'}}>
           <div id="app-campaign-details">
-            <Row style={{marginBottom: '16px'}}>
-              <Col span={24}>
-                <Card bordered={true} style={{textAlign: 'center'}}>
+            <QueueAnim
+              key="campaign-details"
+              type={['right', 'left']}
+              ease={['easeOutQuart', 'easeInOutQuart']}>
+              <Row key="campaign-details-title" style={{marginBottom: '16px'}}>
+                <Col span={24}>
+                  <Card bordered={true} style={{textAlign: 'center'}}>
                     <span style={{
                       fontSize: '20px',
                       fontFamily: 'Microsoft YaHei',
                       padding: 4,
                     }}>{campaignDetails.title} </span>
-                </Card>
-              </Col>
-            </Row>
-            <Row gutter={16}>
-              <Col span={12}>
-                <Card
-                  cover={
-                    <Carousel autoplay effect="fade" autoplaySpeed="50">
-                      {mediaResources}
-                    </Carousel>}
-                  bordered={true}>
-                  <Row type="flex" justify="center" align="middle">
-                    <Col span={6}>
-                      <Tag><Icon type="tags"/> {campaignDetails.category.name}</Tag>
-                    </Col>
-                    <Col span={6}>
-                      <Tag><Icon type="global"/> {campaignDetails.location} </Tag>
-                    </Col>
-                    <Col span={6}>
-                      <Tag><Icon type="clock-circle"/> {daysLeft} days left</Tag>
-                    </Col>
-                    <Col span={6}>
-                      <Tag><Icon type="team"/> {campaignDetails.wallet.help.backers.length} backers</Tag>
-                    </Col>
-                  </Row>
-                </Card>
-              </Col>
-              <Col span={12}>
-                <Card bordered={true}>
-                  <div style={{margin: '32px 0'}}>
-                    <Progress percent={percentage} status={progressStatus}/>
-                  </div>
-                  <Row type="flex" justify="space-around" align="middle">
-                    <Col span={8}>
-                      <Button type="dashed" size="default">
-                        Raised: {this.numberWithCommas(campaignDetails.wallet.help.balance)} HELP
-                      </Button>
-                    </Col>
-                    <Col span={8}>
-                      <Button type="dashed" size="default">
-                        Goal: {this.numberWithCommas(campaignDetails.amount_goal)} HELP
-                      </Button>
-                    </Col>
-                  </Row>
-                  <br/>
-                  <Divider dashed orientation="left">Share</Divider>
-                  <Row>
-                    <Col span={2} offset={9}>
-                      <FacebookShareButton
-                        url={campaignUrl}
-                        quote={'Share campaign'}>
-                        <Button type="link">
-                          <span className="icon-facebook" style={{fontSize: '32px', color: '#d9d9d9'}}/>
+                  </Card>
+                </Col>
+              </Row>
+              <Row key="campaign-media-resources" gutter={16}>
+                <Col span={12}>
+                  <Card
+                    cover={
+                      <Carousel autoplay effect="fade" autoplaySpeed="50">
+                        {mediaResources}
+                      </Carousel>}
+                    bordered={true}>
+                    <Row type="flex" justify="center" align="middle">
+                      <Col span={6}>
+                        <Tag><Icon type="tags"/> {campaignDetails.category.name}</Tag>
+                      </Col>
+                      <Col span={6}>
+                        <Tag><Icon type="global"/> {campaignDetails.location} </Tag>
+                      </Col>
+                      <Col span={6}>
+                        <Tag><Icon type="clock-circle"/> {daysLeft} days left</Tag>
+                      </Col>
+                      <Col span={6}>
+                        <Tag><Icon type="team"/> {campaignDetails.wallet.help.backers.length} backers</Tag>
+                      </Col>
+                    </Row>
+                  </Card>
+                </Col>
+                <Col span={12}>
+                  <Card bordered={true}>
+                    <div style={{margin: '32px 0'}}>
+                      <Progress percent={percentage} status={progressStatus}/>
+                    </div>
+                    <Row type="flex" justify="space-around" align="middle">
+                      <Col span={8}>
+                        <Button type="dashed" size="default">
+                          Raised: {this.numberWithCommas(campaignDetails.wallet.help.balance)} HELP
                         </Button>
-                      </FacebookShareButton>
-                    </Col>
-                    <Col span={2}>
-                      <LinkedinShareButton
-                        url={campaignUrl}
-                        quote={'Share campaign'}>
-                        <Button type="link">
-                          <span className="icon-linkedin" style={{fontSize: '32px', color: '#d9d9d9'}}/>
+                      </Col>
+                      <Col span={8}>
+                        <Button type="dashed" size="default">
+                          Goal: {this.numberWithCommas(campaignDetails.amount_goal)} HELP
                         </Button>
-                      </LinkedinShareButton>
-                    </Col>
-                    <Col span={2}>
-                      <TwitterShareButton
-                        url={campaignUrl}
-                        quote={'Share campaign'}>
-                        <Button type="link">
-                          <span className="icon-twitter" style={{fontSize: '32px', color: '#d9d9d9'}}/>
-                        </Button>
-                      </TwitterShareButton>
-                    </Col>
-                  </Row>
-                  <Divider dashed orientation="left">Help</Divider>
-                  <Row type="flex" justify="space-around" align="middle">
-                    <Col span={8}>
-                      <div>
-                        <Button block type="primary" onClick={this.showDonateModal} size="large">
-                          <Icon type="smile" theme="twoTone"/> Give
-                        </Button>
-                        <Modal
-                          visible={donateModalVisible}
-                          onOk={this.handleDonateModalOk}
-                          onCancel={this.handleDonateModalCancel}
-                          title='If you only give once a month, please think of me next time'
-                          centered="true"
-                          maskClosable="true"
-                          footer={[
-                            <Button key="submit" type="primary" loading={donateModalLoading}
-                                    onClick={this.handleDonateModalOk}>
-                              Donate
-                            </Button>
-                          ]}
-                        >
-                          <div>
-                            <p>You have {userBalance} HELP available</p>
-                            <Input
-                              value={donationAmount}
-                              style={{width: 300}}
-                              size="large"
-                              placeholder="Enter the donation amount"
-                              name="donationAmount"
-                              onChange={this.handleDonationChange}
-                              prefix={<Icon type="pie-chart" style={{color: 'rgba(0,0,0,.25)'}}/>}
-                              suffix={
-                                <Tooltip title="Extra information">
-                                  <Icon type="info-circle" style={{color: 'rgba(0,0,0,.45)'}}/>
-                                </Tooltip>
-                              }
-                            />
-                          </div>
-                        </Modal>
-                      </div>
-                    </Col>
-                  </Row>
-                </Card>
-              </Col>
-            </Row>
-            <br/>
-            <Row gutter={16}>
-              <Col span={16}>
-                <Card bordered={true}>
-                  <Tabs animated={false} defaultActiveKey="1" size="large">
-                    <TabPane
-                      tab={
-                        <span>
+                      </Col>
+                    </Row>
+                    <br/>
+                    <Divider dashed orientation="left">Share</Divider>
+                    <Row>
+                      <Col span={2} offset={9}>
+                        <FacebookShareButton
+                          url={campaignUrl}
+                          quote={'Share campaign'}>
+                          <Button type="link">
+                            <span className="icon-facebook" style={{fontSize: '32px', color: '#d9d9d9'}}/>
+                          </Button>
+                        </FacebookShareButton>
+                      </Col>
+                      <Col span={2}>
+                        <LinkedinShareButton
+                          url={campaignUrl}
+                          quote={'Share campaign'}>
+                          <Button type="link">
+                            <span className="icon-linkedin" style={{fontSize: '32px', color: '#d9d9d9'}}/>
+                          </Button>
+                        </LinkedinShareButton>
+                      </Col>
+                      <Col span={2}>
+                        <TwitterShareButton
+                          url={campaignUrl}
+                          quote={'Share campaign'}>
+                          <Button type="link">
+                            <span className="icon-twitter" style={{fontSize: '32px', color: '#d9d9d9'}}/>
+                          </Button>
+                        </TwitterShareButton>
+                      </Col>
+                    </Row>
+                    <Divider dashed orientation="left">Help</Divider>
+                    <Row type="flex" justify="space-around" align="middle">
+                      <Col span={8}>
+                        <div>
+                          <Button block type="primary" onClick={this.showDonateModal} size="large">
+                            <Icon type="smile" theme="twoTone"/> Give
+                          </Button>
+                          <Modal
+                            visible={donateModalVisible}
+                            onOk={this.handleDonateModalOk}
+                            onCancel={this.handleDonateModalCancel}
+                            title='If you only give once a month, please think of me next time'
+                            centered={true}
+                            maskClosable="true"
+                            footer={[
+                              <Button key="submit" type="primary" loading={donateModalLoading}
+                                      onClick={this.handleDonateModalOk}>
+                                Donate
+                              </Button>
+                            ]}
+                          >
+                            <div>
+                              <p>You have {userBalance} HELP available</p>
+                              <Input
+                                value={donationAmount}
+                                style={{width: 300}}
+                                size="large"
+                                placeholder="Enter the donation amount"
+                                name="donationAmount"
+                                onChange={this.handleDonationChange}
+                                prefix={<Icon type="pie-chart" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                                suffix={
+                                  <Tooltip title="Extra information">
+                                    <Icon type="info-circle" style={{color: 'rgba(0,0,0,.45)'}}/>
+                                  </Tooltip>
+                                }
+                              />
+                            </div>
+                          </Modal>
+                        </div>
+                      </Col>
+                    </Row>
+                  </Card>
+                </Col>
+              </Row>
+              <br/>
+              <Row key="campaign-details-info" gutter={16}>
+                <Col span={16}>
+                  <Card bordered={true}>
+                    <Tabs animated={false} defaultActiveKey="1" size="large">
+                      <TabPane
+                        tab={
+                          <span>
           <Icon type="question-circle" theme="twoTone"/>
           Description
         </span>
-                      }
-                      key="1"
-                    >
-                      {campaignDetails.description}
-                    </TabPane>
-                    <TabPane key="2" tab={<span><Icon type="pie-chart" theme="twoTone"/>Expenses</span>}>
-                      <br/>
-                      <div>
-                        <Timeline mode="alternate">
-                          {expenseItems}
-                        </Timeline>
-                      </div>
-                    </TabPane>
-                    <TabPane key="3" tab={<span><Icon type="smile" theme="twoTone"/>Donations</span>}>
-                      <Table {...this.tableState} columns={columns} dataSource={hasData ? realData : null}/>
-                    </TabPane>
-                  </Tabs>
-                </Card>
-              </Col>
-              <Col span={8}>
-                <Card bordered={true}>
-                  <div align="center">
-                    <h3>Fundraiser </h3>
+                        }
+                        key="1"
+                      >
+                        {campaignDetails.description}
+                      </TabPane>
+                      <TabPane key="2" tab={<span><Icon type="pie-chart" theme="twoTone"/>Expenses</span>}>
+                        <br/>
+                        <div>
+                          <Timeline mode="alternate">
+                            {expenseItems}
+                          </Timeline>
+                        </div>
+                      </TabPane>
+                      <TabPane key="3" tab={<span><Icon type="smile" theme="twoTone"/>Donations</span>}>
+                        <Table {...this.tableState} columns={columns} dataSource={hasData ? realData : null}/>
+                      </TabPane>
+                    </Tabs>
+                  </Card>
+                </Col>
+                <Col span={8}>
+                  <Card bordered={true}>
+                    <div align="center">
+                      <h3>Fundraiser </h3>
 
-                    <Avatar style={{width: '100px', height: '100px', border: '1px solid #e8e8e8'}}
-                            src={campaignDetails.fundraiser.profile_image_url}/>
-                    <Text>INDIVIDUAL</Text>
-                    <h2><Text code>{campaignDetails.fundraiser.name}</Text></h2>
-                  </div>
-                  <Divider dashed orientation="left">Professional</Divider>
-                  <p>
-                    {campaignDetails.fundraiser.professional.job_title} @ {campaignDetails.fundraiser.professional.company_name}
-                  </p>
-                  <Divider dashed orientation="left">Social</Divider>
-                  <div>
-                    <span className="icon-facebook" style={{fontSize: '32px', color: '#d9d9d9'}}/>
-                    <span className="icon-linkedin" style={{fontSize: '32px', color: '#d9d9d9', margin: '0 8px'}}/>
-                    <span className="icon-twitter" style={{fontSize: '32px', color: '#d9d9d9'}}/>
-                  </div>
+                      <Avatar style={{width: '100px', height: '100px', border: '1px solid #e8e8e8'}}
+                              src={campaignDetails.fundraiser.profile_image_url}/>
+                      <Text>INDIVIDUAL</Text>
+                      <h2><Text code>{campaignDetails.fundraiser.name}</Text></h2>
+                    </div>
+                    <Divider dashed orientation="left">Professional</Divider>
+                    <p>
+                      {campaignDetails.fundraiser.professional.job_title} @ {campaignDetails.fundraiser.professional.company_name}
+                    </p>
+                    <Divider dashed orientation="left">Social</Divider>
+                    <div>
+                      <span className="icon-facebook" style={{fontSize: '32px', color: '#d9d9d9'}}/>
+                      <span className="icon-linkedin" style={{fontSize: '32px', color: '#d9d9d9', margin: '0 8px'}}/>
+                      <span className="icon-twitter" style={{fontSize: '32px', color: '#d9d9d9'}}/>
+                    </div>
 
-                </Card>
-              </Col>
-            </Row>
+                  </Card>
+                </Col>
+              </Row>
+            </QueueAnim>
           </div>
         </Content>
         <Footer style={{textAlign: 'center'}}>GoHelpFund ©2019 Help causes that matter to you

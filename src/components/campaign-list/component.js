@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import {withStyles} from '@material-ui/core/styles';
+import QueueAnim from 'rc-queue-anim';
 import axios from 'axios';
 
-import { Col, Row } from 'antd';
+import {Col, Row} from 'antd';
 
 import Campaign from '../campaign/component';
 import * as EndPoints from '../../utils/end-points';
@@ -85,11 +85,10 @@ class CampaignList extends Component {
 
   render() {
     const { classes } = this.props;
-
     const groupSize = 3;
 
-    const campaignList = this.state.campaignList.map(campaign =>
-      <Col span={24 / groupSize}>
+    const campaignList = this.state.campaignList.map((campaign, index) =>
+      <Col key={index} span={24 / groupSize}>
         <Campaign className={classes.campaign} data={campaign}/>
       </Col>
     ).reduce(function(r, element, index) {
@@ -98,9 +97,9 @@ class CampaignList extends Component {
         index % groupSize === 0 && r.push([]);
         r[r.length - 1].push(element);
         return r;
-    }, []).map(function(rowContent) {
+    }, []).map(function(rowContent, index) {
         // surround every group with 'row'
-        return <Row gutter={48}
+        return <Row key={index} gutter={48}
                     style={{ padding: '30px' }}>
             {rowContent}
         </Row>;
@@ -108,7 +107,9 @@ class CampaignList extends Component {
 
     return (
       <div style={{ padding: '30px' }}>
+        <QueueAnim component="ul" type={['right', 'left']} leaveReverse>
           {campaignList}
+        </QueueAnim>
       </div>
 
     );
