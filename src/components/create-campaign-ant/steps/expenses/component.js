@@ -32,14 +32,12 @@ class Expenses extends React.Component {
         switch (op) {
             case "add":
                 merged = keys.map((key, index, arr) => {
-                    console.log('');
                     return expenses[index] !== undefined ? expenses[index] : {}
                 });
                 finalKeys = merged.map((el, index) => index);
                 break;
             case "remove":
                 merged = keys.map((key, index, arr) => {
-                    console.log('');
                     return expenses[key] !== undefined ? expenses[key] : {}
                 });
                 merged.map((key, index, arr) => finalKeys.push(index));
@@ -61,16 +59,16 @@ class Expenses extends React.Component {
 
         const expenses = dynamicExpenses.slice();
         let expensesStatus = new Array(expenses.length)
-            .fill({amount: "validating", description: "validating"});
+            .fill({amount: "", description: ""});
 
         expenses.forEach((el, i, arr) => {
             if (el !== undefined) {
-                let obj = {amount: "validating", description: "validating"};
+                let obj = {amount: "", description: ""};
                 for (let [key, value] of Object.entries(el)) {
                     if (value !== undefined && value !== '') {
                         obj[key] = 'success';
                     } else {
-                        obj[key] = 'validating';
+                        obj[key] = '';
                     }
                 }
                 expensesStatus[i] = obj;

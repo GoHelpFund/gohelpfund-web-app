@@ -15,8 +15,8 @@ class DateLocation extends React.Component {
             startDate: this.props.endDate,
             endDate: this.props.endDate,
             location: this.props.location,
-            dateStatus: (this.props.startDate !== undefined && this.props.startDate !== '') ? 'success' : 'validating',
-            locationStatus: (this.props.location !== undefined && this.props.location !== '') ? 'success' : 'validating'
+            dateStatus: (this.props.startDate !== undefined && this.props.startDate !== '') ? 'success' : '',
+            locationStatus: (this.props.location !== undefined && this.props.location !== '') ? 'success' : ''
         }
     }
 
@@ -26,7 +26,7 @@ class DateLocation extends React.Component {
     };
 
     onLocationChange = (event) => {
-        const status = (event.target.value === '') ? 'validating' : 'success';
+        const status = (event.target.value === '') ? '' : 'success';
         const statusType = event.target.name + 'Status';
         this.setState({
             [event.target.name]: event.target.value,
@@ -37,7 +37,7 @@ class DateLocation extends React.Component {
 
     onDateChange = (dates, dateStrings) => {
         if (dates !== undefined) {
-            const status = (dates.length === 0) ? 'validating' : 'success';
+            const status = (dates.length === 0) ? '' : 'success';
 
             this.setState({
                 startDate: dates[0],

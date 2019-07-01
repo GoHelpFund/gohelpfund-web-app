@@ -8,6 +8,7 @@ export const getAuthorizationToken = baseUrl + 'auth/oauth/token';
 export const getCampainsUrl = baseUrl + 'campaigns';
 export const getCampainByIdUrl = baseUrl + 'campaigns/{campaignId}';
 export const getCategoriesUrl = baseUrl + 'categories';
+export const getCategoryByIdUrl = baseUrl + 'categories/{categoryId}';
 export const getUploadInfoUrl = baseUrl + 'upload';
 export const postCampainsUrl = baseUrl + 'campaigns';
 export const getLocationUrl = 'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=';

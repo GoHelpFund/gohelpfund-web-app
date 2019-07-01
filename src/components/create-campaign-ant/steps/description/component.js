@@ -13,13 +13,13 @@ class Description extends React.Component {
         this.state = {
             title: (this.props.title === undefined) ? undefined : this.props.title,
             description: (this.props.description === undefined) ? undefined : this.props.description,
-            titleStatus: (this.props.title !== undefined && this.props.title !== '') ? 'success' : 'validating',
-            descriptionStatus: (this.props.description !== undefined && this.props.description !== '') ? 'success' : 'validating'
+            titleStatus: (this.props.title !== undefined && this.props.title !== '') ? 'success' : '',
+            descriptionStatus: (this.props.description !== undefined && this.props.description !== '') ? 'success' : ''
         };
     }
 
     handleValueChange = (event) => {
-        const status = (event.target.value === '') ? 'validating' : 'success';
+        const status = (event.target.value === '') ? '' : 'success';
         const statusType = event.target.name + 'Status';
         this.setState({
             [event.target.name]: event.target.value,

@@ -21,7 +21,6 @@ const ExpenseInput = ({value: expenseData, name, onChange, handleRemove, handleC
     };
 
     const onRemove = (event) => {
-        console.log(id);
         handleRemove(id);
     };
 
@@ -109,9 +108,6 @@ class DynamicFieldSet extends React.Component {
     };
 
     handleChange = (key, data) => {
-        console.log(key);
-        console.log(data);
-
         let items = this.state.expensesValues;
         // 3. Replace the property you're intested in
         let item = Object.assign({}, item, data);
@@ -124,7 +120,7 @@ class DynamicFieldSet extends React.Component {
     };
 
     validate = (expenseData) => {
-        let status = 'validating';
+        let status = '';
 
         if (expenseData !== undefined && expenseData.amount !== undefined && expenseData.amount !== '' && expenseData.description !== undefined && expenseData.description !== '') {
             status = 'success';
