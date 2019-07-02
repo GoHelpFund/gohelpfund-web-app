@@ -43,7 +43,7 @@ class App extends Component {
           <CssBaseline />
           <Header isLoggedIn={this.state.isLoggedIn} updateLoginState={this.updateLoginState} />
           <div id="app-content">
-            {/* <Redirect to="/home" component={Home} /> */}
+            <Redirect to="/home" component={Home} />
             <Route path="/home" component={Home} />
             <Route path="/campaign-details" component={CampaignDetails} />
             <Route path="/campaign-details-ant" component={CampaignDetailsAnt} />
