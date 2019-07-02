@@ -1,9 +1,8 @@
+
 import * as EnvConfig from '../env-config';
 
-export const ssl_enabled = true;
-export const uri_scheme = ssl_enabled ? 'https' : 'http';
-export const baseUrl = uri_scheme + ':' + EnvConfig.env_authority;
- 
+export const baseUrl = 'https://' + EnvConfig.env + '.gohelpfund.com/v1/';
+
 export const getAuthorizationToken = baseUrl + 'auth/oauth/token';
 export const getCampainsUrl = baseUrl + 'campaigns';
 export const getCampainByIdUrl = baseUrl + 'campaigns/{campaignId}';
@@ -16,3 +15,10 @@ export const postSignUpUrl = baseUrl + 'auth/signup';
 export const postSignInUrl = baseUrl + 'auth/oauth/token';
 export const postDonationUrl = baseUrl + 'campaigns/{campaignId}/donate';
 export const getFundraiserUrl = baseUrl + 'fundraisers/{fundraiserId}';
+export const getEventDataUrl = baseUrl + 'events/{eventId}';
+export const postEventDonateUrl = baseUrl + 'events/{eventId}/donate';
+export const postAddDonationUrl = baseUrl + 'events/{eventId}/auctionDonate';
+
+
+
+
