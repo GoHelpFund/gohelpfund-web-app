@@ -53,6 +53,7 @@ class CampaignList extends Component {
       }
     }
     var that = this;
+    console.log('authUrl', url);
     axios.post(url, data, auth)
       .then(response => {
         localStorage.setItem('appToken', response.data.access_token);
