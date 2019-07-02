@@ -8,7 +8,7 @@ export const remote_host = 'gohelpfund.com';
 export const api_version = '/v1/';
 
 // change this to the required environment: local, dev, prod
-export const env = local;
+export const env = dev;
 
 /**
  /* local: localhost/v1/
