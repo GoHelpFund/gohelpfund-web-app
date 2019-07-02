@@ -1,0 +1,64 @@
+
+#app-live-event-success {
+background: url('../../assets/images/event-bg-mobile.png');
+  background-size: cover;
+  text-align: center;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 35px;
+  display: table;
+  font-family: 'Noto Serif', serif;
+
+  > div {
+    display: table-cell;
+    vertical-align: middle;
+
+    > img {
+      max-width: 150px;
+    }
+  }
+
+  h1 {
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: #fff;
+    font-size: 25px;
+  }
+
+  h2 {
+    margin-top: 20px;
+    color: #fff;
+    font-size: 15px;
+  }
+
+  h2:first-of-type {
+    font-weight: bold;
+  }
+
+  .donate-btn {
+    background: #cc3333;
+    background-image: linear-gradient(#f16663, #ee2b47);
+    text-transform: initial;
+    border-radius: 15px;
+    margin: 35px 0;
+    font-weight: normal;
+    font-size: 20px;
+    padding: 12px 40px;
+    height: 100%;
+    border: none;
+    
+    &:hover, &:active {
+        background: lighten(#cc3333, 5%);
+        cursor: pointer;
+    }
+
+    &[disabled] {
+      color: white;
+      background: lighten(#cc3333, 15%);
+      cursor: not-allowed;
+    }
+  }
+}

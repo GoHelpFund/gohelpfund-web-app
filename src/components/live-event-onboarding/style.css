@@ -1,0 +1,109 @@
+#app-live-event-onboarding {
+  background: url('../../assets/images/event-bg-mobile.png');
+  background-size: cover;
+  text-align: center;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 35px;
+  display: table;
+}
+#app-live-event-onboarding #login-page {
+  display: table-cell;
+  vertical-align: middle;
+}
+#app-live-event-onboarding .onboarding-input-container {
+  font-weight: normal;
+}
+#app-live-event-onboarding .onboarding-input-container > div {
+  width: 100%;
+}
+#app-live-event-onboarding .onboarding-input-container label {
+  color: #fff;
+}
+#app-live-event-onboarding .onboarding-input-container::before {
+  border-color: #fff !important;
+}
+#app-live-event-onboarding .onboarding-input-container input {
+  color: #fff;
+  font-family: 'Noto Serif', serif;
+  border-bottom: 2px solid #00ffff;
+}
+#app-live-event-onboarding .onboarding-input-container label {
+  font-family: 'Noto Serif', serif;
+}
+#app-live-event-onboarding .onboarding-btn {
+  background: #cc3333;
+  background-image: linear-gradient(#f16663, #ee2b47);
+  text-transform: initial;
+  border-radius: 15px;
+  margin: 35px 0;
+  font-weight: normal;
+  font-size: 20px;
+  padding: 12px 40px;
+}
+#app-live-event-onboarding .onboarding-btn:hover,
+#app-live-event-onboarding .onboarding-btn:active {
+  background: #d14747;
+  cursor: pointer;
+}
+#app-live-event-onboarding .onboarding-btn[disabled] {
+  color: white;
+  background: #db7070;
+  cursor: not-allowed;
+}
+#app-live-event-onboarding .box-title {
+  font-size: 25px;
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: bold;
+}
+#app-live-event-onboarding .bal-logo {
+  max-width: 150px;
+}
+#app-live-event-onboarding .aqua-logo {
+  max-width: 250px;
+  margin-top: 30px;
+}
+#app-live-event-onboarding .welcome-text-1 {
+  color: #fff;
+  margin-top: 50px;
+  font-size: 13px;
+  padding: 0 20px;
+}
+#app-live-event-onboarding .welcome-text-2 {
+  color: #fff;
+  margin-top: 20px;
+  padding: 0 40px;
+  font-size: 15px;
+  font-weight: bold;
+}
+#app-live-event-onboarding .arrow-container {
+  text-align: -webkit-auto;
+}
+#app-live-event-onboarding .arrow-container > div {
+  position: relative;
+  margin-top: 49px;
+  cursor: pointer;
+}
+#app-live-event-onboarding .select-container {
+  margin-top: 10px;
+}
+#app-live-event-onboarding .select-container > div {
+  border-bottom: 2px solid #00ffff;
+}
+#app-live-event-onboarding .select-container div {
+  color: #fff;
+  text-align: left;
+}
+#app-live-event-onboarding .select-container svg {
+  color: #fff;
+}
+#app-live-event-onboarding .checkbox-container {
+  margin: 30px 0;
+}
+#app-live-event-onboarding .checkbox-container span {
+  color: #fff;
+}

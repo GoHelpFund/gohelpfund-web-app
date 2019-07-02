@@ -72,9 +72,10 @@ class CampaignDetails extends Component {
       campaignDetails: this.props.location.state ? this.props.location.state.referrer : emptyCampaignDetails,
       isDonateScreenOpen: this.props.location.state ? (this.props.location.state.fromDonateScreen ? true : false) : false,
       amount: 0,
-      thanksMessage: false
+      thanksMessage: false,
+      amountValidation: false
     }
-
+    
     this.progressData = {
       raisedGoal: this.state.campaignDetails.amount_goal,
       raisedTotal: this.state.campaignDetails.amount_raised
@@ -89,9 +90,9 @@ class CampaignDetails extends Component {
 
   isLoggedIn = () => {
     const { cookies } = this.props;
-    let appToken = cookies.get('accessToken');
-
-    return appToken ? true : false;
+      let appToken = cookies.get('accessToken');
+  
+      return appToken ? true : false;
   }
 
   getFundraiserData() {
@@ -160,6 +161,11 @@ class CampaignDetails extends Component {
   }
 
   donate() {
+    if(this.state.amount > this.state.userBalance) {
+      this.setState({amountValidation: true});
+      return;
+    }
+
     const { cookies } = this.props;
     let appToken = cookies.get('accessToken');
     let url = EndPoints.postDonationUrl;
@@ -204,13 +210,15 @@ class CampaignDetails extends Component {
     const thanksMessage = this.state.thanksMessage ? <div className="thanks-message">Thank you for your donation!</div> : '';
     const emptyTransactions = campaignDetails.wallet && !campaignDetails.wallet.help.transactions.length ? <div className="empty-transactions">No transactions yet.</div> : '';
 
+    const amountValidation = this.state.amountValidation ? <div className="amount-validation">You don't have enough HELP.</div> : '';
+
     campaignDetails.media_resources.forEach(element => {
       sliderImages.push({
         original: element.url,
         thumbnail: element.url,
       })
     });
-
+    
     return (
       <div id="app-campaign-details" className={campaignDetails.media_resources.length === 1 ? 'root hide-nav' : 'root'}>
         <Grid className={classes.grid} container spacing={16}>
@@ -238,7 +246,7 @@ class CampaignDetails extends Component {
                 <span><strong>{daysLeft}</strong> days left</span>
               </div>
               <div className="status-amount-needed">
-                <span>of <strong>${campaignDetails.amount_goal}</strong> needed</span>
+                <span>of <strong>{campaignDetails.amount_goal} HELP</strong> needed</span>
               </div>
               <div className="clearfix"></div>
               <div className="status-category">
@@ -258,12 +266,12 @@ class CampaignDetails extends Component {
                 <FacebookShareButton
                   url={campaignUrl}
                   quote={'Share campaign'}>
-                  <span className="icon-facebook"></span>
+                <span className="icon-facebook"></span>
                 </FacebookShareButton>
                 <LinkedinShareButton
                   url={campaignUrl}
                   quote={'Share campaign'}>
-                  <span className="icon-linkedin"></span>
+                <span className="icon-linkedin"></span>
                 </LinkedinShareButton>
                 <TwitterShareButton
                   url={campaignUrl}
@@ -272,7 +280,7 @@ class CampaignDetails extends Component {
                 </TwitterShareButton>
               </div>
 
-
+              
 
               <Zoom in={isDonateScreenOpen} className="campaign-details-donate">
                 <Paper elevation={4} className={classes.paper}>
@@ -292,13 +300,14 @@ class CampaignDetails extends Component {
                     />
                     <span className="donate-currency">HELP</span>
                   </div>
+                  {amountValidation}
                   <div className="donate-button">
                     <button className="secondary-cta-btn" onClick={this.donate.bind(this)}>DONATE</button>
                   </div>
                 </Paper>
               </Zoom>
             </section>
-
+           
           </Grid>
           <Grid item xs={12} md={8}>
             <section className="campaign-details-info">
@@ -318,7 +327,7 @@ class CampaignDetails extends Component {
                       </div>
                     </Grid>
                     <Grid item xs={12} sm={5} md={3}>
-                      <a href={'http://insight.gohelpfund.com/insight/address/' + campaignDetails.wallet.help.address} target="_blank" className="transaction-btn-explorer">Blockchain explorer</a>
+                      <a href={'http://insight.gohelpfund.com/insight/address/' + (campaignDetails.wallet ? campaignDetails.wallet.help.address : '')} target="_blank" className="transaction-btn-explorer">Blockchain explorer</a>
                     </Grid>
                   </Grid>
 
@@ -341,11 +350,11 @@ class CampaignDetails extends Component {
               <div className="section-title">Fundraiser</div>
               <div className="fundraiser-image">
                 <Avatar
-                  alt={campaignDetails.fundraiser.name}
-                  // src={campaignDetails.fundraiser.profile_image_url}
-                  src={EmptyProfileImage}
-                  className={classNames(classes.avatar, classes.bigAvatar)}
-                />
+                    alt={campaignDetails.fundraiser.name}
+                    // src={campaignDetails.fundraiser.profile_image_url}
+                    src={EmptyProfileImage}
+                    className={classNames(classes.avatar, classes.bigAvatar)}
+                  />
               </div>
               <div className="fundraiser-details">
                 <div className="fundraiser-type">Individual</div>

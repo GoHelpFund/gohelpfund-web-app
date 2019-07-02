@@ -1,0 +1,133 @@
+
+#app-live-event-onboarding {
+    background: url('../../assets/images/event-bg-mobile.png');
+    background-size: cover;
+    text-align: center;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 35px;
+    display: table;
+
+    #login-page {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .onboarding-input-container {
+        > div {
+            width: 100%;
+        }
+
+        label {
+            color: #fff;
+        }
+
+        &::before {
+            border-color: #fff !important;
+        }
+
+        input {
+            color: #fff;
+            font-family: 'Noto Serif', serif;
+            border-bottom: 2px solid #00ffff; 
+        }
+
+        label {
+            font-family: 'Noto Serif', serif;
+        }
+
+        font-weight: normal;
+    }
+
+    .onboarding-btn {
+        background: #cc3333;
+        background-image: linear-gradient(#f16663, #ee2b47);
+        text-transform: initial;
+        border-radius: 15px;
+        margin: 35px 0;
+        font-weight: normal;
+        font-size: 20px;
+        padding: 12px 40px;
+        
+        &:hover, &:active {
+            background: lighten(#cc3333, 5%);
+            cursor: pointer;
+        }
+
+        &[disabled] {
+            color: white;
+            background: lighten(#cc3333, 15%);
+            cursor: not-allowed;
+          }
+    }
+
+    .box-title {
+        font-size: 25px;
+        text-transform: uppercase;
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .bal-logo {
+        max-width: 150px;
+    }
+
+    .aqua-logo {
+        max-width: 250px;
+        margin-top: 30px;
+    }
+
+    .welcome-text-1 {
+        color: #fff;
+        margin-top: 50px;
+        font-size: 13px;
+        padding: 0 20px;
+    }
+
+    .welcome-text-2 {
+        color: #fff;
+        margin-top: 20px;
+        padding: 0 40px;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .arrow-container {
+        text-align: -webkit-auto;
+        
+        > div {
+            position: relative;
+            margin-top: 49px;
+            cursor: pointer;
+        }
+    }
+
+    .select-container {
+        margin-top: 10px;
+
+        > div {
+            border-bottom: 2px solid #00ffff; 
+        }
+        
+        div {
+            color: #fff;
+            text-align: left;
+        }
+
+        svg {
+            color: #fff;
+        }
+        
+    }
+
+    .checkbox-container {
+        margin: 30px 0;
+    
+        span {
+          color: #fff;
+        }
+      }
+}

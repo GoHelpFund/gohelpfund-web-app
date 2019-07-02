@@ -261,6 +261,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+#app-campaign-details .image-gallery-fullscreen-button,
+#app-campaign-details .image-gallery-play-button {
+  display: none;
+}
+#app-campaign-details .amount-validation {
+  margin-top: 10px;
+  color: #ef5350;
+}
 @media screen and (max-width: 959px) {
   #app-campaign-details {
     margin-top: 100px;

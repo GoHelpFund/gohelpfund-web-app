@@ -19,6 +19,8 @@ import NumberFormat from 'react-number-format';
 import AWS from 'aws-sdk';
 import { withCookies, Cookies } from 'react-cookie';
 import compose from 'recompose/compose';
+import { Skeleton } from 'antd';
+import { DatePicker } from 'antd';
 
 import CategoryCard from '../category-card/component';
 import * as EndPoints from '../../utils/end-points';
@@ -162,6 +164,7 @@ class CreateCampaign extends Component {
     super(props);
 
     if(this.props.location && this.props.location.state && this.props.location.state.referrer) {
+      this.setState({displaySkeleton: true});
       this.state = this.props.location.state.referrer;
       this.getUploadInfo();
     } else {
@@ -183,11 +186,15 @@ class CreateCampaign extends Component {
         location: '',
         image: '',
         images: [],
+        displaySkeleton: false
       };
     }
   }
 
   componentWillMount() {
+    if(this.props.location && this.props.location.state && this.props.location.state.referrer) {
+      this.setState({displaySkeleton: true});
+    }
     let url = EndPoints.getCategoriesUrl;
     let appToken = localStorage.getItem('appToken');
     let config = {
@@ -278,7 +285,7 @@ class CreateCampaign extends Component {
 
   handleChange = name => event => {
     this.setState({
-      [name]: event.target.value,
+      [name]: event.target ? event.target.value : event._d,
     });
   };
 
@@ -374,6 +381,11 @@ class CreateCampaign extends Component {
     var uploadedImages = [];
     let that = this;
 
+    if (!imageCount) {
+      this.postCampaign();
+      return;
+    }
+
     for (var counter = 0; counter < imageCount; counter++) {
       const params = {
         Key: this.state.images[counter].name,
@@ -433,14 +445,18 @@ class CreateCampaign extends Component {
     };
     let that = this;
 
+    this.setState({displaySkeleton: true});
+
     axios.post(url, campaignData, config)
       .then(response => {
+        this.setState({displaySkeleton: false});
         that.props.history.push({
           pathname: '/campaign-details/' + response.data.id,
           state: { referrer: response.data }
         })
       })
       .catch(function(error) {
+        this.setState({displaySkeleton: false});
         console.log(error);
       });
 
@@ -472,6 +488,12 @@ class CreateCampaign extends Component {
     const imagesNames = this.state.images && this.state.images.length ? this.state.images.map(image => 
       <div className="file-name" key={image.lastModified}>{image.name}</div>
     ) : '';
+
+    const displaySkeleton = this.state.displaySkeleton ? <div className="spinner-container">
+                                                          <Skeleton/>
+                                                          <Skeleton/>
+                                                          <Skeleton/>
+                                                        </div> : '';
 
     return (
       <div id="app-create-campaign" className={classes.root}>
@@ -567,7 +589,21 @@ class CreateCampaign extends Component {
                     <h1 className="step-title">Date and location</h1>
                     <h2 className="step-subtitle">When and where?</h2>
                     <div className="step-content">
-                    <TextField
+                    <DatePicker
+                        id="startDate"
+                        placeholder="Start date"
+                        defaultValue={this.state.startDate}
+                        onChange={this.handleChange('startDate')}
+                        error={this.state.startDate === '' && this.state.isNextPressed}
+                    />
+                    <DatePicker
+                        id="endDate"
+                        placeholder="End date"
+                        defaultValue={this.state.endDate}
+                        onChange={this.handleChange('endDate')}
+                        error={this.state.endDate === '' && this.state.isNextPressed}
+                    />
+                    {/* <TextField
                         id="startDate"
                         label="Start date"
                         value={this.state.startDate}
@@ -577,8 +613,8 @@ class CreateCampaign extends Component {
                         InputLabelProps={{
                           shrink: true,
                         }}
-                      />
-                      <TextField
+                      /> */}
+                      {/* <TextField
                         id="endDate"
                         label="End date"
                         value={this.state.endDate}
@@ -588,11 +624,12 @@ class CreateCampaign extends Component {
                         InputLabelProps={{
                           shrink: true,
                         }}
-                      />
+                      /> */}
                       <Autosuggest
                         {...autosuggestProps}
                         inputProps={{
                           classes,
+                          className: 'location-input',
                           label: 'Location',
                           placeholder: 'Location',
                           value: this.state.location,
@@ -627,7 +664,7 @@ class CreateCampaign extends Component {
                   {activeStep === 4 && 
                     <div className="step-4">
                     <h1 className="step-title">Media gallery</h1>
-                    <h2 className="step-subtitle">Upload an images that could give a better understanding of the cause</h2>
+                    <h2 className="step-subtitle">Upload images that could give a better understanding of the cause</h2>
                     <div className="step-content">
                       <div className="browse-container">
                         <input className="browse-btn" multiple id="file" type="file" accept='image/png' onChange={(e) => this.onChange(e)}/>
@@ -649,6 +686,7 @@ class CreateCampaign extends Component {
               </div>
             )}
           </div>
+         {displaySkeleton}
         </div>
       </div>
     );
