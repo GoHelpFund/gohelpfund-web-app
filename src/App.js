@@ -12,12 +12,10 @@ import * as EndPoints from './utils/end-points';
 import Header from './components/header/component';
 import Home from './components/home/component';
 import CampaignDetails from './components/campaign-details/component';
+import CampaignDetailsAnt from './components/campaign-details-ant/component';
 import CreateCampaign from './components/create-campaign/component';
+import CreateCampaignAnt from './components/create-campaign-ant/component';
 import Onboarding from './components/onboarding/component';
-import LiveEvent from './components/live-event/component';
-import LiveEventDisplay from './components/live-event-display/component';
-import LiveEventAdmin from './components/live-event-admin/component';
-import LiveEventSuccess from './components/live-event-success/component';
 
 class App extends Component {
   static propTypes = {
@@ -39,24 +37,20 @@ class App extends Component {
   }
 
   render() {
-    const liveEventsPage = window.location ? (window.location.pathname == '/live-event' || window.location.pathname == '/live-event-success' || window.location.pathname == '/live-event-display' || window.location.pathname == '/live-event-admin') : false;
-    const header = !liveEventsPage ? <Header isLoggedIn={this.state.isLoggedIn} updateLoginState={this.updateLoginState} /> : '';
     return (
       <React.Fragment>
         <CookiesProvider>
           <CssBaseline />
-          {header}
+          <Header isLoggedIn={this.state.isLoggedIn} updateLoginState={this.updateLoginState} />
           <div id="app-content">
             {/* <Redirect to="/home" component={Home} /> */}
             <Route path="/home" component={Home} />
             <Route path="/campaign-details" component={CampaignDetails} />
+            <Route path="/campaign-details-ant" component={CampaignDetailsAnt} />
             <Route path="/create-campaign" component={CreateCampaign} />
+            <Route path="/create-campaign-ant" component={CreateCampaignAnt} />
             <Route path="/onboarding" render={(props) => <Onboarding {...props} updateLoginState={this.updateLoginState} />} />
           </div>
-          <Route path="/live-event" component={LiveEvent} />
-          <Route path="/live-event-display" component={LiveEventDisplay} />
-          <Route path="/live-event-admin" component={LiveEventAdmin} />
-          <Route path="/live-event-success" component={LiveEventSuccess} />
         </CookiesProvider>
       </React.Fragment>
     );
