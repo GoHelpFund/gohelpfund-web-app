@@ -1,6 +1,16 @@
+#app-campaign {
+  height: 200x;
+}
 #app-campaign .campaign-card {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   border-radius: none;
+}
+#app-campaign .ant-card-cover img {
+  height: 200px;
+  object-fit: cover;
+}
+#app-campaign .ant-card-meta-title {
+  text-align: center;
 }
 #app-campaign .campaign-content .title-container {
   height: 60px;

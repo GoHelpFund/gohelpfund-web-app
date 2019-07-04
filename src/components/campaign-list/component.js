@@ -88,7 +88,7 @@ class CampaignList extends Component {
     const groupSize = 3;
 
     const campaignList = this.state.campaignList.map((campaign, index) =>
-      <Col key={index} span={24 / groupSize}>
+      <Col key={index} xs={24} sm={12} md={8} span={24 / groupSize}>
         <Campaign className={classes.campaign} data={campaign}/>
       </Col>
     ).reduce(function(r, element, index) {

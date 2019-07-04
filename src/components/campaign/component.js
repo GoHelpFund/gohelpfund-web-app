@@ -46,7 +46,7 @@ class Campaign extends Component {
 
     return (
 
-      <div id="app-campaign">
+      <div id="app-campaign" className="campaign">
         <Skeleton loading={loading} active paragraph={{ rows: 7 }}>
           <div hidden={!loading}>
           </div>
@@ -73,15 +73,13 @@ class Campaign extends Component {
               }
         >
           <Meta
-              avatar={<Avatar size={64} shape="circle" src={campaignData.fundraiser.profile_image_url} />}
               title={campaignData.title}
-              description={campaignData.description.substring(0,75) + "..."}
           />
           <div style={{ margin: '16px 0' }}>
             <Progress percent={ percentage }  status={progressStatus}/>
           </div>
             <p align="center"><Button type="dashed" size="default">
-                Raised: {numberWithCommas(campaignData.wallet.help.balance)} HELP
+                {numberWithCommas(campaignData.wallet.help.balance)} HELP
             </Button>
             </p>
         </Card>
