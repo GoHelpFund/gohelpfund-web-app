@@ -556,7 +556,7 @@ class CampaignDetailsAnt extends Component {
 
     return (
       <Layout className="layout">
-        <Content style={{padding: '0 300px'}}>
+        <Content style={{padding: '0;'}}>
           <div id="app-campaign-details">
             <QueueAnim
               key="campaign-details"
@@ -574,7 +574,7 @@ class CampaignDetailsAnt extends Component {
                 </Col>
               </Row>
               <Row key="campaign-media-resources" gutter={16}>
-                <Col span={12}>
+                <Col xs={24} md={12} span={12}>
                   <Card
                     cover={
                       <Carousel autoplay effect="fade" autoplaySpeed="50">
@@ -597,7 +597,7 @@ class CampaignDetailsAnt extends Component {
                     </Row>
                   </Card>
                 </Col>
-                <Col span={12}>
+                <Col xs={24} md={12} span={12}>
                   <Card bordered={true}>
                     <div style={{margin: '32px 0'}}>
                       <Progress percent={percentage} status={progressStatus}/>
@@ -692,7 +692,7 @@ class CampaignDetailsAnt extends Component {
               </Row>
               <br/>
               <Row key="campaign-details-info" gutter={16}>
-                <Col span={16}>
+                <Col xs={24} md={16} span={16}>
                   <Card bordered={true}>
                     <Tabs animated={false} defaultActiveKey="1" size="large">
                       <TabPane
@@ -720,7 +720,7 @@ class CampaignDetailsAnt extends Component {
                     </Tabs>
                   </Card>
                 </Col>
-                <Col span={8}>
+                <Col xs={24} md={8} span={8}>
                   <Card bordered={true}>
                     <div align="center">
                       <h3>Fundraiser </h3>
