@@ -35,9 +35,9 @@ class Home extends Component {
                         <a href="#app-campaign-list-container" >
                           <button className="main-cta-btn">Support causes</button>
                         </a>
-                        <Link to="/create-campaign">
+                        <Link to="/create-campaign-ant">
                           <button className="secondary-cta-btn">Get Help</button>
-                        </Link> 
+                        </Link>
                         </div>
                       </div>
                     </div>

@@ -155,11 +155,11 @@ class DynamicFieldSet extends React.Component {
         return (
             <Form>
                 <Form.Item>
-                    <Button type="dashed" onClick={this.add} style={{width: '30%'}}>
+                    <Button type="dashed" onClick={this.add}>
                         <Icon type="plus"/> Add expense
                     </Button>
                 </Form.Item>
-                <QueueAnim component="ul" type={['right', 'left']} leaveReverse>
+                <QueueAnim type={['right', 'left']} leaveReverse>
                     {formItems}
                 </QueueAnim>
             </Form>
