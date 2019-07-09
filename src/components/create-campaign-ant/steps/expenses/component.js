@@ -86,7 +86,7 @@ class Expenses extends React.Component {
                        ease={['easeOutQuart', 'easeInOutQuart']}>
                 <div key='expenses-step'>
                     <Row type="flex" justify="center" align="top">
-                        <Col xs={20} md={6} span={11} style={{paddingTop: '100px'}}>
+                        <Col xs={20} md={6} span={11} className="step-expenses-content">
                             <h3>How much money do you need and how will you use it?</h3>
                             <br/>
                             <WrappedDynamicFieldSet
@@ -96,7 +96,6 @@ class Expenses extends React.Component {
                         </Col>
                         <Col xs={20} md={6} span={11}>
                             <img alt='expenses-step'
-                                 style={{maxWidth: "100%", height: "auto"}}
                                  src={Step3}/>
 
                         </Col>

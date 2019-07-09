@@ -17,4 +17,50 @@
 .ant-upload-list {
   padding-top: 25px;
 }
+.step-description-image {
+  max-width: 100%;
+  height: auto;
+}
+.step-expenses-content {
+  padding-top: 100px;
+}
+.step-date-location-image {
+  max-width: 100%;
+  height: auto;
+  padding-top: 50px;
+}
+.step-media-gallery-image {
+  max-width: 100%;
+  height: auto;
+  padding-top: 100px;
+}
+@media (max-width: 480px) {
+  .ant-steps-horizontal.ant-steps-label-horizontal {
+    display: flex;
+  }
+  .ant-steps-horizontal.ant-steps-label-horizontal .ant-steps-item-content {
+    display: none;
+  }
+  #steps-content {
+    min-height: 450px;
+  }
+  .step-description-image {
+    display: none;
+  }
+  .step-expenses-content {
+    padding-top: 0;
+  }
+  .step-date-location-image {
+    padding-top: 0;
+  }
+  .step-media-gallery-image {
+    padding-top: 0;
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  #steps-content {
+    min-height: 550px;
+  }
+}
 /*# sourceMappingURL=style.css.map */

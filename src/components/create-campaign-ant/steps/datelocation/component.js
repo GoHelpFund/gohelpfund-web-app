@@ -78,7 +78,7 @@ class DateLocation extends React.Component {
                   />
                 </Form.Item>
                 <Form.Item hasFeedback validateStatus={locationStatus}>
-                  <Input placeholder="Location" style={{width: 230, margin: '16px 0'}}
+                  <Input placeholder="Location" style={{width: 230}}
                          name='location'
                          value={location}
                          onChange={(e) => this.onLocationChange(e)}
@@ -87,9 +87,9 @@ class DateLocation extends React.Component {
                 </Form.Item>
               </Form>
             </Col>
-            <Col xs={20} md={6} span={10} style={{paddingTop: '50px'}}>
+            <Col xs={20} md={6} span={10}>
               <img alt='date-and-ocation-step'
-                   style={{maxWidth: "100%", height: "auto"}}
+                   className="step-date-location-image"
                    src={Step4}/>
             </Col>
           </Row>

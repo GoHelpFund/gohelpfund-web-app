@@ -80,7 +80,7 @@ class PicturesWall extends React.Component {
   };
 
   beforeUpload = (file, FileList) => {
-    const isJPG = file.type === 'image/jpeg';
+    const isJPG = file.type === 'image/jpeg' || file.type === 'image/jpg';
     const isPNG = file.type === 'image/png';
     if (!isJPG && !isPNG) {
       message.error('File format allowed: .jpeg .png');

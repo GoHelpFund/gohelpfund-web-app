@@ -470,12 +470,12 @@ class CreateCampaignAnt extends Component {
 
     return (
       <Layout className="layout">
-        <Content style={{height: "calc(100vh - 70px)"}}>
+        <Content>
           <QueueAnim className="demo-content"
                      type={['right', 'left']}
                      ease={['easeOutQuart', 'easeInOutQuart']}>
             <div key='wat' id="app-create-campaign-ant">
-              <Steps current={currentStep}>
+              <Steps size="small" current={currentStep}>
                 {steps.map(item => (
                   <Step key={item.title} title={item.title} icon={<Icon type={item.icon_type}/>}/>
                 ))}

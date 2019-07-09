@@ -35,7 +35,7 @@ class Description extends React.Component {
                        key="description"
                        type={['right', 'left']}
                        ease={['easeOutQuart', 'easeInOutQuart']}>
-                <div key="'description-step">
+                <div key="description-step">
                     <Row type="flex" justify="center" align="middle">
                         <Col xs={20} md={6}  span={11}>
                             <h3>What problem do you have?</h3>
@@ -60,7 +60,7 @@ class Description extends React.Component {
                         </Col>
                         <Col xs={20} md={6} span={10} offset={2}>
                             <img alt="description-step"
-                                 style={{maxWidth: "100%", height: "auto"}}
+                                 className="step-description-image"
                                  src={Step2}/>
                         </Col>
                     </Row>

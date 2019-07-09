@@ -46,9 +46,9 @@ class MediaGallery extends React.Component {
                             selectedItem={this.props.selectedItem}
                             />
                         </Col>
-                        <Col xs={20} md={6} span={9} offset={1} style={{marginTop: '100px'}}>
+                        <Col xs={20} md={6} span={9} offset={1}>
                             <img alt='media-gallery-step'
-                                 style={{maxWidth: "100%", height: "auto"}}
+                                 className="step-media-gallery-image"
                                  src={Step5}/>
                         </Col>
                     </Row>
