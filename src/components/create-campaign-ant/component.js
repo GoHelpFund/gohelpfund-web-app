@@ -470,12 +470,12 @@ class CreateCampaignAnt extends Component {
 
     return (
       <Layout className="layout">
-        <Content style={{padding: '0 300px', height: "calc(100vh - 70px)"}}>
+        <Content>
           <QueueAnim className="demo-content"
                      type={['right', 'left']}
                      ease={['easeOutQuart', 'easeInOutQuart']}>
             <div key='wat' id="app-create-campaign-ant">
-              <Steps current={currentStep}>
+              <Steps size="small" current={currentStep}>
                 {steps.map(item => (
                   <Step key={item.title} title={item.title} icon={<Icon type={item.icon_type}/>}/>
                 ))}
@@ -486,7 +486,7 @@ class CreateCampaignAnt extends Component {
               <div id="steps-action">
                 <Row type="flex" justify="center" gutter={6}>
                   {currentStep === 0 && (
-                    <Col span={3}>
+                    <Col xs={12} md={6} span={3}>
                       <Link to={{
                         pathname: "/home",
                         state: {}
@@ -498,7 +498,7 @@ class CreateCampaignAnt extends Component {
                     </Col>
                   )}
                   {currentStep > 0 && (
-                    <Col span={3}>
+                    <Col xs={12} md={6} span={3}>
                       <Button block size="default" icon="left" onClick={this.prevStep}>
                         Previous
                       </Button>
@@ -506,7 +506,7 @@ class CreateCampaignAnt extends Component {
                   )}
 
                   {currentStep < steps.length - 1 && (
-                    <Col span={3}>
+                    <Col xs={12} md={6} span={3}>
                       <Button block size="default" type="primary" onClick={this.nextStep}>
                         Next <Icon type="right"/>
                       </Button>
@@ -514,7 +514,7 @@ class CreateCampaignAnt extends Component {
                   )}
 
                   {currentStep === steps.length - 1 && (
-                    <Col span={3}>
+                    <Col xs={12} md={6} span={3}>
                       <Button block loading={publishLoading} size="default" type="primary" onClick={this.nextStep}>
                         Publish
                       </Button>

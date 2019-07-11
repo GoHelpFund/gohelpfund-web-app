@@ -47,7 +47,7 @@ class Category extends React.Component {
                  ease={['easeOutQuart', 'easeInOutQuart']}>
         <div key='category-step'>
           <Row type="flex" justify="center" align="middle">
-            <Col span={10}>
+            <Col xs={20} md={6} span={10}>
               <h3>Choose the category that best fits your campaign</h3>
               <br/>
               <Form>
@@ -75,8 +75,9 @@ class Category extends React.Component {
                 </Form.Item>
               </Form>
             </Col>
-            <Col span={14} style={{paddingTop: '50px'}}>
+            <Col xs={20} md={6} span={14} style={{paddingTop: '50px'}}>
               <img alt="category-step"
+                   style={{maxWidth: "100%", height: "auto"}}
                    src={Step1}/>
             </Col>
           </Row>

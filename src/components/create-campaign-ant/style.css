@@ -1,6 +1,6 @@
 #app-create-campaign-ant {
-  margin-top: 50px;
-  padding: 50px 100px;
+  margin-top: 150px;
+  padding: 24px;
 }
 #steps-content {
   margin-top: 16px;
@@ -10,12 +10,60 @@
   min-height: 550px;
   padding-top: 30px;
   padding-bottom: 30px;
-  padding-left: 50px;
 }
 #steps-action {
   margin-top: 24px;
 }
 .ant-upload-list {
   padding-top: 25px;
+}
+.step-description-image {
+  max-width: 100%;
+  height: auto;
+}
+.step-expenses-content {
+  padding-top: 100px;
+}
+.step-date-location-image {
+  max-width: 100%;
+  height: auto;
+  padding-top: 50px;
+}
+.step-media-gallery-image {
+  max-width: 100%;
+  height: auto;
+  padding-top: 100px;
+}
+@media (max-width: 480px) {
+  .ant-steps-horizontal.ant-steps-label-horizontal {
+    display: flex;
+  }
+  .ant-steps-horizontal.ant-steps-label-horizontal .ant-steps-item-content {
+    display: none;
+  }
+  #steps-content {
+    min-height: 450px;
+  }
+  .step-description-image {
+    display: none;
+  }
+  .step-expenses-content {
+    padding-top: 0;
+  }
+  .step-date-location-image {
+    padding-top: 0;
+  }
+  .step-media-gallery-image {
+    padding-top: 0;
+    display: none;
+  }
+  .dynamic-delete-button {
+    margin-left: 30px;
+  }
+}
+@media (min-width: 768px) {
+  #steps-content {
+    min-height: 550px;
+  }
 }
 /*# sourceMappingURL=style.css.map */
