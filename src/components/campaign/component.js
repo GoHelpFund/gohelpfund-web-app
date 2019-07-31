@@ -3,10 +3,10 @@ import './style.css';
 
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import { Link } from 'react-router-dom';
+
+import { Switch, Timeline, Button,  Descriptions, Badge, Skeleton, Card, Icon, Progress, Avatar, Tag } from 'antd';
+const { Meta } = Card;
 
 const styles = {
   card: {
@@ -18,50 +18,73 @@ const styles = {
   },
 };
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 class Campaign extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loading: false
+    }
   }
-  
+
+  onChange = checked => {
+    this.setState({ loading: !checked });
+  };
+
+
   render() {
+    const { loading } = this.state;
     const { classes } = this.props;
     const campaignData = this.props.data;
+    const percentage = Math.trunc((campaignData.wallet.help.balance / campaignData.amount_goal) * 100);
+    const progressStatus = percentage >= 100 ? "success" : "active"
+
     const daysLeft = Math.round(Math.abs((new Date(campaignData.start_date).getTime() - new Date(campaignData.end_date).getTime())/(24*60*60*1000)));
 
     return (
-      
-      <div id="app-campaign">
-        <Card className={classes.card + " campaign-card"}>
-        <Link to={{
-          pathname: "/campaign-details/" + campaignData.id,
-          state: { referrer: this.props.data }
-        }}>
-          <CardMedia
-            className={classes.media}
-            image={campaignData.media_resources[0] ? campaignData.media_resources[0].url : ''}
-            title={campaignData.title}
-          />
-        </Link>
-        <CardContent className="campaign-content">
-          <div className="author">{campaignData.fundraiser.name}</div>
-          <div className="title-container">
-            <div className="title">
-              <Link to={{
-                pathname: "/campaign-details/" + campaignData.id,
-                state: { referrer: this.props.data }
-                }}>
-                {campaignData.title}
-              </Link>
-            </div>
+
+      <div id="app-campaign" className="campaign">
+        <Skeleton loading={loading} active paragraph={{ rows: 7 }}>
+          <div hidden={!loading}>
           </div>
-        </CardContent>
-        <div className="campaign-details">
-          <span className="category"><img src={campaignData.category.image_url} alt=""/></span>
-          <span className="time"><span className="value">{daysLeft}</span> days left</span>
-          {/* <span className="backers"><span className="value">{campaignData.backers}</span> backers</span> */}
-          <span className="progress"><span className="value">{campaignData.wallet.help.balance} HELP</span> raised</span>
-        </div>
-      </Card>
+        </Skeleton>
+
+        <Skeleton loading={loading} avatar active paragraph={{ rows: 6 }}>
+        <Link to={{
+             pathname: "/campaign-details-ant/" + campaignData.id,
+             state: { referrer: this.props.data }
+        }}>
+        <Card key={campaignData.id}
+              cover={
+                !loading && <img
+                    alt="Campaign Media Resources"
+                    src={campaignData.media_resources[0].url}
+                    className="wat"
+                    width="350px"
+                    height="250px"
+                />
+              }
+              actions={[
+                  <Tag color="geekblue">{campaignData.category.name}</Tag>,
+                  <Tag color="geekblue">{daysLeft} days left</Tag>]
+              }
+        >
+          <Meta
+              title={campaignData.title}
+          />
+          <div style={{ margin: '16px 0' }}>
+            <Progress percent={ percentage }  status={progressStatus}/>
+          </div>
+            <p align="center"><Button type="dashed" size="default">
+                {numberWithCommas(campaignData.wallet.help.balance)} HELP
+            </Button>
+            </p>
+        </Card>
+        </Link>
+        </Skeleton>
       </div>
     );
   }

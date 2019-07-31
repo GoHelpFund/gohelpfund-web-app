@@ -10,6 +10,7 @@ background: url('../../assets/images/event-bg-mobile.png');
   margin: 0 auto;
   padding: 35px;
   display: table;
+  font-family: 'Noto Serif', serif;
 
   > div {
     display: table-cell;
@@ -31,5 +32,33 @@ background: url('../../assets/images/event-bg-mobile.png');
     margin-top: 20px;
     color: #fff;
     font-size: 15px;
+  }
+
+  h2:first-of-type {
+    font-weight: bold;
+  }
+
+  .donate-btn {
+    background: #cc3333;
+    background-image: linear-gradient(#f16663, #ee2b47);
+    text-transform: initial;
+    border-radius: 15px;
+    margin: 35px 0;
+    font-weight: normal;
+    font-size: 20px;
+    padding: 12px 40px;
+    height: 100%;
+    border: none;
+    
+    &:hover, &:active {
+        background: lighten(#cc3333, 5%);
+        cursor: pointer;
+    }
+
+    &[disabled] {
+      color: white;
+      background: lighten(#cc3333, 15%);
+      cursor: not-allowed;
+    }
   }
 }

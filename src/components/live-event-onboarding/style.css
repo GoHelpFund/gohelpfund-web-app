@@ -28,9 +28,15 @@
 }
 #app-live-event-onboarding .onboarding-input-container input {
   color: #fff;
+  font-family: 'Noto Serif', serif;
+  border-bottom: 2px solid #00ffff;
+}
+#app-live-event-onboarding .onboarding-input-container label {
+  font-family: 'Noto Serif', serif;
 }
 #app-live-event-onboarding .onboarding-btn {
   background: #cc3333;
+  background-image: linear-gradient(#f16663, #ee2b47);
   text-transform: initial;
   border-radius: 15px;
   margin: 35px 0;
@@ -43,13 +49,16 @@
   background: #d14747;
   cursor: pointer;
 }
+#app-live-event-onboarding .onboarding-btn[disabled] {
+  color: white;
+  background: #db7070;
+  cursor: not-allowed;
+}
 #app-live-event-onboarding .box-title {
   font-size: 25px;
   text-transform: uppercase;
   color: #fff;
-}
-#app-live-event-onboarding .MuiInput-underline-21:before {
-  border-bottom: 2px solid #00ffff;
+  font-weight: bold;
 }
 #app-live-event-onboarding .bal-logo {
   max-width: 150px;
@@ -62,11 +71,14 @@
   color: #fff;
   margin-top: 50px;
   font-size: 13px;
+  padding: 0 20px;
 }
 #app-live-event-onboarding .welcome-text-2 {
   color: #fff;
   margin-top: 20px;
-  font-size: 11px;
+  padding: 0 40px;
+  font-size: 15px;
+  font-weight: bold;
 }
 #app-live-event-onboarding .arrow-container {
   text-align: -webkit-auto;
@@ -76,3 +88,23 @@
   margin-top: 49px;
   cursor: pointer;
 }
+#app-live-event-onboarding .select-container {
+  margin-top: 10px;
+}
+#app-live-event-onboarding .select-container > div {
+  border-bottom: 2px solid #00ffff;
+}
+#app-live-event-onboarding .select-container div {
+  color: #fff;
+  text-align: left;
+}
+#app-live-event-onboarding .select-container svg {
+  color: #fff;
+}
+#app-live-event-onboarding .checkbox-container {
+  margin: 30px 0;
+}
+#app-live-event-onboarding .checkbox-container span {
+  color: #fff;
+}
+/*# sourceMappingURL=style.css.map */

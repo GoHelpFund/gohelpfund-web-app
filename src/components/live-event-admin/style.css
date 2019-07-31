@@ -1,0 +1,64 @@
+#app-live-event-admin {
+  background: url('../../assets/images/event-bg-mobile.png');
+  background-size: cover;
+  text-align: center;
+  color: #fff;
+  height: 100%;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 35px;
+  display: table;
+}
+#app-live-event-admin > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+#app-live-event-admin .amount-field {
+  background: rgba(0, 56, 179, 0.7);
+  border: none;
+  border-radius: 15px;
+  height: 50px;
+  min-width: 200px;
+  color: #fff;
+  font-size: 20px;
+  padding: 10px;
+}
+#app-live-event-admin .amount-field input {
+  text-align: center;
+}
+#app-live-event-admin .donate-btn {
+  background: #cc3333;
+  text-transform: initial;
+  border-radius: 15px;
+  margin: 35px 0;
+  font-weight: normal;
+  font-size: 20px;
+  padding: 12px 40px;
+  height: 100%;
+  border: none;
+}
+#app-live-event-admin .donate-btn:hover,
+#app-live-event-admin .donate-btn:active {
+  background: #d14747;
+  cursor: pointer;
+}
+#app-live-event-admin .donate-btn[disabled] {
+  color: white;
+  background: #db7070;
+  cursor: not-allowed;
+}
+#app-live-event-admin .server-message {
+  margin-top: 25px;
+  font-size: 18px;
+  font-weight: bold;
+  background: rgba(0, 56, 179, 0.4);
+  color: #fff;
+}
+#app-live-event-admin .checkbox-container {
+  margin-top: 25px;
+}
+#app-live-event-admin .checkbox-container span {
+  color: #fff;
+}
+/*# sourceMappingURL=style.css.map */

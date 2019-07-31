@@ -9,6 +9,7 @@
   margin: 0 auto;
   padding: 35px;
   display: table;
+  font-family: 'Noto Serif', serif;
 }
 #app-live-event-success > div {
   display: table-cell;
@@ -28,3 +29,29 @@
   color: #fff;
   font-size: 15px;
 }
+#app-live-event-success h2:first-of-type {
+  font-weight: bold;
+}
+#app-live-event-success .donate-btn {
+  background: #cc3333;
+  background-image: linear-gradient(#f16663, #ee2b47);
+  text-transform: initial;
+  border-radius: 15px;
+  margin: 35px 0;
+  font-weight: normal;
+  font-size: 20px;
+  padding: 12px 40px;
+  height: 100%;
+  border: none;
+}
+#app-live-event-success .donate-btn:hover,
+#app-live-event-success .donate-btn:active {
+  background: #d14747;
+  cursor: pointer;
+}
+#app-live-event-success .donate-btn[disabled] {
+  color: white;
+  background: #db7070;
+  cursor: not-allowed;
+}
+/*# sourceMappingURL=style.css.map */

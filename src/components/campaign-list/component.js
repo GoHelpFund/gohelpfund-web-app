@@ -1,13 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import {withStyles} from '@material-ui/core/styles';
+import QueueAnim from 'rc-queue-anim';
 import axios from 'axios';
+
+import {Col, Row} from 'antd';
 
 import Campaign from '../campaign/component';
 import * as EndPoints from '../../utils/end-points';
 
 import './style.css';
+
 
 const styles = theme => ({
   root: {
@@ -82,20 +85,33 @@ class CampaignList extends Component {
 
   render() {
     const { classes } = this.props;
+    const groupSize = 3;
 
-    const campaignList = this.state.campaignList.map(campaign => 
-      <Grid item xs={12} sm={6} md={4} key={campaign.id}>
+    const campaignList = this.state.campaignList.map((campaign, index) =>
+      <Col key={index} xs={24} sm={12} md={8} span={24 / groupSize}>
         <Campaign className={classes.campaign} data={campaign}/>
-      </Grid>
-    );
+      </Col>
+    ).reduce(function(r, element, index) {
+        // create element groups with size 3, result looks like:
+        // [[elem1, elem2, elem3], [elem4, elem5, elem6], ...]
+        index % groupSize === 0 && r.push([]);
+        r[r.length - 1].push(element);
+        return r;
+    }, []).map(function(rowContent, index) {
+        // surround every group with 'row'
+        return <Row key={index} gutter={48}
+                    style={{ padding: '30px' }}>
+            {rowContent}
+        </Row>;
+    });
 
     return (
-      <div id="app-campaign-list" className={classes.root}>
-        <Grid className={classes.grid} container spacing={16}>
+      <div style={{ padding: '30px' }}>
+        <QueueAnim component="ul" type={['right', 'left']} leaveReverse>
           {campaignList}
-        </Grid>
+        </QueueAnim>
       </div>
-      
+
     );
   }
 }

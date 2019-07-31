@@ -19,6 +19,7 @@
   h2 {
     margin: 30px 0;
     color: #fff;
+    font-size: 17px;
   }
 
   .checkbox-container {
@@ -29,8 +30,15 @@
     }
   }
 
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+  }
+
   .donate-btn {
     background: #cc3333;
+    background-image: linear-gradient(#f16663, #ee2b47);
     text-transform: initial;
     border-radius: 15px;
     margin: 35px 0;
@@ -73,6 +81,15 @@
 
     input {
       text-align: center;
+    }
+  }
+
+  .welcome-message {
+    font-size: 20px;
+    margin-bottom: 30px;
+
+    .user-name, .donated-amount {
+      font-weight: bold;
     }
   }
 }
