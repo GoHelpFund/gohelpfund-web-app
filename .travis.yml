@@ -30,7 +30,7 @@ env:
     # HTTPS_OPENSSL_KEY
     - secure: 2+N4UVb0mkOo7KT9nUrqz3Z8DV1RVHzpm8MALKokivw/J69R6bi+tuaA/vV7Fwxm58wCx/Y2mNFcKkIP1/3JX0l2cW0JgyU36RMaf1OzRwcQL2Dfx5n3x2Pw95csM6IMagk3XTyqaLQbXqpRSKEK49bOPTxUVtdyfRcZqbzE99h5lZKWaf5IW35QhAMxJaoriYnk/hxRA6JQcnXfMe/NWqCfQpATlP0iwNFxfVKCsN8xv1UMJPFn0SHEye0TO6QExnbbsXB8nCKEQBqGud85mJEmY82kl0vs7q1UCzoeXDiYwzLA84+iUZuqYpSAPqpVxCvwPlvJV3lQn5lhIqrdiBxG1ZKrGHGqfMlkKH83uDMFX6M4bD98G84K31RF4pw56vARIGbumH5jF/3bouNjI1JHuRvTFJnM1XUfbkdxJRWaf+d2LYckntxuihWSCKzEQRlV0fb3tayNblXHFa/Do6l5gYa9bqBZsKRAtjGUfPZJuNtPv7SyvE+jb+5aC4qixYnHijzDbLXS7mWabyzfihZmCCVHSaEtuqWzMVsS13qO70Tsk6aCqNVeWTsreMjB/kD32uOhvuAuJVjLuRyRA2thYk/+1RgJe4VdW9xXiUkjUNJ0/WLewmFVgP5lVE8Lv+ACzJJTm5LnJqh+4WvbnkH4yEOB6aFurEynMt1sjGw=
 before_install:
-  - gem install travis -v 1.8.5 --no-rdoc --no-ri
+  - gem install travis -v 1.8.5 --no-document
   - sudo curl -k -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest
   - sudo chmod +x /usr/local/bin/ecs-cli
   - export BUILD_NAME=gohelpfund-$TRAVIS_BRANCH-$(date -u "+%Y%m%d%H%M%S")-$TRAVIS_BUILD_NUMBER
