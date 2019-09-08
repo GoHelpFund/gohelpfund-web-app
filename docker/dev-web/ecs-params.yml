@@ -1,6 +1,6 @@
 version: 1
 task_definition:
   services:
-    gohelpfund-web:
+    ghf-web-app:
       cpu_shares: 1024
       mem_limit: 985MB
