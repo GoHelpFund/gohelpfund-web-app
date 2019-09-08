@@ -1,13 +1,12 @@
 gohelpfund-web:
   image: gohelpfund/ghf-web-app:${BUILD_NAME}
-  mem_limit: 553741824
   ports:
-  - "80:80"
+    - "443:443"
+    - "80:80"
   environment:
     OPENSSL_KEY:            $HTTPS_OPENSSL_KEY
     OPENSSL_IV:             $HTTPS_OPENSSL_IV
     PROFILE: "prod-web"
     PLATFORM_ENV: "prod"
-    SERVER_PORT: "443"
-    REST_API_URI: "http://dev-api.gohelpfund.com"
+    REST_API_URI: "http://api.gohelpfund.com"
 

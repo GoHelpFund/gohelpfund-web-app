@@ -12,6 +12,7 @@ notifications:
     - daniel.dascalu@gohelpfund.com
 branches:
   only:
+    - master
     - develop
 env:
   global:
@@ -37,7 +38,9 @@ before_install:
   - export CONTAINER_IP=52.29.201.15
   - export PLATFORM_TEST_NAME="gohelpfund-platform-tests"
 script:
-  - sh travis_scripts/tag_build.sh
+  - if [ "$TRAVIS_BRANCH" == "develop" ]; then sh travis_scripts/tag_build-dev.sh; fi
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then sh travis_scripts/tag_build-prod.sh; fi
   - sh travis_scripts/build_services.sh
   - sh travis_scripts/deploy_to_docker_hub.sh
-  - sh travis_scripts/deploy_to_amazon_ecs.sh
+  - if [ "$TRAVIS_BRANCH" == "develop" ]; then sh travis_scripts/deploy_to_amazon_ecs-dev.sh; fi
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then sh travis_scripts/deploy_to_amazon_ecs-prod.sh; fi
