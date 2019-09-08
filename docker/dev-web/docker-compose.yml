@@ -1,9 +1,8 @@
 ghf-web-app:
   image: gohelpfund/ghf-web-app:${BUILD_NAME}
-  mem_limit: 953741824
   ports:
-  - "443:443"
-  - "80:80"
+    - "443:443"
+    - "80:80"
   environment:
     OPENSSL_KEY:            $HTTPS_OPENSSL_KEY
     OPENSSL_IV:             $HTTPS_OPENSSL_IV

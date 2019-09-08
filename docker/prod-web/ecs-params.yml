@@ -1,0 +1,6 @@
+version: 1
+task_definition:
+  services:
+    gohelpfund-web:
+      cpu_shares: 2048
+      mem_limit: 3705MB

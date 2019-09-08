@@ -12,6 +12,7 @@ notifications:
     - daniel.dascalu@gohelpfund.com
 branches:
   only:
+    - master
     - develop
 env:
   global:
@@ -34,11 +35,12 @@ before_install:
   - sudo curl -k -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest
   - sudo chmod +x /usr/local/bin/ecs-cli
   - export BUILD_NAME=gohelpfund-$TRAVIS_BRANCH-$(date -u "+%Y%m%d%H%M%S")-$TRAVIS_BUILD_NUMBER
-  - export CONTAINER_IP=18.185.239.72
-  - export PLATFORM_TEST_NAME="gohelpfund-web-app-tests"
+  - export CONTAINER_IP=52.29.201.15
+  - export PLATFORM_TEST_NAME="gohelpfund-platform-tests"
 script:
-  - sh travis_scripts/tag_build.sh
+  - if [ "$TRAVIS_BRANCH" == "develop" ]; then sh travis_scripts/tag_build-dev.sh; fi
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then sh travis_scripts/tag_build-prod.sh; fi
   - sh travis_scripts/build_services.sh
   - sh travis_scripts/deploy_to_docker_hub.sh
-  - sh travis_scripts/deploy_to_amazon_ecs.sh
-#  - sh travis_scripts/trigger_web_app_tests.sh
+  - if [ "$TRAVIS_BRANCH" == "develop" ]; then sh travis_scripts/deploy_to_amazon_ecs-dev.sh; fi
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then sh travis_scripts/deploy_to_amazon_ecs-prod.sh; fi
