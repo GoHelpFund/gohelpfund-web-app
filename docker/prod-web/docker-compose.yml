@@ -1,4 +1,4 @@
-gohelpfund-web:
+ghf-web-app:
   image: gohelpfund/ghf-web-app:${BUILD_NAME}
   ports:
     - "443:443"
