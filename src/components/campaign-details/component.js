@@ -180,7 +180,6 @@ class CampaignDetails extends Component {
 
     axios.post(url, params, config)
       .then(response => {
-        console.log(response);
         this.setState({campaignDetails: response.data, thanksMessage: true});
         this.toggleDonationScreen();
         this.getFundraiserData();

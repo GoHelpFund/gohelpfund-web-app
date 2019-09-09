@@ -265,7 +265,6 @@ class CampaignDetailsAnt extends Component {
 
     axios.post(url, params, config)
       .then(response => {
-        console.log(response);
         message.success("Thank you for the donation.");
         this.setState({
           campaignDetails: response.data,

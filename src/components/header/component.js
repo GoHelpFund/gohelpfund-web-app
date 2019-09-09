@@ -11,13 +11,13 @@ class Header extends Component {
   static propTypes = {
     cookies: instanceOf(Cookies).isRequired
   };
-  
+
   constructor(props) {
     super(props);
 
     this.state = {
       isLoggedIn: this.props.isLoggedIn,
-      hasBg: window.location.pathname === '/home' ? true : false
+      hasBg: window.location.pathname === '/home'
     }
   }
 
@@ -43,7 +43,7 @@ class Header extends Component {
     } else {
       this.setState({hasBg: false});
     }
-   
+
   };
 
   componentWillReceiveProps(props) {

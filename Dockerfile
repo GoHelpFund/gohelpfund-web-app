@@ -7,12 +7,17 @@ RUN npm run build > "/dev/null" 2>&1
 
 FROM nginx:1.12-alpine
 RUN apk update \
-    && apk add openssl
+    && apk add openssl \
+    && apk add --no-cache jq
+
 COPY --from=build-deps /ghf-web-app/build /usr/share/nginx/html
 RUN rm -rf /etc/nginx/conf.d
 COPY conf /etc/nginx
 
 COPY certs/ /etc/nginx/
+
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 ADD run.sh run.sh
 RUN chmod +x run.sh
