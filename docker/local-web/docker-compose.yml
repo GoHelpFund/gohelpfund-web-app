@@ -1,9 +1,11 @@
 ghf-web-app:
   image: gohelpfund/ghf-web-app:${BUILD_NAME}
   ports:
-  - "443:443"
-  - "80:80"
+    - "443:443"
+    - "80:80"
   environment:
-    $NGINXSERVER_PORT:      "443"
     OPENSSL_KEY:            $HTTPS_OPENSSL_KEY
     OPENSSL_IV:             $HTTPS_OPENSSL_IV
+    PROFILE:                "local-web"
+    REACT_APP_ENV:          "local"
+    REACT_APP_SEGMNET_KEY:  "fk98GwKbKa5nKJwPCzm89tfBJuVnM5kn"

@@ -57,7 +57,6 @@ class CampaignList extends Component {
       .then(response => {
         localStorage.setItem('appToken', response.data.access_token);
         that.getCampaignList();
-        console.log(response);
       })
       .catch(function(error) {
         console.log(error);

@@ -6,6 +6,6 @@ ghf-web-app:
   environment:
     OPENSSL_KEY:            $HTTPS_OPENSSL_KEY
     OPENSSL_IV:             $HTTPS_OPENSSL_IV
-    PROFILE: "dev-web"
-    PLATFORM_ENV: "dev"
-    REST_API_URI: "http://dev-api.gohelpfund.com"
+    PROFILE:                "dev-web"
+    REACT_APP_ENV:          "dev"
+    REACT_APP_SEGMNET_KEY:  "fk98GwKbKa5nKJwPCzm89tfBJuVnM5kn"

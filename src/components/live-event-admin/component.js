@@ -35,7 +35,6 @@ class LiveEventAdmin extends Component {
         axios.post(url, params, config)
         .then(response => {
             that.setState({serverMessage: 'Succes! Ai modificat suma cu ' + that.state.amount});
-            console.log(response);
         })
         .catch(function(error) {
             that.setState({serverMessage: error.response.data.error_description});

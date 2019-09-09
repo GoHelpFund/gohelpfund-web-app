@@ -145,6 +145,10 @@ class CampaignDetailsAnt extends Component {
     this.getCampaignData();
   }
 
+  componentDidMount() {
+    window.analytics.page('Campaign Details');
+  }
+
   componentWillMount() {
     this.getFundraiserData();
   }
@@ -261,7 +265,6 @@ class CampaignDetailsAnt extends Component {
 
     axios.post(url, params, config)
       .then(response => {
-        console.log(response);
         message.success("Thank you for the donation.");
         this.setState({
           campaignDetails: response.data,

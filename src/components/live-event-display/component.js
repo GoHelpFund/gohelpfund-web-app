@@ -32,7 +32,6 @@ class LiveEventDisplay extends Component {
         .then(response => {
           localStorage.setItem('appToken', response.data.access_token);
           that.getEventData();
-          console.log(response);
         })
         .catch(function(error) {
           console.log(error);

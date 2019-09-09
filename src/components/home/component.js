@@ -15,6 +15,10 @@ const { Header, Content, Footer } = Layout;
 
 class Home extends Component {
 
+  componentDidMount() {
+    window.analytics.page('Home');
+  }
+
   render() {
     return (
             <div id="app-home">
@@ -31,6 +35,7 @@ class Home extends Component {
                       <div className="vertical-content">
                         <h1>Transparent humanitarian fundraising</h1>
                         <h2>Help those in need and support causes that matter to you.</h2>
+                        <h2>One: {process.env.REACT_APP_ENV}</h2>
                         <div id="cta-section">
                         <a href="#app-campaign-list-container" >
                           <button className="main-cta-btn">Support causes</button>

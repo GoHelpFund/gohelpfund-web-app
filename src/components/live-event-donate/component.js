@@ -46,7 +46,6 @@ class LiveEventDonate extends Component {
       .then(response => {
         localStorage.setItem('totalDonated', response.data.total_amount_donated);
         window.location.pathname = '/live-event-success';
-        console.log(response);
       })
       .catch(function(error) {
         that.setState({disableBtn: false});
