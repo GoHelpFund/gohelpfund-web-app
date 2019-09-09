@@ -84,6 +84,10 @@ class CampaignDetails extends Component {
     this.getCampaignData();
   }
 
+  componentDidMount() {
+    window.analytics.page('Campaign Details');
+  }
+
   componentWillMount() {
     this.getFundraiserData();
   }
