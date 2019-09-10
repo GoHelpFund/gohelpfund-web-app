@@ -16,7 +16,8 @@ COPY conf /etc/nginx
 
 COPY certs/ /etc/nginx/
 
-COPY docker-entrypoint.sh /
+ADD docker-entrypoint.sh docker-entrypoint.sh
+RUN chmod +x docker-entrypoint.sh
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
 ADD run.sh run.sh
