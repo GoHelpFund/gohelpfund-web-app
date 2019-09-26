@@ -1,5 +1,6 @@
 
 export const prod = 'api';
+export const staging = 'staging-api';
 export const dev = 'dev-api';
 
 
@@ -11,6 +12,8 @@ if(hostname === 'beta.gohelpfund.com' && docker_env === 'prod') {
     backendHost = prod;
 } else if(hostname === 'dev-beta.gohelpfund.com' && docker_env === 'dev') {
     backendHost = dev;
+} else if(hostname === 'staging-beta.gohelpfund.com' && docker_env === 'staging') {
+    backendHost = staging;
 } else {
     backendHost = dev;
 }

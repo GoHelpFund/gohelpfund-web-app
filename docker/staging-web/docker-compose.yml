@@ -1,0 +1,11 @@
+ghf-web-app:
+  image: gohelpfund/ghf-web-app:${BUILD_NAME}
+  ports:
+    - "443:443"
+    - "80:80"
+  environment:
+    OPENSSL_KEY:            $HTTPS_OPENSSL_KEY
+    OPENSSL_IV:             $HTTPS_OPENSSL_IV
+    PROFILE:                "staging-web"
+    REACT_APP_ENV:          "staging"
+    REACT_APP_SEGMNET_KEY:  "f2HSmMG6ASBfhWHnrENb0gMESQlfyYCn"

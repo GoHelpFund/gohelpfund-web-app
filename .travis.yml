@@ -13,7 +13,8 @@ notifications:
 branches:
   only:
     - master
-    - develop
+    - staging
+    - dev
 env:
   global:
     # DOCKER_USERNAME
@@ -37,9 +38,11 @@ before_install:
   - export BUILD_NAME=gohelpfund-$TRAVIS_BRANCH-$(date -u "+%Y%m%d%H%M%S")-$TRAVIS_BUILD_NUMBER
   - export PLATFORM_TEST_NAME="gohelpfund-platform-tests"
 script:
-  - if [ "$TRAVIS_BRANCH" == "develop" ]; then sh travis_scripts/tag_build-dev.sh; fi
   - if [ "$TRAVIS_BRANCH" == "master" ]; then sh travis_scripts/tag_build-prod.sh; fi
+  - if [ "$TRAVIS_BRANCH" == "staging" ]; then sh travis_scripts/tag_build-staging.sh; fi
+  - if [ "$TRAVIS_BRANCH" == "dev" ]; then sh travis_scripts/tag_build-dev.sh; fi
   - sh travis_scripts/build_services.sh
   - sh travis_scripts/deploy_to_docker_hub.sh
-  - if [ "$TRAVIS_BRANCH" == "develop" ]; then sh travis_scripts/deploy_to_amazon_ecs-dev.sh; fi
   - if [ "$TRAVIS_BRANCH" == "master" ]; then sh travis_scripts/deploy_to_amazon_ecs-prod.sh; fi
+  - if [ "$TRAVIS_BRANCH" == "staging" ]; then sh travis_scripts/deploy_to_amazon_ecs-staging.sh; fi
+  - if [ "$TRAVIS_BRANCH" == "dev" ]; then sh travis_scripts/deploy_to_amazon_ecs-dev.sh; fi
