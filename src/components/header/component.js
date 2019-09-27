@@ -75,7 +75,7 @@ class Header extends Component {
           {authActionButton}
         </div>
         <div className="header-action-container">
-          <Link to="/create-campaign" className="create-btn-link">
+          <Link to="/create-campaign-ant" className="create-btn-link">
             Create campaign
           </Link>
         </div>
