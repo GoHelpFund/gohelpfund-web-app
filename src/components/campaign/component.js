@@ -54,7 +54,7 @@ class Campaign extends Component {
 
         <Skeleton loading={loading} avatar active paragraph={{ rows: 6 }}>
         <Link to={{
-             pathname: "/campaign-details-ant/" + campaignData.id,
+             pathname: "/campaign-details/" + campaignData.id,
              state: { referrer: this.props.data }
         }}>
         <Card key={campaignData.id}

@@ -146,7 +146,7 @@ class CampaignDetailsAnt extends Component {
   }
 
   componentDidMount() {
-    window.analytics.page('Campaign Details');
+    // window.analytics.page('Campaign Details');
   }
 
   componentWillMount() {

@@ -64,6 +64,9 @@
   right: 10px;
   cursor: pointer;
 }
+#app-campaign-details .campaign-details-donate .btc-address {
+  padding: 20px 0;
+}
 #app-campaign-details .campaign-details-status {
   height: 350px;
   padding: 25px;
@@ -135,7 +138,7 @@
 }
 #app-campaign-details .campaign-details-info {
   padding: 30px 50px;
-  min-height: 260px;
+  min-height: 409px;
 }
 #app-campaign-details .campaign-details-info .title {
   font-size: 25px;
@@ -147,9 +150,12 @@
 #app-campaign-details .campaign-details-info p {
   margin-top: 30px;
 }
+#app-campaign-details .campaign-details-info .ant-tabs-content {
+  padding-top: 30px;
+}
 #app-campaign-details .campaign-details-info .ant-tabs-bar {
   text-align: center;
-  width: 400px;
+  width: 450px;
   margin: 0 auto;
 }
 #app-campaign-details .campaign-details-fundraiser {
@@ -290,4 +296,3 @@
     margin-bottom: 30px;
   }
 }
-/*# sourceMappingURL=style.css.map */
