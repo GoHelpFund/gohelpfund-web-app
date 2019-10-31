@@ -485,7 +485,7 @@ class CampaignDetails extends Component {
                   <br />
                   <div>
                     <Timeline mode="alternate">
-                      expenseItems                          expenseItems                            {expenseItems}
+                      {expenseItems}
                     </Timeline>
                   </div>
                 </TabPane>
