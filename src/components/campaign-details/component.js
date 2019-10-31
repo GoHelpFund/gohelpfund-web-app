@@ -9,6 +9,8 @@ import ImageGallery from 'react-image-gallery';
 import Zoom from '@material-ui/core/Zoom';
 import TextField from '@material-ui/core/TextField';
 import { Tabs } from 'antd';
+import copy from 'copy-to-clipboard';
+import QRCode from 'qrcode.react';
 
 import CampaignProgress from '../campaign-progress/component';
 import EmptyProfileImage from '../../assets/images/empty-profile-picture.svg';
@@ -219,6 +221,34 @@ class CampaignDetails extends Component {
       });
   }
 
+  copyToClipboard() {
+    copy(this.state.campaignDetails.wallet.bitcoin.address);
+  }
+
+    // return true if in range, otherwise false
+    inRange = (x, min, max) => {
+      return ((x - min) * (x - max) <= 0);
+    };
+
+  renderExpense = (e, index, arr, amountRaised) => {
+    let prevPartialAmount = 0;
+
+    for (let i = 0; i < index; i++) {
+      prevPartialAmount += arr[i].amount;
+    }
+    let nextPartialAmount = prevPartialAmount + arr[index].amount;
+    const isInRange = this.inRange(amountRaised, prevPartialAmount, nextPartialAmount);
+
+    if (isInRange === true && amountRaised !== nextPartialAmount) {
+      return (<Icon type="loading"/>)
+    } else if (prevPartialAmount <= amountRaised) {
+      return (<Icon type="check-circle" theme="twoTone" style={{fontSize: '16px'}}
+                    twoToneColor="#52c41a"/>)
+    } else {
+      return null;
+    }
+  };
+
   render() {
     const { classes } = this.props;
     const { isDonateScreenOpen } = this.state;
@@ -327,7 +357,7 @@ class CampaignDetails extends Component {
         key={index}
         dot={this.renderExpense(e, index, arr, amountRaised)}
       >
-        <Button type="dashed">${e.amount} - {e.description}</Button>
+        <Button type="dashed">{e.amount} - {e.description} BTC</Button>
       </Timeline.Item>
     ));
 
@@ -351,14 +381,14 @@ class CampaignDetails extends Component {
                 <span>{campaignDetails.location}</span>
               </div>
               <div className="status-amount-raised">
-                <span>${campaignDetails.wallet ? campaignDetails.wallet.help.balance : 0}</span>
+                <span>{campaignDetails.wallet ? campaignDetails.wallet.help.balance : 0} BTC</span>
               </div>
               <div className="clearfix"></div>
               <div className="status-days-left">
                 <span><strong>{daysLeft}</strong> days left</span>
               </div>
               <div className="status-amount-needed">
-                <span>of <strong>${campaignDetails.amount_goal}</strong> needed</span>
+                <span>of <strong>{campaignDetails.amount_goal} BTC</strong> needed</span>
               </div>
               <div className="clearfix"></div>
               <div className="status-category">
@@ -396,15 +426,17 @@ class CampaignDetails extends Component {
 
               <Zoom in={isDonateScreenOpen} className="campaign-details-donate">
                 <Paper elevation={4} className={classes.paper}>
-                  <span className="close-btn" onClick={this.toggleDonationScreen.bind(this)}>x</span>
+                  {/* <span className="close-btn" onClick={this.toggleDonationScreen.bind(this)}>x</span> */}
+                  <Icon className="close-btn" onClick={this.toggleDonationScreen.bind(this)} type="close" />
                   <h2>Send your BTC to the following address:</h2>
+                  <QRCode value={bitcoinAddress} className="qrcode"/>
                   <div className="btc-address">
                     <h1><Text code>{bitcoinAddress}</Text></h1>
+                    <Icon type="copy" className="clipboard" onClick={this.copyToClipboard.bind(this)}/>
                   </div>
-                  <p>Currently we only accept BTC. More payment methods are comming soon, includig credit card.</p>
                   {amountValidation}
                   <div className="donate-button">
-                    <button className="secondary-cta-btn" onClick={this.donate.bind(this)}>DONE</button>
+                    <button className="secondary-cta-btn" onClick={this.toggleDonationScreen.bind(this)}>DONE</button>
                   </div>
                 </Paper>
               </Zoom>
@@ -457,33 +489,25 @@ class CampaignDetails extends Component {
                     </Timeline>
                   </div>
                 </TabPane>
-                <TabPane key="3" tab={<span><Icon type="smile" theme="twoTone" />Donations</span>}>
+                {/* <TabPane key="3" tab={<span><Icon type="smile" theme="twoTone" />Donations</span>}>
                   <Table {...this.tableState} columns={columns} dataSource={hasData ? realData : null} />
-                </TabPane>
+                </TabPane> */}
               </Tabs>
             </section>
           </Grid>
           <Grid item xs={12} md={4}>
             <section className="campaign-details-fundraiser">
               <div align="center">
-                <h3>Fundraiser </h3>
-
-                <Avatar style={{ width: '100px', height: '100px', border: '1px solid #e8e8e8' }}
-                  src={campaignDetails.fundraiser.profile_image_url} />
-                <Text>INDIVIDUAL</Text>
-                <h2><Text code>{campaignDetails.fundraiser.name}</Text></h2>
+                <Text>ORGANIZATION</Text>
+                <Avatar className="fundraiser-image" src={campaignDetails.fundraiser.profile_image_url} />
+                <h2><Text>{campaignDetails.fundraiser.name}</Text></h2>
               </div>
-              <Divider dashed orientation="left">Professional</Divider>
-              <p>
-                {campaignDetails.fundraiser.professional.job_title} @ {campaignDetails.fundraiser.professional.company_name}
-              </p>
-              <Divider dashed orientation="left">Social</Divider>
-              <div>
-                <span className="icon-facebook" style={{ fontSize: '32px', color: '#d9d9d9' }} />
-                <span className="icon-linkedin" style={{ fontSize: '32px', color: '#d9d9d9', margin: '0 8px' }} />
-                <span className="icon-twitter" style={{ fontSize: '32px', color: '#d9d9d9' }} />
+              <div className="fundraiser-social">
+                <a href={campaignDetails.fundraiser.social.facebook} target="_blank" className="icon-facebook"/>
+                <a href={campaignDetails.fundraiser.social.linkedin} target="_blank" className="icon-linkedin"/>
+                <a href={campaignDetails.fundraiser.social.twitter} target="_blank" className="icon-twitter"/>
               </div>
-
+              <div className="fundraiser-web"><a href={campaignDetails.fundraiser.social.website} target="_blank">{campaignDetails.fundraiser.social.website}</a></div>
             </section>
           </Grid>
         </Grid>

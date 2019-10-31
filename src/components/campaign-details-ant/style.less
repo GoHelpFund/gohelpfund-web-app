@@ -1,356 +1,356 @@
 
-@import '../../variables.less';
+// @import '../../variables.less';
 
-#app-campaign-details {
-  margin-top: 50px;
-  padding: 50px 100px;
+// #app-campaign-details {
+//   margin-top: 50px;
+//   padding: 50px 100px;
 
-  .campaign-details-gallery {
-    height: 350px;
+//   .campaign-details-gallery {
+//     height: 350px;
 
-    img {
-      object-fit: cover;
-      width: 100%;
-      height: 350px;
-     }
-  }
+//     img {
+//       object-fit: cover;
+//       width: 100%;
+//       height: 350px;
+//      }
+//   }
 
-  .clearfix {
-    clear: both;
-  }
+//   .clearfix {
+//     clear: both;
+//   }
 
-  .section-title {
-    color: @dark-grey;
-    font-size: 18px;
-    text-align: center;
-  }
+//   .section-title {
+//     color: @dark-grey;
+//     font-size: 18px;
+//     text-align: center;
+//   }
 
-  .campaign-details-title {
-    padding: 10px 20px;
-    text-align: center;
-    color: @main-blue;
-    font-weight: 500;
+//   .campaign-details-title {
+//     padding: 10px 20px;
+//     text-align: center;
+//     color: @main-blue;
+//     font-weight: 500;
 
-    span {
-      font-size: 22px;
-    }
-  }
+//     span {
+//       font-size: 22px;
+//     }
+//   }
 
-  .campaign-details-donate {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-    text-align: center;
+//   .campaign-details-donate {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     padding: 20px;
+//     text-align: center;
 
-    h2 {
-      margin: 30px 0;
-      color: @main-green;
-      font-weight: 500;
-    }
+//     h2 {
+//       margin: 30px 0;
+//       color: @main-green;
+//       font-weight: 500;
+//     }
 
-    .donate-currency {
-      font-size: 25px;
-      margin-left: 10px;
-    }
+//     .donate-currency {
+//       font-size: 25px;
+//       margin-left: 10px;
+//     }
 
-    .donate-button {
-      margin-top: 50px;
-    }
+//     .donate-button {
+//       margin-top: 50px;
+//     }
 
-    #amount-field {
-      width: 100px;
-      padding: 5px 10px;
-      font-size: 25px;
-      text-align: center;
+//     #amount-field {
+//       width: 100px;
+//       padding: 5px 10px;
+//       font-size: 25px;
+//       text-align: center;
   
-      &::placeholder {
-        text-align: center;
-        font-size: 25px;
-      }
-    }
+//       &::placeholder {
+//         text-align: center;
+//         font-size: 25px;
+//       }
+//     }
 
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      cursor: pointer;
-    }
-  }
+//     .close-btn {
+//       position: absolute;
+//       top: 10px;
+//       right: 10px;
+//       cursor: pointer;
+//     }
+//   }
   
-  .campaign-details-status {
-    height: 350px;
-    padding: 25px;
-    position: relative;
-    color: @main-grey;
+//   .campaign-details-status {
+//     height: 350px;
+//     padding: 25px;
+//     position: relative;
+//     color: @main-grey;
 
-    .status-location {
-      float: left;
-      font-size: 20px;
-      margin-top: 15px;
-    }
+//     .status-location {
+//       float: left;
+//       font-size: 20px;
+//       margin-top: 15px;
+//     }
 
-    .status-amount-raised {
-      float: right;
-      font-size: 35px;
-      font-weight: bold;
-      color: @main-green;
-      font-weight: 600;
-    }
+//     .status-amount-raised {
+//       float: right;
+//       font-size: 35px;
+//       font-weight: bold;
+//       color: @main-green;
+//       font-weight: 600;
+//     }
 
-    .status-days-left {
-      float: left;
-    }
+//     .status-days-left {
+//       float: left;
+//     }
 
-    .status-amount-needed {
-      float: right;
-    }
+//     .status-amount-needed {
+//       float: right;
+//     }
 
-    .status-category {
-      float: left;
-      margin-top: 5px;
+//     .status-category {
+//       float: left;
+//       margin-top: 5px;
 
-      img {
-        height: 25px;
-        margin-top: -5px;
-        margin-right: 10px;
-      }
-    }
+//       img {
+//         height: 25px;
+//         margin-top: -5px;
+//         margin-right: 10px;
+//       }
+//     }
 
-    .status-donors {
-      float: right;
-    }
+//     .status-donors {
+//       float: right;
+//     }
 
-    .status-button {
-      position: absolute;
-      bottom: 25px;
-      right: 25px;
-    }
+//     .status-button {
+//       position: absolute;
+//       bottom: 25px;
+//       right: 25px;
+//     }
 
-    .status-share {
-      position: absolute;
-      bottom: 25px;
-      left: 25px;
+//     .status-share {
+//       position: absolute;
+//       bottom: 25px;
+//       left: 25px;
 
-      > div {
-        float: left;
-        margin-right: 3px;
-      }
+//       > div {
+//         float: left;
+//         margin-right: 3px;
+//       }
 
-      span {
-        font-size: 35px;
-        margin-right: 5px;
-        cursor: pointer;
-        color: @light-grey;
+//       span {
+//         font-size: 35px;
+//         margin-right: 5px;
+//         cursor: pointer;
+//         color: @light-grey;
 
-        &:hover {
-          color: @dark-grey;
-        }
-      }
-    }
+//         &:hover {
+//           color: @dark-grey;
+//         }
+//       }
+//     }
 
     
-    .thanks-message {
-      text-align: right;
-      color: @main-green;
-      font-size: 15px;
-    }
-  }
+//     .thanks-message {
+//       text-align: right;
+//       color: @main-green;
+//       font-size: 15px;
+//     }
+//   }
 
-  .empty-transactions {
-    text-align: center;
-    font-size: 15px;
-    padding: 10px 0;
-  }
+//   .empty-transactions {
+//     text-align: center;
+//     font-size: 15px;
+//     padding: 10px 0;
+//   }
   
-  .campaign-details-info {
-    padding: 30px 50px;
-    min-height: 409px;
+//   .campaign-details-info {
+//     padding: 30px 50px;
+//     min-height: 409px;
     
-    .title {
-      font-size: 25px;
-      font-weight: bold;
-    }
+//     .title {
+//       font-size: 25px;
+//       font-weight: bold;
+//     }
 
-    .description {
-      font-size: 17px;
-    }
+//     .description {
+//       font-size: 17px;
+//     }
 
-    p {
-      margin-top: 30px;
-    }
+//     p {
+//       margin-top: 30px;
+//     }
 
-    .ant-tabs-bar {
-      text-align: center;
-      width: 450px;
-      margin: 0 auto;
-    }
-  }
+//     .ant-tabs-bar {
+//       text-align: center;
+//       width: 450px;
+//       margin: 0 auto;
+//     }
+//   }
 
-  .campaign-details-fundraiser {
-    padding: 30px 50px;
+//   .campaign-details-fundraiser {
+//     padding: 30px 50px;
     
-    .fundraiser-image {
-      float: left;
-      margin-top: 25px;
-    }
+//     .fundraiser-image {
+//       float: left;
+//       margin-top: 25px;
+//     }
 
-    .fundraiser-details {
-      float: right;
-      margin-top: 25px;
-      width: ~'calc(100% - 95px)';
-      text-align: center;
+//     .fundraiser-details {
+//       float: right;
+//       margin-top: 25px;
+//       width: ~'calc(100% - 95px)';
+//       text-align: center;
 
-      .fundraiser-type {
-        text-transform: uppercase;
-        color: @light-grey;
-        font-size: 13px;
-      }
+//       .fundraiser-type {
+//         text-transform: uppercase;
+//         color: @light-grey;
+//         font-size: 13px;
+//       }
       
-      .fundraiser-name {
-        font-size: 15px;
-      }
+//       .fundraiser-name {
+//         font-size: 15px;
+//       }
 
-      .fundraiser-job {
-        font-size: 11px;
-      }
-    }
+//       .fundraiser-job {
+//         font-size: 11px;
+//       }
+//     }
 
-    .fundraiser-social {
-      text-align: center;
-      margin-top: 20px;
+//     .fundraiser-social {
+//       text-align: center;
+//       margin-top: 20px;
 
-      a {
-        text-decoration: none;
-      }
+//       a {
+//         text-decoration: none;
+//       }
 
-      span {
-        font-size: 30px;
-        margin-right: 5px;
-        cursor: pointer;
-        color: @light-grey;
+//       span {
+//         font-size: 30px;
+//         margin-right: 5px;
+//         cursor: pointer;
+//         color: @light-grey;
 
-        &:hover {
-          color: @dark-grey;
-        }
-      }
+//         &:hover {
+//           color: @dark-grey;
+//         }
+//       }
 
-      a {
-        margin: 0 3px;
+//       a {
+//         margin: 0 3px;
 
-        img {
-          width: 30px;
-        }
-      }
-    }
+//         img {
+//           width: 30px;
+//         }
+//       }
+//     }
 
-  }
+//   }
 
-  .image-gallery-thumbnails-container {
-    display: none;
-  }
+//   .image-gallery-thumbnails-container {
+//     display: none;
+//   }
 
-  #app-campaign-progress {
-    margin-bottom: 100px;
-  }
+//   #app-campaign-progress {
+//     margin-bottom: 100px;
+//   }
 
-  #campaign-transactions-tab {
-    padding: 20px;
+//   #campaign-transactions-tab {
+//     padding: 20px;
 
-    .transactions-campaign-wallet {
-      background: rgba(191, 191, 191, 0.25);
-      padding: 6px 20px;
-      > div:nth-of-type(1) {
-        float: left;
-      }
+//     .transactions-campaign-wallet {
+//       background: rgba(191, 191, 191, 0.25);
+//       padding: 6px 20px;
+//       > div:nth-of-type(1) {
+//         float: left;
+//       }
       
-      > div:nth-of-type(2) {
-        text-align: center;
-      }
-    }
+//       > div:nth-of-type(2) {
+//         text-align: center;
+//       }
+//     }
 
-    .transaction-btn-explorer {
-      border: 1px solid #000;
-      background: white;
-      padding: 5px 10px;
-      color: #000;
-      float: right;
+//     .transaction-btn-explorer {
+//       border: 1px solid #000;
+//       background: white;
+//       padding: 5px 10px;
+//       color: #000;
+//       float: right;
 
-      &:hover {
-        cursor: pointer;
-        color: @light-grey;
-        border-color: @light-grey;
-      }
-    }
+//       &:hover {
+//         cursor: pointer;
+//         color: @light-grey;
+//         border-color: @light-grey;
+//       }
+//     }
 
-    #transactions-table {
-      margin-top: 25px;
+//     #transactions-table {
+//       margin-top: 25px;
 
-      .transactions-table-header, .transactions-table-row {
-        > div {
-          width: 25%;
-          text-align: center;
-          float: left;
-          height: 100%;
-          padding-top: 3px;
-        }
-      }
+//       .transactions-table-header, .transactions-table-row {
+//         > div {
+//           width: 25%;
+//           text-align: center;
+//           float: left;
+//           height: 100%;
+//           padding-top: 3px;
+//         }
+//       }
 
-      .transactions-table-row {
-        height: 30px;
-        margin-top: 5px;
+//       .transactions-table-row {
+//         height: 30px;
+//         margin-top: 5px;
 
-        &:nth-of-type(odd) {
-          background: rgba(191, 191, 191, 0.1);
-        }
+//         &:nth-of-type(odd) {
+//           background: rgba(191, 191, 191, 0.1);
+//         }
 
-        &:nth-child(even) {
-          background: rgba(191, 191, 191, 0.2);
-        }
-      }
+//         &:nth-child(even) {
+//           background: rgba(191, 191, 191, 0.2);
+//         }
+//       }
 
-      .transactions-table-header {
-        background: @medium-grey;
-        height: 30px;
-      }
+//       .transactions-table-header {
+//         background: @medium-grey;
+//         height: 30px;
+//       }
 
-      .transaction-table-body {
-        max-height: 600px;
-        // overflow: scroll;
-      }
+//       .transaction-table-body {
+//         max-height: 600px;
+//         // overflow: scroll;
+//       }
 
-      .transaction-address {
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
-  }
-}
+//       .transaction-address {
+//         overflow: hidden;
+//         text-overflow: ellipsis;
+//       }
+//     }
+//   }
+// }
 
-@media screen and (max-width: 959px) {
-  #app-campaign-details {
-    margin-top: 100px;
-    padding: 50px 10px;
+// @media screen and (max-width: 959px) {
+//   #app-campaign-details {
+//     margin-top: 100px;
+//     padding: 50px 10px;
 
-    .details-section {
-      .location {
-        text-align: center;
-      }
-      .time-left {
-        text-align: center;
-      }
-      .category {
-        text-align: center;
-      }
-      .help-btn {
-        float: initial;
-      }
-    }
+//     .details-section {
+//       .location {
+//         text-align: center;
+//       }
+//       .time-left {
+//         text-align: center;
+//       }
+//       .category {
+//         text-align: center;
+//       }
+//       .help-btn {
+//         float: initial;
+//       }
+//     }
 
-    #app-campaign-progress {
-      margin-bottom: 30px;
-    }
-  }
-}
+//     #app-campaign-progress {
+//       margin-bottom: 30px;
+//     }
+//   }
+// }
