@@ -16,6 +16,9 @@ import CampaignDetailsAnt from './components/campaign-details-ant/component';
 import CreateCampaign from './components/create-campaign/component';
 import CreateCampaignAnt from './components/create-campaign-ant/component';
 import Onboarding from './components/onboarding/component';
+import {Layout} from 'antd';
+
+const { Footer } = Layout;
 
 class App extends Component {
   static propTypes = {
@@ -51,6 +54,7 @@ class App extends Component {
             <Route path="/create-campaign-ant" component={CreateCampaignAnt} />
             <Route path="/onboarding" render={(props) => <Onboarding {...props} updateLoginState={this.updateLoginState} />} />
           </div>
+          <Footer>GoHelpFund ©2019</Footer>
         </CookiesProvider>
       </React.Fragment>
     );

@@ -21,7 +21,7 @@
 #app-campaign-details .campaign-details-title {
   padding: 10px 20px;
   text-align: center;
-  color: #6a89cc;
+  color: #03C9A9;
   font-weight: 500;
 }
 #app-campaign-details .campaign-details-title span {
@@ -37,16 +37,13 @@
   text-align: center;
 }
 #app-campaign-details .campaign-details-donate h2 {
-  margin: 30px 0;
+  margin: 15px 0;
   color: #03C9A9;
   font-weight: 500;
 }
 #app-campaign-details .campaign-details-donate .donate-currency {
   font-size: 25px;
   margin-left: 10px;
-}
-#app-campaign-details .campaign-details-donate .donate-button {
-  margin-top: 50px;
 }
 #app-campaign-details .campaign-details-donate #amount-field {
   width: 100px;
@@ -60,9 +57,35 @@
 }
 #app-campaign-details .campaign-details-donate .close-btn {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 12px;
+  font-size: 18px;
   cursor: pointer;
+}
+#app-campaign-details .campaign-details-donate .close-btn:hover {
+  color: #485460;
+}
+#app-campaign-details .campaign-details-donate .btc-address {
+  padding: 20px 0 10px 0;
+  display: flex;
+  justify-content: center;
+}
+#app-campaign-details .campaign-details-donate .clipboard {
+  font-size: 20px;
+  margin-left: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+#app-campaign-details .campaign-details-donate .clipboard:active {
+  font-size: 18px;
+}
+#app-campaign-details .campaign-details-donate code {
+  padding: 5px 15px;
+}
+#app-campaign-details .campaign-details-donate .qrcode {
+  width: 90px;
+  height: 90px;
+  margin-top: 5px;
 }
 #app-campaign-details .campaign-details-status {
   height: 350px;
@@ -135,7 +158,7 @@
 }
 #app-campaign-details .campaign-details-info {
   padding: 30px 50px;
-  min-height: 260px;
+  min-height: 336px;
 }
 #app-campaign-details .campaign-details-info .title {
   font-size: 25px;
@@ -147,17 +170,36 @@
 #app-campaign-details .campaign-details-info p {
   margin-top: 30px;
 }
+#app-campaign-details .campaign-details-info .ant-tabs-content {
+  padding-top: 30px;
+}
 #app-campaign-details .campaign-details-info .ant-tabs-bar {
   text-align: center;
-  width: 400px;
+  width: 450px;
   margin: 0 auto;
 }
 #app-campaign-details .campaign-details-fundraiser {
   padding: 30px 50px;
 }
 #app-campaign-details .campaign-details-fundraiser .fundraiser-image {
-  float: left;
-  margin-top: 25px;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #e8e8e8;
+  margin: 15px 10px;
+}
+#app-campaign-details .campaign-details-fundraiser .fundraiser-social {
+  margin: 20px 0;
+}
+#app-campaign-details .campaign-details-fundraiser .fundraiser-web {
+  text-align: center;
+}
+#app-campaign-details .campaign-details-fundraiser .fundraiser-web a {
+  cursor: pointer;
+  font-size: 15px;
+  color: #03C9A9;
+}
+#app-campaign-details .campaign-details-fundraiser .fundraiser-web a:hover {
+  color: #02977f;
 }
 #app-campaign-details .campaign-details-fundraiser .fundraiser-details {
   float: right;
@@ -177,26 +219,16 @@
   font-size: 11px;
 }
 #app-campaign-details .campaign-details-fundraiser .fundraiser-social {
-  text-align: center;
-  margin-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 #app-campaign-details .campaign-details-fundraiser .fundraiser-social a {
-  text-decoration: none;
-}
-#app-campaign-details .campaign-details-fundraiser .fundraiser-social span {
-  font-size: 30px;
-  margin-right: 5px;
-  cursor: pointer;
+  font-size: 32px;
   color: #BFBFBF;
+  margin: 0 5px;
 }
-#app-campaign-details .campaign-details-fundraiser .fundraiser-social span:hover {
+#app-campaign-details .campaign-details-fundraiser .fundraiser-social a:hover {
   color: #485460;
-}
-#app-campaign-details .campaign-details-fundraiser .fundraiser-social a {
-  margin: 0 3px;
-}
-#app-campaign-details .campaign-details-fundraiser .fundraiser-social a img {
-  width: 30px;
 }
 #app-campaign-details .image-gallery-thumbnails-container {
   display: none;
@@ -290,4 +322,3 @@
     margin-bottom: 30px;
   }
 }
-/*# sourceMappingURL=style.css.map */

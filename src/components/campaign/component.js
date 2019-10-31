@@ -46,7 +46,7 @@ class Campaign extends Component {
 
     return (
 
-      <div id="app-campaign" className="campaign">
+      <div id="app-campaign" className="campaign section">
         <Skeleton loading={loading} active paragraph={{ rows: 7 }}>
           <div hidden={!loading}>
           </div>
@@ -54,7 +54,7 @@ class Campaign extends Component {
 
         <Skeleton loading={loading} avatar active paragraph={{ rows: 6 }}>
         <Link to={{
-             pathname: "/campaign-details-ant/" + campaignData.id,
+             pathname: "/campaign-details/" + campaignData.id,
              state: { referrer: this.props.data }
         }}>
         <Card key={campaignData.id}
@@ -67,21 +67,14 @@ class Campaign extends Component {
                     height="250px"
                 />
               }
-              actions={[
-                  <Tag color="geekblue">{campaignData.category.name}</Tag>,
-                  <Tag color="geekblue">{daysLeft} days left</Tag>]
-              }
+              actions={[<div className="amount">
+              <span className="amount-btc">{numberWithCommas(campaignData.amount_goal)} BTC</span> needed
+          </div>]}
         >
-          <Meta
-              title={campaignData.title}
-          />
-          <div style={{ margin: '16px 0' }}>
-            <Progress percent={ percentage }  status={progressStatus}/>
+          <div className="fundraiser-name">{campaignData.fundraiser.name}</div>
+          <div className="campaign-title">
+            <div><span>{campaignData.title}</span></div>
           </div>
-            <p align="center"><Button type="dashed" size="default">
-                {numberWithCommas(campaignData.wallet.help.balance)} HELP
-            </Button>
-            </p>
         </Card>
         </Link>
         </Skeleton>

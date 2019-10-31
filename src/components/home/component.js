@@ -16,7 +16,7 @@ const { Header, Content, Footer } = Layout;
 class Home extends Component {
 
   componentDidMount() {
-    window.analytics.page('Home');
+    // window.analytics.page('Home');
   }
 
   render() {
