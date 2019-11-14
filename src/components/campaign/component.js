@@ -39,8 +39,8 @@ class Campaign extends Component {
     const { loading } = this.state;
     const { classes } = this.props;
     const campaignData = this.props.data;
-    const percentage = Math.trunc((campaignData.wallet.help.balance / campaignData.amount_goal) * 100);
-    const progressStatus = percentage >= 100 ? "success" : "active"
+    // const percentage = Math.trunc((campaignData.wallet.help.balance / campaignData.amount_goal) * 100);
+    // const progressStatus = percentage >= 100 ? "success" : "active"
 
     const daysLeft = Math.round(Math.abs((new Date(campaignData.start_date).getTime() - new Date(campaignData.end_date).getTime())/(24*60*60*1000)));
 

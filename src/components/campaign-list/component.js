@@ -98,14 +98,13 @@ class CampaignList extends Component {
         return r;
     }, []).map(function(rowContent, index) {
         // surround every group with 'row'
-        return <Row key={index} gutter={48}
-                    style={{ padding: '30px' }}>
+        return <Row key={index} gutter={48}>
             {rowContent}
         </Row>;
     });
 
     return (
-      <div style={{ padding: '30px' }}>
+      <div>
         <QueueAnim component="ul" type={['right', 'left']} leaveReverse>
           {campaignList}
         </QueueAnim>
