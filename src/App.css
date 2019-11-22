@@ -47,7 +47,7 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 #app-content {
-  width: fit-content;
+  min-height: 600px;
 }
 #app-content section {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
@@ -96,7 +96,6 @@ footer {
 }
 @media screen and (max-width: 959px) {
   #app-content {
-    width: 100%;
     padding: 0;
   }
 }

@@ -40,9 +40,12 @@ class Home extends Component {
                         <a href="#app-campaign-list-container" >
                           <button className="main-cta-btn">Support causes</button>
                         </a>
-                        <Link to="/create-campaign-ant">
+                        <a href="mailto: contact@gohelpfund.com">
                           <button className="secondary-cta-btn">Get Help</button>
-                        </Link>
+                        </a>
+                        {/* <Link to="/create-campaign-ant">
+                          <button className="secondary-cta-btn">Get Help</button>
+                        </Link> */}
                         </div>
                       </div>
                     </div>

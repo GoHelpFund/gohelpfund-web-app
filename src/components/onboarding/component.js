@@ -42,6 +42,7 @@ class Onboarding extends Component {
 		const { cookies } = this.props;
 		cookies.set('accessToken', data.access_token, { path: '/', maxAge: data.expires_in});
 		localStorage.setItem('fundraiserId', data.fundraiser_id);
+		localStorage.setItem('fundraiserType', data.fundraiser_type);
 		this.props.updateLoginState(true);
 
 		if(this.props.location && this.props.location.state && this.props.location.state.fromDonateScreen) {
