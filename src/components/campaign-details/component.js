@@ -64,6 +64,10 @@ const styles = theme => ({
   },
 });
 
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 class CampaignDetails extends Component {
   constructor(props) {
     super(props);
@@ -225,10 +229,10 @@ class CampaignDetails extends Component {
     copy(this.state.campaignDetails.wallet.bitcoin.address);
   }
 
-    // return true if in range, otherwise false
-    inRange = (x, min, max) => {
-      return ((x - min) * (x - max) <= 0);
-    };
+  // return true if in range, otherwise false
+  inRange = (x, min, max) => {
+    return ((x - min) * (x - max) <= 0);
+  };
 
   renderExpense = (e, index, arr, amountRaised) => {
     let prevPartialAmount = 0;
@@ -256,8 +260,8 @@ class CampaignDetails extends Component {
     const daysLeft = Math.round(Math.abs((new Date(campaignDetails.start_date).getTime() - new Date(campaignDetails.end_date).getTime()) / (24 * 60 * 60 * 1000)));
     const campaignUrl = 'www.beta.gohelpfund.com' + this.props.location.pathname;
     const sliderImages = [];
-    const amountRaised = campaignDetails.wallet.bitcoin.balance;
     const bitcoinAddress = campaignDetails.wallet.bitcoin.address;
+    const amountRaised = Math.round(localStorage.getItem('btcRate') * campaignDetails.wallet.bitcoin.balance);
 
     // const transactions = campaignDetails.wallet ? campaignDetails.wallet.bitcoin.transactions.map(transaction =>
     //   <div className="transactions-table-row">
@@ -381,14 +385,14 @@ class CampaignDetails extends Component {
                 <span>{campaignDetails.location}</span>
               </div>
               <div className="status-amount-raised">
-                <span>{campaignDetails.wallet ? campaignDetails.wallet.bitcoin.balance : 0} BTC</span>
+                <span>€ {numberWithCommas(amountRaised)}</span>
               </div>
               <div className="clearfix"></div>
               <div className="status-days-left">
                 <span><strong>{daysLeft}</strong> days left</span>
               </div>
               <div className="status-amount-needed">
-                <span>of <strong>{campaignDetails.amount_goal} BTC</strong> needed</span>
+                <span>(~ {campaignDetails.amount_raised || 0} BTC) </span><span>of <strong>€ {numberWithCommas(campaignDetails.amount_goal)}</strong> needed</span>
               </div>
               <div className="clearfix"></div>
               <div className="status-category">
@@ -396,7 +400,7 @@ class CampaignDetails extends Component {
                 <span>Emergency</span>
               </div>
               <div className="status-donors">
-                <span>raised from <strong>{campaignDetails.backers}</strong> people</span>
+                <span>raised from <strong>{campaignDetails.backers || 0}</strong> people</span>
               </div>
               <div className="clearfix"></div>
               {thanksMessage}
