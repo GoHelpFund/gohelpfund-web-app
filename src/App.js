@@ -17,6 +17,7 @@ import CreateCampaign from './components/create-campaign/component';
 import CreateCampaignAnt from './components/create-campaign-ant/component';
 import Onboarding from './components/onboarding/component';
 import {Layout} from 'antd';
+import { Endpoint } from 'aws-sdk';
 
 const { Footer } = Layout;
 
@@ -33,6 +34,18 @@ class App extends Component {
       isLoggedIn: global.accessToken ? true : false
     }
     this.updateLoginState = this.updateLoginState.bind(this);
+  }
+
+  componentWillMount() {
+    let url = EndPoints.getBtcRateUrl;
+
+    axios.get(url)
+    .then(response => {
+      localStorage.setItem('btcRate', response.data.EUR.last);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   updateLoginState(isLoggedIn) {
