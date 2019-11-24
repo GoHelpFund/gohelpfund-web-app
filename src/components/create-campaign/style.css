@@ -119,5 +119,7 @@
   #app-create-campaign .section {
     padding: 30px 10px;
   }
+  #app-create-campaign .create-campaign-container {
+    padding: 150px 10px;
+  }
 }
-/*# sourceMappingURL=style.css.map */
