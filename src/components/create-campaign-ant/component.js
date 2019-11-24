@@ -427,7 +427,7 @@ class CreateCampaignAnt extends Component {
         title: 'Expenses',
         id: 'expenses',
         icon_type: "pie-chart",
-        description: "How much money do you need and how will you use it?",
+        description: "How much money do you need and how will you use it? (in EURO)",
         render: () => (
           <Expenses
             handleChange={this.handleExpensesChange}

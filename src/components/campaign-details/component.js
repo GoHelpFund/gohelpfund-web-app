@@ -361,7 +361,7 @@ class CampaignDetails extends Component {
         key={index}
         dot={this.renderExpense(e, index, arr, amountRaised)}
       >
-        <Button type="dashed">{e.amount} - {e.description} BTC</Button>
+        <Button type="dashed">€ {e.amount} - {e.description}</Button>
       </Timeline.Item>
     ));
 
@@ -392,17 +392,20 @@ class CampaignDetails extends Component {
                 <span><strong>{daysLeft}</strong> days left</span>
               </div>
               <div className="status-amount-needed">
-                <span>(~ {campaignDetails.amount_raised || 0} BTC) </span><span>of <strong>€ {numberWithCommas(campaignDetails.amount_goal)}</strong> needed</span>
+                <span>(~ {campaignDetails.amount_raised || 0} BTC) </span>
               </div>
               <div className="clearfix"></div>
               <div className="status-category">
                 <img src={campaignDetails.category.image_url}></img>
                 <span>Emergency</span>
               </div>
+              <div className="status-amount-needed">
+                <span>of <strong>€ {numberWithCommas(campaignDetails.amount_goal)}</strong> needed</span>
+              </div>
+              <div className="clearfix"></div>
               <div className="status-donors">
                 <span>raised from <strong>{campaignDetails.backers || 0}</strong> people</span>
               </div>
-              <div className="clearfix"></div>
               {thanksMessage}
               <div className="status-button">
                 <button className="main-cta-btn" onClick={this.toggleDonationScreen.bind(this)}>HELP NOW</button>
