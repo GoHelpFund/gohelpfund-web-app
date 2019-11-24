@@ -65,7 +65,7 @@ const styles = theme => ({
 });
 
 function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '0';
 }
 
 class CampaignDetails extends Component {
@@ -75,8 +75,14 @@ class CampaignDetails extends Component {
     let emptyCampaignDetails = {
       media_resources: [],
       fundraiser: {
-        professional: {}
-      }
+        professional: {},
+        social: {}
+      },
+      wallet: {
+        bitcoin: {}
+      },
+      expenses: [],
+      category: {}
     }
 
     this.state = {
@@ -91,12 +97,11 @@ class CampaignDetails extends Component {
       raisedGoal: this.state.campaignDetails.amount_goal,
       raisedTotal: this.state.campaignDetails.amount_raised
     };
-
-    this.getCampaignData();
   }
 
   componentWillMount() {
     this.getFundraiserData();
+    this.getCampaignData();
   }
 
   isLoggedIn = () => {
@@ -176,7 +181,8 @@ class CampaignDetails extends Component {
   getCampaignData() {
     if (!this.props.location.state) {
       let url = EndPoints.getCampainByIdUrl;
-      let appToken = localStorage.getItem('appToken');
+      const { cookies } = this.props;
+      let appToken = cookies.get('accessToken');
       let config = {
         headers: { 'Authorization': "Bearer " + appToken }
       };
@@ -260,7 +266,7 @@ class CampaignDetails extends Component {
     const daysLeft = Math.round(Math.abs((new Date(campaignDetails.start_date).getTime() - new Date(campaignDetails.end_date).getTime()) / (24 * 60 * 60 * 1000)));
     const campaignUrl = 'www.beta.gohelpfund.com' + this.props.location.pathname;
     const sliderImages = [];
-    const bitcoinAddress = campaignDetails.wallet.bitcoin.address;
+    const bitcoinAddress = campaignDetails.wallet.bitcoin.address || '';
     const amountRaised = Math.round(localStorage.getItem('btcRate') * campaignDetails.wallet.bitcoin.balance);
 
     // const transactions = campaignDetails.wallet ? campaignDetails.wallet.bitcoin.transactions.map(transaction =>
