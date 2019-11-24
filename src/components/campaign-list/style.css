@@ -1,6 +1,11 @@
 #app-campaign-list {
   padding-top: 100px;
 }
+
+.ant-col {
+  margin-bottom: 50px;
+}
+
 .wat {
   background-size: cover;
   background-repeat: no-repeat;
@@ -10,4 +15,8 @@
   height: auto;
   z-index: 0;
 }
-/*# sourceMappingURL=style.css.map */
+@media screen and (max-width: 959px) {
+  .ant-col {
+    margin-bottom: 30px;
+  }
+}

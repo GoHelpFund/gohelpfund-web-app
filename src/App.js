@@ -17,6 +17,7 @@ import CreateCampaign from './components/create-campaign/component';
 import CreateCampaignAnt from './components/create-campaign-ant/component';
 import Onboarding from './components/onboarding/component';
 import {Layout} from 'antd';
+import { Endpoint } from 'aws-sdk';
 
 const { Footer } = Layout;
 
@@ -35,6 +36,22 @@ class App extends Component {
     this.updateLoginState = this.updateLoginState.bind(this);
   }
 
+  componentWillMount() {
+    let url = EndPoints.getBtcRateUrl;
+
+    if (window.location.pathname === '/') {
+      window.location.pathname = '/home'
+    }
+
+    axios.get(url)
+    .then(response => {
+      localStorage.setItem('btcRate', response.data.EUR.last);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   updateLoginState(isLoggedIn) {
     this.setState({isLoggedIn: isLoggedIn});
   }
@@ -46,7 +63,7 @@ class App extends Component {
           <CssBaseline />
           <Header isLoggedIn={this.state.isLoggedIn} updateLoginState={this.updateLoginState} />
           <div id="app-content">
-            <Redirect to="/home" component={Home} />
+            {/* <Redirect to="/home" component={Home} /> */}
             <Route path="/home" component={Home} />
             <Route path="/campaign-details" component={CampaignDetails} />
             <Route path="/campaign-details-ant" component={CampaignDetailsAnt} />

@@ -19,8 +19,10 @@ class Onboarding extends Component {
 		this.state = {
 			username: '',
 			password: '',
+			oldPassword: '',
 			retypedPassword: '',
 			loginPage: true,
+			changePasswordPage: false,
 			isUsernameValid: true,
 			isPasswordValid: true,
 			arePasswordsMatching: true,
@@ -38,33 +40,44 @@ class Onboarding extends Component {
 		this.setState({loginPage: !this.state.loginPage});
 	}
 
-	setLoginData(data) {
+	setLoginData(data, passwordChanged) {
 		const { cookies } = this.props;
 		cookies.set('accessToken', data.access_token, { path: '/', maxAge: data.expires_in});
 		localStorage.setItem('fundraiserId', data.fundraiser_id);
+		localStorage.setItem('fundraiserType', data.fundraiser_type);
 		this.props.updateLoginState(true);
 
-		if(this.props.location && this.props.location.state && this.props.location.state.fromDonateScreen) {
+		if(data.fundraiser_type === "organization" && passwordChanged === "false") {
+			this.setState({
+				changePasswordPage: true,
+				loginPage: false,
+				password: '',
+			});
+		} else {
 			this.props.history.push({
-				pathname: '/campaign-details/' + this.props.location.state.campaignDetails.id,
-				state: { fromDonateScreen: true, referrer: this.props.location.state.campaignDetails }
+				pathname: '/home/',
 			})
-
-			return;
 		}
 
-		if(this.props.location && this.props.location.state && this.props.location.state.referrer) {
-			this.props.history.push({
-				pathname: '/create-campaign/',
-				state: { referrer: this.props.location.state.referrer }
-			})
+		// if(this.props.location && this.props.location.state && this.props.location.state.fromDonateScreen) {
+		// 	this.props.history.push({
+		// 		pathname: '/campaign-details/' + this.props.location.state.campaignDetails.id,
+		// 		state: { fromDonateScreen: true, referrer: this.props.location.state.campaignDetails }
+		// 	})
 
-			return;
-		}
+		// 	return;
+		// }
+
+		// if(this.props.location && this.props.location.state && this.props.location.state.referrer) {
+		// 	this.props.history.push({
+		// 		pathname: '/create-campaign/',
+		// 		state: { referrer: this.props.location.state.referrer }
+		// 	})
+
+		// 	return;
+		// }
 		
-		this.props.history.push({
-			pathname: '/home/',
-		})
+	
 	}
 
 	signIn() {
@@ -84,12 +97,10 @@ class Onboarding extends Component {
 			var that = this;
 			axios.post(url, params, auth)
 				.then(response => {
-					this.setLoginData(response.data);
+					this.setLoginData(response.data, response['headers']['x-password-changed']);
 				})
 				.catch(function(error) {
-					if(error.response.data.error_description == 'Bad credentials') {
-						that.setState({errorMessages: ['Invalid credentials. Please try again.']});
-					}
+					that.setState({errorMessages: ['Invalid credentials. Please try again.']});
 					console.log(error);
 				});
 		}
@@ -201,8 +212,28 @@ class Onboarding extends Component {
 		}
 	}
 
-	saveSessionData() {
-
+	changePassword() {
+		if(this.validateSignUpFields()) {
+			const { cookies } = this.props;
+			let url = EndPoints.postChangePasswordUrl;
+			let params = {
+				'old_password': this.state.oldPassword,
+				'new_password': this.state.password
+			};
+			let appToken = cookies.get('accessToken');
+			let config = {
+				headers: {'Authorization': "Bearer " + appToken}
+			  };
+			var that = this;
+			axios.post(url, params, config)
+				.then(response => {
+					window.location.pathname = '/home';
+				})
+				.catch(function(error) {
+					that.setState({errorMessages: ['The old password is wrong. Please try again.']});
+					console.log(error);
+				});
+		}
 	}
 
 	render() {
@@ -210,98 +241,147 @@ class Onboarding extends Component {
 			<div>{errorMessage}</div>
 		);
 
+		let loginPage = (<div id="login-page"className="box-section">
+			<h1 className="box-title">Log in</h1>
+			<div className="onboarding-input-container">
+				<TextField
+					error={!this.state.isUsernameValid}
+					id="username"
+					label="Email address"
+					value={this.state.username}
+					onChange={this.handleChange('username')}
+					type="email"
+					margin="normal"
+					className="onboarding-input"
+				/>
+			</div>
+			<div className="onboarding-input-container">
+				<TextField
+					error={!this.state.isPasswordValid}
+					id="password"
+					label="Password"
+					type="password"
+					value={this.state.password}
+					onChange={this.handleChange('password')}
+					margin="normal"
+					className="onboarding-input"
+				/>
+			</div>
+			<div className="onboarding-input-container">
+				<Button onClick={this.signIn.bind(this)} variant="contained" color="primary" className="onboarding-btn">
+					Log in
+				</Button>
+			</div>
+			<div className="error-messages">
+				{errorMessages}
+			</div>
+			<div className="onboarding-input-container">
+				<div className="onboarding-switch">New to GoHelpFund? <a onClick={this.switchPage.bind(this)}>Sign up</a></div>
+			</div>
+		</div>);
+
+		let registerPage = (<div id="login-page"className="box-section">
+			<h1 className="box-title">Sign Up</h1>
+			<div className="onboarding-input-container">
+				<TextField
+					id="username"
+					label="Email address"
+					value={this.state.username}
+					onChange={this.handleChange('username')}
+					margin="normal"
+					className="onboarding-input"
+				/>
+			</div>
+			<div className="onboarding-input-container">
+				<TextField
+					error={!this.state.isPasswordValid}
+					id="password"
+					label="Password"
+					type="password"
+					value={this.state.password}
+					onChange={this.handleChange('password')}
+					margin="normal"
+					className="onboarding-input"
+				/>
+			</div>
+			<div className="onboarding-input-container">
+				<TextField
+					error={!this.state.isPasswordValid}
+					id="retype-password"
+					label="Retype password"
+					type="password"
+					value={this.state.retypedPassword}
+					onChange={this.handleChange('retypedPassword')}
+					margin="normal"
+					className="onboarding-input"
+				/>
+			</div>
+			<div className="onboarding-input-container">
+				<Button onClick={this.signUp.bind(this)} variant="contained" color="primary" className="onboarding-btn">
+					Sign Up
+				</Button>
+			</div>
+			<div className="error-messages">
+				{errorMessages}
+			</div>
+			<div className="onboarding-input-container">
+				<div className="onboarding-switch">Already have an account? <a  onClick={this.switchPage.bind(this)}>Sign in</a></div>
+			</div>
+		</div>);
+
+		let changePasswordPage = (<div id="login-page"className="box-section">
+		<h1 className="box-title">Change Password</h1>
+		<div className="onboarding-input-container">
+			<TextField
+				error={!this.state.isPasswordValid}
+				id="old-password"
+				label="Old Password"
+				type="password"
+				value={this.state.oldPassword}
+				onChange={this.handleChange('oldPassword')}
+				margin="normal"
+				className="onboarding-input"
+			/>
+		</div>
+		<div className="onboarding-input-container">
+			<TextField
+				error={!this.state.isPasswordValid}
+				id="password"
+				label="New Password"
+				type="password"
+				value={this.state.password}
+				onChange={this.handleChange('password')}
+				margin="normal"
+				className="onboarding-input"
+			/>
+		</div>
+		<div className="onboarding-input-container">
+			<TextField
+				error={!this.state.isPasswordValid}
+				id="retype-password"
+				label="Retype new password"
+				type="password"
+				value={this.state.retypedPassword}
+				onChange={this.handleChange('retypedPassword')}
+				margin="normal"
+				className="onboarding-input"
+			/>
+		</div>
+		<div className="onboarding-input-container">
+			<Button onClick={this.changePassword.bind(this)} variant="contained" color="primary" className="onboarding-btn">
+				Sign Up
+			</Button>
+		</div>
+		<div className="error-messages">
+			{errorMessages}
+		</div>
+	</div>);
+
+		let currentPage = this.state.loginPage ? loginPage : this.state.changePasswordPage ? changePasswordPage : registerPage;
+
 		return (
 				<div id="app-onboarding">
-					{this.state.loginPage ? (
-						<div id="login-page"className="box-section">
-						<h1 className="box-title">Log in</h1>
-						<div className="onboarding-input-container">
-							<TextField
-								error={!this.state.isUsernameValid}
-								id="username"
-								label="Email address"
-								value={this.state.username}
-								onChange={this.handleChange('username')}
-								type="email"
-								margin="normal"
-								className="onboarding-input"
-							/>
-						</div>
-						<div className="onboarding-input-container">
-							<TextField
-								error={!this.state.isPasswordValid}
-								id="password"
-								label="Password"
-								type="password"
-								value={this.state.password}
-								onChange={this.handleChange('password')}
-								margin="normal"
-								className="onboarding-input"
-							/>
-						</div>
-						<div className="onboarding-input-container">
-							<Button onClick={this.signIn.bind(this)} variant="contained" color="primary" className="onboarding-btn">
-								Log in
-							</Button>
-						</div>
-						<div className="error-messages">
-							{errorMessages}
-						</div>
-						<div className="onboarding-input-container">
-							<div className="onboarding-switch">New to GoHelpFund? <a onClick={this.switchPage.bind(this)}>Sign up</a></div>
-						</div>
-					</div>
-					) : (
-						<div id="login-page"className="box-section">
-						<h1 className="box-title">Sign Up</h1>
-						<div className="onboarding-input-container">
-							<TextField
-								id="username"
-								label="Email address"
-								value={this.state.username}
-								onChange={this.handleChange('username')}
-								margin="normal"
-								className="onboarding-input"
-							/>
-						</div>
-						<div className="onboarding-input-container">
-							<TextField
-								error={!this.state.isPasswordValid}
-								id="password"
-								label="Password"
-								type="password"
-								value={this.state.password}
-								onChange={this.handleChange('password')}
-								margin="normal"
-								className="onboarding-input"
-							/>
-						</div>
-						<div className="onboarding-input-container">
-							<TextField
-								error={!this.state.isPasswordValid}
-								id="retype-password"
-								label="Retype password"
-								type="password"
-								value={this.state.retypedPassword}
-								onChange={this.handleChange('retypedPassword')}
-								margin="normal"
-								className="onboarding-input"
-							/>
-						</div>
-						<div className="onboarding-input-container">
-							<Button onClick={this.signUp.bind(this)} variant="contained" color="primary" className="onboarding-btn">
-								Sign Up
-							</Button>
-						</div>
-						<div className="error-messages">
-							{errorMessages}
-						</div>
-						<div className="onboarding-input-container">
-							<div className="onboarding-switch">Already have an account? <a  onClick={this.switchPage.bind(this)}>Sign in</a></div>
-						</div>
-					</div>
-					)}
-				
+					{currentPage}
 				</div>
 			);
 	}

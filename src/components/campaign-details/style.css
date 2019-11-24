@@ -122,6 +122,7 @@
 }
 #app-campaign-details .campaign-details-status .status-donors {
   float: right;
+  margin-top: -5px;
 }
 #app-campaign-details .campaign-details-status .status-button {
   position: absolute;

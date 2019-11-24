@@ -64,6 +64,10 @@ const styles = theme => ({
   },
 });
 
+function numberWithCommas(x) {
+  return x ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : '0';
+}
+
 class CampaignDetails extends Component {
   constructor(props) {
     super(props);
@@ -71,8 +75,14 @@ class CampaignDetails extends Component {
     let emptyCampaignDetails = {
       media_resources: [],
       fundraiser: {
-        professional: {}
-      }
+        professional: {},
+        social: {}
+      },
+      wallet: {
+        bitcoin: {}
+      },
+      expenses: [],
+      category: {}
     }
 
     this.state = {
@@ -87,12 +97,11 @@ class CampaignDetails extends Component {
       raisedGoal: this.state.campaignDetails.amount_goal,
       raisedTotal: this.state.campaignDetails.amount_raised
     };
-
-    this.getCampaignData();
   }
 
   componentWillMount() {
     this.getFundraiserData();
+    this.getCampaignData();
   }
 
   isLoggedIn = () => {
@@ -115,7 +124,7 @@ class CampaignDetails extends Component {
     axios.get(url, config)
       .then(response => {
         that.setState({
-          userBalance: response.data.wallet.help.balance
+          userBalance: response.data.wallet.bitcoin.balance
         });
       })
       .catch(function (error) {
@@ -172,7 +181,8 @@ class CampaignDetails extends Component {
   getCampaignData() {
     if (!this.props.location.state) {
       let url = EndPoints.getCampainByIdUrl;
-      let appToken = localStorage.getItem('appToken');
+      const { cookies } = this.props;
+      let appToken = cookies.get('accessToken');
       let config = {
         headers: { 'Authorization': "Bearer " + appToken }
       };
@@ -225,10 +235,10 @@ class CampaignDetails extends Component {
     copy(this.state.campaignDetails.wallet.bitcoin.address);
   }
 
-    // return true if in range, otherwise false
-    inRange = (x, min, max) => {
-      return ((x - min) * (x - max) <= 0);
-    };
+  // return true if in range, otherwise false
+  inRange = (x, min, max) => {
+    return ((x - min) * (x - max) <= 0);
+  };
 
   renderExpense = (e, index, arr, amountRaised) => {
     let prevPartialAmount = 0;
@@ -256,20 +266,20 @@ class CampaignDetails extends Component {
     const daysLeft = Math.round(Math.abs((new Date(campaignDetails.start_date).getTime() - new Date(campaignDetails.end_date).getTime()) / (24 * 60 * 60 * 1000)));
     const campaignUrl = 'www.beta.gohelpfund.com' + this.props.location.pathname;
     const sliderImages = [];
-    const amountRaised = campaignDetails.wallet.help.balance;
-    const bitcoinAddress = campaignDetails.wallet.bitcoin.address;
+    const bitcoinAddress = campaignDetails.wallet.bitcoin.address || '';
+    const amountRaised = Math.round(localStorage.getItem('btcRate') * campaignDetails.wallet.bitcoin.balance);
 
-    const transactions = campaignDetails.wallet ? campaignDetails.wallet.help.transactions.map(transaction =>
-      <div className="transactions-table-row">
-        <div>{transaction.sender_name || 'Anonymus'}</div>
-        <div className="transaction-address">{transaction.sender_address}</div>
-        <div>{transaction.amount}</div>
-        <div><a href={'http://insight.gohelpfund.com/insight/tx/' + transaction.blockchain_transaction_id} target="_blank">View transaction</a></div>
-      </div>
-    ) : [];
+    // const transactions = campaignDetails.wallet ? campaignDetails.wallet.bitcoin.transactions.map(transaction =>
+    //   <div className="transactions-table-row">
+    //     <div>{transaction.sender_name || 'Anonymus'}</div>
+    //     <div className="transaction-address">{transaction.sender_address}</div>
+    //     <div>{transaction.amount}</div>
+    //     <div><a href={'http://insight.gohelpfund.com/insight/tx/' + transaction.blockchain_transaction_id} target="_blank">View transaction</a></div>
+    //   </div>
+    // ) : [];
 
     const thanksMessage = this.state.thanksMessage ? <div className="thanks-message">Thank you for your donation!</div> : '';
-    const emptyTransactions = campaignDetails.wallet && !campaignDetails.wallet.help.transactions.length ? <div className="empty-transactions">No transactions yet.</div> : '';
+    // const emptyTransactions = campaignDetails.wallet && !campaignDetails.wallet.bitcoin.transactions.length ? <div className="empty-transactions">No transactions yet.</div> : '';
 
     const amountValidation = this.state.amountValidation ? <div className="amount-validation">You don't have enough HELP.</div> : '';
 
@@ -340,24 +350,24 @@ class CampaignDetails extends Component {
       },
     ];
 
-    const realData = campaignDetails.wallet.help.transactions.map(t => {
-      return {
-        key: t.id,
-        name: t.sender_name,
-        amount: t.amount,
-        date: moment(moment(t.date).utc(), "YYYY-MM-DD[T]HH:mm:ss[Z]").fromNow(),
-        transaction_id: t.blockchain_transaction_id
-      }
-    });
+    // const realData = campaignDetails.wallet.bitcoin.transactions.map(t => {
+    //   return {
+    //     key: t.id,
+    //     name: t.sender_name,
+    //     amount: t.amount,
+    //     date: moment(moment(t.date).utc(), "YYYY-MM-DD[T]HH:mm:ss[Z]").fromNow(),
+    //     transaction_id: t.blockchain_transaction_id
+    //   }
+    // });
 
-    const hasData = campaignDetails.wallet.help.transactions.length !== 0;
+    // const hasData = campaignDetails.wallet.bitcoin.transactions.length !== 0;
 
     const expenseItems = campaignDetails.expenses.map((e, index, arr) => (
       <Timeline.Item
         key={index}
         dot={this.renderExpense(e, index, arr, amountRaised)}
       >
-        <Button type="dashed">{e.amount} - {e.description} BTC</Button>
+        <Button type="dashed">€ {e.amount} - {e.description}</Button>
       </Timeline.Item>
     ));
 
@@ -381,24 +391,27 @@ class CampaignDetails extends Component {
                 <span>{campaignDetails.location}</span>
               </div>
               <div className="status-amount-raised">
-                <span>{campaignDetails.wallet ? campaignDetails.wallet.help.balance : 0} BTC</span>
+                <span>€ {numberWithCommas(amountRaised)}</span>
               </div>
               <div className="clearfix"></div>
               <div className="status-days-left">
                 <span><strong>{daysLeft}</strong> days left</span>
               </div>
               <div className="status-amount-needed">
-                <span>of <strong>{campaignDetails.amount_goal} BTC</strong> needed</span>
+                <span>(~ {campaignDetails.amount_raised || 0} BTC) </span>
               </div>
               <div className="clearfix"></div>
               <div className="status-category">
                 <img src={campaignDetails.category.image_url}></img>
                 <span>Emergency</span>
               </div>
-              <div className="status-donors">
-                <span>raised from <strong>{campaignDetails.backers}</strong> people</span>
+              <div className="status-amount-needed">
+                <span>of <strong>€ {numberWithCommas(campaignDetails.amount_goal)}</strong> needed</span>
               </div>
               <div className="clearfix"></div>
+              <div className="status-donors">
+                <span>raised from <strong>{campaignDetails.backers || 0}</strong> people</span>
+              </div>
               {thanksMessage}
               <div className="status-button">
                 <button className="main-cta-btn" onClick={this.toggleDonationScreen.bind(this)}>HELP NOW</button>
