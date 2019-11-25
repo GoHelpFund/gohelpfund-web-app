@@ -1,5 +1,7 @@
 #app-campaign {
   height: 200x;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  background: #fff;
 }
 #app-campaign .campaign-card {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
@@ -60,4 +62,32 @@
 }
 #app-campaign .campaign-details .value {
   font-weight: bold;
+}
+#app-campaign .campaign-title {
+  text-align: center;
+  color: #8D99D7;
+  font-size: 18px;
+  height: 60px;
+  font-weight: bold;
+  display: table;
+  width: 100%;
+}
+#app-campaign .campaign-title > div {
+  display: table-cell;
+  vertical-align: middle;
+  width: 100%;
+}
+#app-campaign .amount {
+  text-align: center;
+}
+#app-campaign .amount .amount-btc {
+  color: #03C9A9;
+  font-weight: bold;
+}
+#app-campaign .fundraiser-name {
+  text-align: center;
+  margin-bottom: 10px;
+}
+#app-campaign .ant-card-body {
+  padding: 15px;
 }
