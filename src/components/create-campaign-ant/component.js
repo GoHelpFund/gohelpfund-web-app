@@ -18,7 +18,7 @@ import axios from "axios";
 import moment from 'moment';
 import {withCookies} from "react-cookie";
 
-const {Content, Footer} = Layout;
+const {Content } = Layout;
 
 class CreateCampaignAnt extends Component {
   popperNode = null;
@@ -427,7 +427,7 @@ class CreateCampaignAnt extends Component {
         title: 'Expenses',
         id: 'expenses',
         icon_type: "pie-chart",
-        description: "How much money do you need and how will you use it?",
+        description: "How much money do you need and how will you use it? (in EURO)",
         render: () => (
           <Expenses
             handleChange={this.handleExpensesChange}
@@ -469,7 +469,8 @@ class CreateCampaignAnt extends Component {
     const {currentStep, stepsStatus, publishLoading} = this.state;
 
     return (
-      <Layout className="layout">
+      <div className="create-campaign-container">
+        <Layout className="layout">
         <Content>
           <QueueAnim className="demo-content"
                      type={['right', 'left']}
@@ -525,8 +526,9 @@ class CreateCampaignAnt extends Component {
             </div>
           </QueueAnim>
         </Content>
-        <Footer style={{textAlign: 'center'}}>GoHelpFund ©2019</Footer>
+        
       </Layout>
+      </div>
     )
   }
 }

@@ -16,6 +16,10 @@ import CampaignDetailsAnt from './components/campaign-details-ant/component';
 import CreateCampaign from './components/create-campaign/component';
 import CreateCampaignAnt from './components/create-campaign-ant/component';
 import Onboarding from './components/onboarding/component';
+import {Layout} from 'antd';
+import { Endpoint } from 'aws-sdk';
+
+const { Footer } = Layout;
 
 class App extends Component {
   static propTypes = {
@@ -32,6 +36,22 @@ class App extends Component {
     this.updateLoginState = this.updateLoginState.bind(this);
   }
 
+  componentWillMount() {
+    let url = EndPoints.getBtcRateUrl;
+
+    if (window.location.pathname === '/') {
+      window.location.pathname = '/home'
+    }
+
+    axios.get(url)
+    .then(response => {
+      localStorage.setItem('btcRate', response.data.EUR.last);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   updateLoginState(isLoggedIn) {
     this.setState({isLoggedIn: isLoggedIn});
   }
@@ -43,7 +63,7 @@ class App extends Component {
           <CssBaseline />
           <Header isLoggedIn={this.state.isLoggedIn} updateLoginState={this.updateLoginState} />
           <div id="app-content">
-            <Redirect to="/home" component={Home} />
+            {/* <Redirect to="/home" component={Home} /> */}
             <Route path="/home" component={Home} />
             <Route path="/campaign-details" component={CampaignDetails} />
             <Route path="/campaign-details-ant" component={CampaignDetailsAnt} />
@@ -51,6 +71,7 @@ class App extends Component {
             <Route path="/create-campaign-ant" component={CreateCampaignAnt} />
             <Route path="/onboarding" render={(props) => <Onboarding {...props} updateLoginState={this.updateLoginState} />} />
           </div>
+          <Footer>GoHelpFund ©2019</Footer>
         </CookiesProvider>
       </React.Fragment>
     );

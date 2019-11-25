@@ -22,9 +22,9 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    // if(window.location.pathname === '/home') {
-    //   this.setState({hasBg: true});
-    // }
+    if(window.location.pathname === '/home') {
+      this.setState({hasBg: true});
+    }
     window.addEventListener('scroll', this.handleScroll.bind(this));
   };
 
@@ -53,8 +53,10 @@ class Header extends Component {
   logOut() {
     const { cookies } = this.props;
     cookies.remove('accessToken');
+    localStorage.removeItem('fundraiserType');
     global.accessToken = null;
     this.props.updateLoginState(false);
+    window.location.pathname = '/home';
   }
 
   goToHomePage() {
@@ -64,6 +66,8 @@ class Header extends Component {
   render() {
     const authActionButton = this.state.isLoggedIn ? <a onClick={this.logOut.bind(this)}>Log out</a>
                                         : <Link to="/onboarding">Log in</Link>;
+
+    const createBtn = (localStorage.getItem('fundraiserType') === 'organization') ? <Link to="/create-campaign-ant" className="create-btn-link">Create campaign</Link> : '';
 
     return (
       <div id="app-header" className={ this.state.hasBg ? 'has-bg' : ''}>
@@ -75,9 +79,7 @@ class Header extends Component {
           {authActionButton}
         </div>
         <div className="header-action-container">
-          <Link to="/create-campaign" className="create-btn-link">
-            Create campaign
-          </Link>
+         {createBtn}
         </div>
       </div>
     );

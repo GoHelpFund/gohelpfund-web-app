@@ -3,6 +3,8 @@
 
  #app-campaign {
    height: 200x;
+   box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
+   background: #fff;
 
   .campaign-card {
      box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
@@ -80,5 +82,39 @@
     .value {
       font-weight: bold;
     }
+  }
+
+  .campaign-title {
+    text-align: center;
+    color: @purple-blue;
+    font-size: 18px;
+    height: 60px;
+    font-weight: bold;
+    display: table;
+    width: 100%;
+
+    > div {
+      display: table-cell;
+      vertical-align: middle;
+      width: 100%;
+    }
+  }
+
+  .amount {
+    text-align: center;
+    
+    .amount-btc {
+      color: @main-green;
+      font-weight: bold;
+    }
+  }
+
+  .fundraiser-name {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .ant-card-body {
+    padding: 15px;
   }
 }
