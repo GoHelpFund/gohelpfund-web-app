@@ -179,27 +179,25 @@ class CampaignDetails extends Component {
   }
 
   getCampaignData() {
-    if (!this.props.location.state) {
-      let url = EndPoints.getCampainByIdUrl;
-      const { cookies } = this.props;
-      let appToken = cookies.get('accessToken');
-      let config = {
-        headers: { 'Authorization': "Bearer " + appToken }
-      };
-      var that = this;
+    let url = EndPoints.getCampainByIdUrl;
+    const { cookies } = this.props;
+    let appToken = cookies.get('accessToken');
+    let config = {
+      headers: { 'Authorization': "Bearer " + appToken }
+    };
+    var that = this;
 
-      url = url.replace('{campaignId}', this.props.location.pathname.slice(18));
+    url = url.replace('{campaignId}', this.props.location.pathname.slice(18));
 
-      axios.get(url, config)
-        .then(response => {
-          that.setState({
-            campaignDetails: response.data
-          });
-        })
-        .catch(function (error) {
-          console.log(error);
+    axios.get(url, config)
+      .then(response => {
+        that.setState({
+          campaignDetails: response.data
         });
-    }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   donate() {
@@ -398,7 +396,7 @@ class CampaignDetails extends Component {
                 <span><strong>{daysLeft}</strong> days left</span>
               </div>
               <div className="status-amount-needed">
-                <span>(~ {campaignDetails.amount_raised || 0} BTC) </span>
+                <span>(~ {campaignDetails.wallet.bitcoin.balance || 0} BTC) </span>
               </div>
               <div className="clearfix"></div>
               <div className="status-category">
@@ -409,9 +407,9 @@ class CampaignDetails extends Component {
                 <span>of <strong>€ {numberWithCommas(campaignDetails.amount_goal)}</strong> needed</span>
               </div>
               <div className="clearfix"></div>
-              <div className="status-donors">
+              {/* <div className="status-donors">
                 <span>raised from <strong>{campaignDetails.backers || 0}</strong> people</span>
-              </div>
+              </div> */}
               {thanksMessage}
               <div className="status-button">
                 <button className="main-cta-btn" onClick={this.toggleDonationScreen.bind(this)}>HELP NOW</button>

@@ -20,6 +20,9 @@ class Home extends Component {
   }
 
   render() {
+    let getHelpBtn = localStorage.getItem('fundraiserType') === 'organization' ? (<Link to="/create-campaign-ant">
+                                                                                    <button className="secondary-cta-btn">Get Help</button>
+                                                                                  </Link>) : '';
     return (
             <div id="app-home">
               <Hero
@@ -40,12 +43,7 @@ class Home extends Component {
                         <a href="#app-campaign-list-container" >
                           <button className="main-cta-btn">Support causes</button>
                         </a>
-                        <a href="mailto: contact@gohelpfund.com">
-                          <button className="secondary-cta-btn">Get Help</button>
-                        </a>
-                        {/* <Link to="/create-campaign-ant">
-                          <button className="secondary-cta-btn">Get Help</button>
-                        </Link> */}
+                        {getHelpBtn}
                         </div>
                       </div>
                     </div>
