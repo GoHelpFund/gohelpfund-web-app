@@ -47,7 +47,7 @@ class Category extends React.Component {
                  ease={['easeOutQuart', 'easeInOutQuart']}>
         <div key='category-step'>
           <Row type="flex" justify="center" align="middle">
-            <Col xs={20} md={6} span={10}>
+            <Col xs={20} md={10} span={10}>
               <h3>Choose the category that best fits your campaign</h3>
               <br/>
               <Form>

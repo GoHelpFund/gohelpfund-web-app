@@ -36,7 +36,7 @@ class MediaGallery extends React.Component {
                        ease={['easeOutQuart', 'easeInOutQuart']}>
                 <div key='media-gallery-step'>
                     <Row type="flex" justify="center">
-                        <Col xs={20} md={6} span={13} style={{marginTop: '35px'}}>
+                        <Col xs={20} md={10} span={13} style={{marginTop: '35px'}}>
                             <h3>Upload images that could give a better understanding of the cause</h3>
                             <br/>
                             <PicturesWall

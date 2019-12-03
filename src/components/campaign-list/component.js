@@ -98,7 +98,7 @@ class CampaignList extends Component {
         return r;
     }, []).map(function(rowContent, index) {
         // surround every group with 'row'
-        return <Row key={index} gutter={48}>
+        return <Row key={index} gutter={48} style={{ marginBottom: 48 }}>
             {rowContent}
         </Row>;
     });

@@ -60,8 +60,8 @@ class DateLocation extends React.Component {
                  ease={['easeOutQuart', 'easeInOutQuart']}>
         <div key='date-and-location-step'>
           <Row type="flex" justify="center" align="middle">
-            <Col xs={20} md={6} span={11}>
-              <h3>When and where?</h3>
+            <Col xs={20} md={10} span={11}>
+              <h3>Please select the campaign duration and add your location:</h3>
               <br/>
               <Form>
                 <Form.Item hasFeedback validateStatus={dateStatus}>
