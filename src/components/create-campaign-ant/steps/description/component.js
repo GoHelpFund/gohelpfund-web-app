@@ -2,7 +2,7 @@ import React from "react";
 import compose from "recompose/compose";
 import {Col, Form, Icon, Input, Row, Tooltip} from "antd";
 import QueueAnim from "rc-queue-anim";
-import Step2 from "../../../../assets/images/campaigns/campaign-creation/step2.svg";
+import Step2 from "../images/description.svg";
 
 const {TextArea} = Input;
 

@@ -2,7 +2,7 @@ import React from "react";
 import compose from "recompose/compose";
 import {Col, DatePicker, Form, Icon, Input, Row, Tooltip} from "antd";
 import QueueAnim from "rc-queue-anim";
-import Step4 from "../../../../assets/images/campaigns/campaign-creation/step4.svg";
+import Step4 from "../images/location.svg";
 import moment from 'moment';
 
 const {RangePicker} = DatePicker;

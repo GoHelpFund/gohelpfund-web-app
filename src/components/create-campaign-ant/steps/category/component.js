@@ -1,7 +1,7 @@
 import React from "react";
 import compose from "recompose/compose";
 import {Col, Form, Icon, Row, Select} from "antd";
-import Step1 from "../../../../assets/images/campaigns/campaign-creation/step1.png";
+import Step1 from "../images/category.svg";
 import QueueAnim from "rc-queue-anim";
 
 const {Option} = Select;
