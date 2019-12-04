@@ -87,7 +87,7 @@ class Expenses extends React.Component {
                 <div key='expenses-step'>
                     <Row type="flex" justify="center" align="top">
                         <Col xs={20} md={10} span={11} className="step-expenses-content">
-                            <h3>How much money do you need and how will you use it?</h3>
+                            <h3>How much money do you need and how will you use it? (in €)</h3>
                             <br/>
                             <WrappedDynamicFieldSet
                                 expensesKeys={this.state.expensesKeys}
