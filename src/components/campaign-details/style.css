@@ -158,8 +158,16 @@
   padding: 10px 0;
 }
 #app-campaign-details .campaign-details-info {
-  padding: 30px 50px;
+  padding: 30px 70px;
   min-height: 336px;
+}
+#app-campaign-details .campaign-details-info pre {
+  white-space: pre-wrap;
+  text-align: justify;
+  font-family: 'Poppins', sans-serif;
+  color: #747D8C;
+  max-height: 1000px;
+  overflow-y: auto;
 }
 #app-campaign-details .campaign-details-info .title {
   font-size: 25px;

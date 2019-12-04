@@ -100,8 +100,27 @@ class CampaignDetails extends Component {
   }
 
   componentWillMount() {
-    this.getFundraiserData();
-    this.getCampaignData();
+    let url = EndPoints.getAuthorizationToken;
+    let data = {
+      grant_type: 'client_credentials',
+	    scope: 'web-client'
+    };
+    let auth =  {
+      auth: {
+        username: 'gohelpfund',
+        password: 'ghfsecret'
+      }
+    }
+    var that = this;
+    axios.post(url, data, auth)
+      .then(response => {
+        localStorage.setItem('appToken', response.data.access_token);
+        this.getFundraiserData();
+        this.getCampaignData();
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   isLoggedIn = () => {
@@ -181,7 +200,7 @@ class CampaignDetails extends Component {
   getCampaignData() {
     let url = EndPoints.getCampainByIdUrl;
     const { cookies } = this.props;
-    let appToken = cookies.get('accessToken');
+    let appToken = localStorage.getItem('appToken');
     let config = {
       headers: { 'Authorization': "Bearer " + appToken }
     };
@@ -490,7 +509,7 @@ class CampaignDetails extends Component {
                   }
                   key="1"
                 >
-                  {campaignDetails.description}
+                  <pre>{campaignDetails.description}</pre>
                 </TabPane>
                 <TabPane key="2" tab={<span><Icon type="pie-chart" theme="twoTone" />Expenses</span>}>
                   <br />

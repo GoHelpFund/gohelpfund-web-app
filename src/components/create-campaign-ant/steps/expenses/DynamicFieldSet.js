@@ -35,7 +35,7 @@ const ExpenseInput = ({value: expenseData, name, onChange, handleRemove, handleC
                            name="amount"
                            defaultValue={expenseData.amount || undefined}
                            onChange={e => handleValueChange(e)}
-                           prefix={<Icon type="pie-chart" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                           prefix={<Icon type="euro" style={{color: 'rgba(0,0,0,.25)'}}/>}
                     />
                 </Col>
                 <Col span={15}>
