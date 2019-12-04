@@ -2,7 +2,7 @@ import React from "react";
 import compose from "recompose/compose";
 import {Col, Form, Row} from "antd";
 import QueueAnim from "rc-queue-anim";
-import Step3 from "../../../../assets/images/campaigns/campaign-creation/step3.svg";
+import Step3 from "../images/expenses.svg";
 import DynamicFieldSet from "./DynamicFieldSet";
 
 class Expenses extends React.Component {
@@ -94,8 +94,9 @@ class Expenses extends React.Component {
                                 expensesValues={this.state.expensesValues}
                             />
                         </Col>
-                        <Col xs={20} md={10} span={11}>
+                        <Col xs={20} md={6} span={11}>
                             <img alt='expenses-step'
+                                className="step-expenses-image"
                                  src={Step3}/>
 
                         </Col>

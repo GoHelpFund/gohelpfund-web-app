@@ -3,7 +3,7 @@ import compose from "recompose/compose";
 import {Col, Row} from "antd";
 import QueueAnim from "rc-queue-anim";
 import PicturesWall from "./PicturesWall";
-import Step5 from "../../../../assets/images/campaigns/campaign-creation/step5b.svg";
+import Step5 from "../images/media.svg";
 
 class MediaGallery extends React.Component {
     constructor(props) {
