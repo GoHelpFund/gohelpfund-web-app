@@ -1,5 +1,7 @@
 ghf-web-app:
   image: gohelpfund/ghf-web-app:${BUILD_NAME}
+  cpu_shares: 2048
+  mem_limit: 1700MB
   ports:
     - "443:443"
     - "80:80"
