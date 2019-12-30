@@ -77,6 +77,7 @@ class PicturesWall extends React.Component {
 
     this.setState({fileList});
     this.props.handleFileListChange(fileList);
+    this.handleSelectChange(fileList[0].uid);
   };
 
   beforeUpload = (file, FileList) => {
@@ -154,6 +155,18 @@ class PicturesWall extends React.Component {
 
     return (
       <div className="clearfix">
+        <Dragger {...props}>
+          <p className="ant-upload-drag-icon">
+            <Icon type="cloud-upload"/>
+          </p>
+          <p className="ant-upload-text">Click or drag images to this area to upload</p>
+          <p className="ant-upload-hint">
+            Support for a single or bulk upload and up to 5 images.
+          </p>
+        </Dragger>
+        <Modal centered visible={previewVisible} footer={null} onCancel={this.handleCancel}>
+          <img alt="example" style={{width: '100%'}} src={previewImage}/>
+        </Modal>
         <Form>
           <Form.Item hasFeedback validateStatus={selectedItemStatus}>
             <Select
@@ -171,18 +184,6 @@ class PicturesWall extends React.Component {
             </Select>
           </Form.Item>
         </Form>
-        <Dragger {...props}>
-          <p className="ant-upload-drag-icon">
-            <Icon type="cloud-upload"/>
-          </p>
-          <p className="ant-upload-text">Click or drag images to this area to upload</p>
-          <p className="ant-upload-hint">
-            Support for a single or bulk upload and up to 5 images.
-          </p>
-        </Dragger>
-        <Modal centered visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-          <img alt="example" style={{width: '100%'}} src={previewImage}/>
-        </Modal>
       </div>
     );
   }

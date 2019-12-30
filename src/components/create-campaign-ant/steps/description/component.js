@@ -2,7 +2,7 @@ import React from "react";
 import compose from "recompose/compose";
 import {Col, Form, Icon, Input, Row, Tooltip} from "antd";
 import QueueAnim from "rc-queue-anim";
-import Step2 from "../../../../assets/images/campaigns/campaign-creation/step2.svg";
+import Step2 from "../images/description.svg";
 
 const {TextArea} = Input;
 
@@ -37,7 +37,7 @@ class Description extends React.Component {
                        ease={['easeOutQuart', 'easeInOutQuart']}>
                 <div key="description-step">
                     <Row type="flex" justify="center" align="middle">
-                        <Col xs={20} md={6}  span={11}>
+                        <Col xs={20} md={10}  span={11}>
                             <h3>What problem do you have?</h3>
                             <br/>
                             <Form>

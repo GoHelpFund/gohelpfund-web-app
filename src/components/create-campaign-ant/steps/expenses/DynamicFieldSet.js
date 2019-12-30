@@ -31,10 +31,11 @@ const ExpenseInput = ({value: expenseData, name, onChange, handleRemove, handleC
             <Row gutter={4} type="flex" justify="space-around" align="middle">
                 <Col span={6}>
                     <Input placeholder="Amount"
+                           type="number"
                            name="amount"
                            defaultValue={expenseData.amount || undefined}
                            onChange={e => handleValueChange(e)}
-                           prefix={<Icon type="pie-chart" style={{color: 'rgba(0,0,0,.25)'}}/>}
+                           prefix={<Icon type="euro" style={{color: 'rgba(0,0,0,.25)'}}/>}
                     />
                 </Col>
                 <Col span={15}>

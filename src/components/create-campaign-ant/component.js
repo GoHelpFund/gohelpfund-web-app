@@ -89,7 +89,7 @@ class CreateCampaignAnt extends Component {
   handleFileListChange = (fileList) => {
     this.setState({
       fileList: fileList
-    })
+    });
   };
 
   handleProfileImageChange = (selectedItem, status) => {

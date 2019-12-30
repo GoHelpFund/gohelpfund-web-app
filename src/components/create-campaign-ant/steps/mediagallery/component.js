@@ -3,7 +3,7 @@ import compose from "recompose/compose";
 import {Col, Row} from "antd";
 import QueueAnim from "rc-queue-anim";
 import PicturesWall from "./PicturesWall";
-import Step5 from "../../../../assets/images/campaigns/campaign-creation/step5b.svg";
+import Step5 from "../images/media.svg";
 
 class MediaGallery extends React.Component {
     constructor(props) {
@@ -36,7 +36,7 @@ class MediaGallery extends React.Component {
                        ease={['easeOutQuart', 'easeInOutQuart']}>
                 <div key='media-gallery-step'>
                     <Row type="flex" justify="center">
-                        <Col xs={20} md={6} span={13} style={{marginTop: '35px'}}>
+                        <Col xs={20} md={10} span={13} style={{marginTop: '35px'}}>
                             <h3>Upload images that could give a better understanding of the cause</h3>
                             <br/>
                             <PicturesWall

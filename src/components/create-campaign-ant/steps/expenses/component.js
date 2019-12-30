@@ -2,7 +2,7 @@ import React from "react";
 import compose from "recompose/compose";
 import {Col, Form, Row} from "antd";
 import QueueAnim from "rc-queue-anim";
-import Step3 from "../../../../assets/images/campaigns/campaign-creation/step3.svg";
+import Step3 from "../images/expenses.svg";
 import DynamicFieldSet from "./DynamicFieldSet";
 
 class Expenses extends React.Component {
@@ -86,8 +86,8 @@ class Expenses extends React.Component {
                        ease={['easeOutQuart', 'easeInOutQuart']}>
                 <div key='expenses-step'>
                     <Row type="flex" justify="center" align="top">
-                        <Col xs={20} md={6} span={11} className="step-expenses-content">
-                            <h3>How much money do you need and how will you use it?</h3>
+                        <Col xs={20} md={10} span={11} className="step-expenses-content">
+                            <h3>How much money do you need and how will you use it? (in €)</h3>
                             <br/>
                             <WrappedDynamicFieldSet
                                 expensesKeys={this.state.expensesKeys}
@@ -96,6 +96,7 @@ class Expenses extends React.Component {
                         </Col>
                         <Col xs={20} md={6} span={11}>
                             <img alt='expenses-step'
+                                className="step-expenses-image"
                                  src={Step3}/>
 
                         </Col>

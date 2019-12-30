@@ -2,7 +2,7 @@ import React from "react";
 import compose from "recompose/compose";
 import {Col, DatePicker, Form, Icon, Input, Row, Tooltip} from "antd";
 import QueueAnim from "rc-queue-anim";
-import Step4 from "../../../../assets/images/campaigns/campaign-creation/step4.svg";
+import Step4 from "../images/location.svg";
 import moment from 'moment';
 
 const {RangePicker} = DatePicker;
@@ -60,8 +60,8 @@ class DateLocation extends React.Component {
                  ease={['easeOutQuart', 'easeInOutQuart']}>
         <div key='date-and-location-step'>
           <Row type="flex" justify="center" align="middle">
-            <Col xs={20} md={6} span={11}>
-              <h3>When and where?</h3>
+            <Col xs={20} md={10} span={11}>
+              <h3>Please select the campaign duration and add your location:</h3>
               <br/>
               <Form>
                 <Form.Item hasFeedback validateStatus={dateStatus}>
